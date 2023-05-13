@@ -1,0 +1,124 @@
+.wrapHead{
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.75);
+    
+}
+.logoImage{
+   width: 65px;
+   height: 65px;
+   margin-top: 25px;
+   margin-left: 4%;
+}
+.logoName{
+    width: 400px;
+    height: 100px;
+    
+}
+.headerPart1{
+    display: flex;
+    justify-content: space-between;
+    
+}
+.IconButton{
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    
+
+}
+.icon{
+    font-size: 23px;
+    color: #B16E4B;
+}
+.wrapButtons{
+    width: 22%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 4%;
+}
+.RegisterButton{
+    background-color:rgba(255, 255, 255, 0) ;
+    border: none;
+    font-size: 15px;
+    font-family: Helvetica;
+    cursor: pointer;
+    
+    
+
+}
+.LoginButton{
+    font-size: 15px;
+    font-family: Helvetica;
+    padding: 3px;
+    padding-left: 17px;
+    padding-right: 17px;
+    background-color:rgba(255, 255, 255, 0.75) ; 
+    border: 0.0001;
+    border-radius: 3px;
+   
+}
+.LoginButton:hover{
+    font-size: 15px;
+    font-family: Helvetica;
+    padding: 3px;
+    padding-left: 17px;
+    padding-right: 17px;
+    background-color:#B16E4B ; 
+    border: 0.0001;
+    border-radius: 3px;
+   
+}
+.tap-control{
+    width: 40px;
+    border: 2px solid #B16E4B;
+    cursor: pointer;
+}
+.Tab{
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    font-size: 15px;
+    font-family: Helvetica;
+    cursor: pointer;
+ 
+
+}
+.control{
+    text-align: center;
+    padding: 10px;
+}
+.headerPart2{
+    display: flex;
+    justify-content: space-around;
+    margin-left: 10%;
+    margin-right:10%;
+    
+
+    
+}
+.left{
+    margin-left: 20px;
+}
+.input-search{
+    background-color: rgb(217, 210, 210);
+    border-radius: 5px 0px 0px 5px;
+    border:none;
+    height: 25px;
+}
+.searchButton{
+    background-color: #FDCF76;
+    border-radius: 0px 5px 5px 0px; ;
+    border: #FDCF76;
+    height: 27px;
+    cursor: pointer;
+}
+.fa-search{
+    color:white;
+    
+
+}
+.right{
+    margin-left: 7%;
+}
