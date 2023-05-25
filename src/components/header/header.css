@@ -1,6 +1,6 @@
 .wrapHead{
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.75);
+    background-color: rgba(255, 255, 255, 0.85);
     
 }
 .logoImage{
@@ -75,6 +75,7 @@
     width: 40px;
     border: 2px solid #B16E4B;
     cursor: pointer;
+    margin-left: 14%;
 }
 .Tab{
     background-color: rgba(255, 255, 255, 0);
