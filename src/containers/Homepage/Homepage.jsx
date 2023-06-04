@@ -9,6 +9,7 @@ import Background4 from '../../assets/2313x1089 1.png';
 import ProductLayout from '../../components/productlayout/productlayout';
 import Carousel from 'react-bootstrap/Carousel';
 import React, { useState } from "react";
+import Productdetail from '../../components/productdetail/productdetail';
 
 function Homepage() {
     const [index, setIndex] = useState(0);
@@ -29,7 +30,7 @@ function Homepage() {
                         src={Background1}
                         alt="First slide"
                     />
-                    
+
                 </Carousel.Item>
                 <Carousel.Item interval={2000}>
                     <img
@@ -38,7 +39,6 @@ function Homepage() {
                         alt="Second slide"
                     />
 
-                    
                 </Carousel.Item >
                 <Carousel.Item interval={2000}>
                     <img
@@ -47,7 +47,7 @@ function Homepage() {
                         alt="Third slide"
                     />
 
-                    
+
                 </Carousel.Item>
                 <Carousel.Item interval={2000}>
                     <img
@@ -55,11 +55,60 @@ function Homepage() {
                         src={Background4}
                         alt="Four slide"
                     />
-
-                    
                 </Carousel.Item>
             </Carousel>
-            <ProductLayout></ProductLayout>
+            <div className='Backgroud-Product'>
+                <Carousel onSelect={handleSelect} className='fix-high'>
+                    <Carousel.Item >
+                        <div className='Wrapper-Product'>
+                            <ProductLayout></ProductLayout>
+                            <ProductLayout></ProductLayout>
+                            <ProductLayout></ProductLayout>
+                            <ProductLayout></ProductLayout>
+
+                        </div>
+
+                    </Carousel.Item>
+                    <Carousel.Item >
+                        <div className='Wrapper-Product'>
+                            <ProductLayout></ProductLayout>
+                            <ProductLayout></ProductLayout>
+                            <ProductLayout></ProductLayout>
+                            <ProductLayout></ProductLayout>
+
+                        </div>
+
+                    </Carousel.Item >
+                    <Carousel.Item >
+                        <div className='Wrapper-Product'>
+                            <ProductLayout></ProductLayout>
+                            <ProductLayout></ProductLayout>
+                            <ProductLayout></ProductLayout>
+                            <ProductLayout></ProductLayout>
+                        </div>
+
+
+                    </Carousel.Item>
+                    <Carousel.Item >
+                        <div className='Wrapper-Product'>
+                            <ProductLayout></ProductLayout>
+                            <ProductLayout></ProductLayout>
+                            <ProductLayout></ProductLayout>
+                            <ProductLayout></ProductLayout>
+
+                        </div>
+                    </Carousel.Item>
+                </Carousel>
+
+            </div>
+            <div className="Backgroud-Product">
+               <Productdetail></Productdetail>
+            </div>
+
+
+
+
+
 
 
             <Footer />

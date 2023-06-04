@@ -1,22 +1,23 @@
 .wrapHead{
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.85);
-    
+    display: flex !important;
+    flex-direction: column;
 }
 .logoImage{
-   width: 65px;
-   height: 65px;
+   width: 5%;
+   height: 5%;
    margin-top: 25px;
    margin-left: 4%;
 }
 .logoName{
-    width: 400px;
-    height: 100px;
+    width: 30%;
+    height: 10%;
     
 }
 .headerPart1{
     display: flex;
     justify-content: space-between;
+    width: 100%;
     
 }
 .IconButton{
@@ -29,7 +30,7 @@
 
 }
 .icon{
-    font-size: 23px;
+    font-size: 1.5rem;
     color: #B16E4B;
 }
 .wrapButtons{
@@ -75,7 +76,8 @@
     width: 40px;
     border: 2px solid #B16E4B;
     cursor: pointer;
-    margin-left: 14%;
+    margin-left: 7%;
+    margin-bottom: 0%;
 }
 .Tab{
     background-color: rgba(255, 255, 255, 0);
@@ -89,6 +91,7 @@
 .control{
     text-align: center;
     padding: 10px;
+    display: flex;
 }
 .headerPart2{
     display: flex;
@@ -112,7 +115,7 @@
     background-color: #FDCF76;
     border-radius: 0px 5px 5px 0px; ;
     border: #FDCF76;
-    height: 27px;
+    height: 25px;
     cursor: pointer;
 }
 .fa-search{
@@ -120,6 +123,33 @@
     
 
 }
-.right{
-    margin-left: 7%;
+
+    
+.Wrap-control{
+ justify-content: space-between;
 }
+
+
+.Control-tab{  
+    margin-right: 30%;
+  
+   width: 30%;
+  }
+.Scroll-auto{
+  width: 100%;
+  align-items: left;
+  margin-left: 25%;
+  
+}
+@media screen and (max-width: 576px) {
+    .Scroll-auto {
+        padding-left: 5%;
+        margin-left: 0;
+    }
+  }
+  @media screen and (max-width: 576px) {
+    .control {
+        display: none;
+    }
+  }
+ 

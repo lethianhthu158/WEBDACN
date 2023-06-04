@@ -5,11 +5,14 @@ export default function Popup(props){
     const {title,children,openPopup,setOpenPopup}=props;
     return (
         
-        <Dialog  open={openPopup}  >            
+        <div class="modal-dialog modal-dialog-scrollable">
+            {children}
+        
+      </div>             
             
-                {children}
+                
              
-        </Dialog>
+       
         
     )
 }

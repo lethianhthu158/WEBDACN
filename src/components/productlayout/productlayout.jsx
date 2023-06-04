@@ -10,7 +10,7 @@ function productlayout  (props) {
   return(
     <div className="wrappperProduct" >
      
-      <button className='ProductName'> {props.nameProduct} xin chào</button>
+      <button className='ProductName'> {props.nameProduct} BLACK ROUGE V5</button>
      
      
 

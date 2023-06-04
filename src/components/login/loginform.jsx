@@ -1,11 +1,18 @@
 import "./loginform.css";
+import Register from "../register/registerform";
+import { Dialog } from "@material-ui/core";
+import React, { useState } from "react";
 
-const Login = ({ onClose }) => {
+
+function Login({ onClose }) {
+  const [openPopupRegister, setOpenPopupRegister] = useState(false);
+  const [openPopupLogin, setOpenPopupLogin] = useState(false);
+
   return (
     <div className="wrap-loginform">
       <div className="wrap-close">
         <button onClick={onClose} className="close-button">
-          <i class="far fa-times-circle"></i>
+          <i className="far fa-times-circle"></i>
         </button>
       </div>
 
@@ -26,10 +33,10 @@ const Login = ({ onClose }) => {
       </div>
       <div className="wrap-icon">
         <button className="accout-button">
-          <i class="Icon fab fa-facebook-f"></i>
+          <i className="Icon fab fa-facebook-f"></i>
         </button>
         <button className="accout-button">
-          <i class="Icon fab fa-google"></i>
+          <i className="Icon fab fa-google"></i>
         </button>
       </div>
 
@@ -38,15 +45,29 @@ const Login = ({ onClose }) => {
           New Here?{" "}
           <a
             className="forgot-pass"
-            href="https://www.facebook.com/profile.php?id=100077535672034"
+            onClick={() => setOpenPopupRegister(true)}
           >
-            Resgiter
+            Register
           </a>
         </div>
         <button className="login-button">Login</button>
       </div>
+      <Dialog
+        open={openPopupRegister}
+        onClose={() => {
+          setOpenPopupRegister(false);
+          setOpenPopupLogin(false);
+        }}
+      >
+        <Register
+          onClose={() => {
+            setOpenPopupRegister(false);
+            setOpenPopupLogin(false);
+          }}
+        />
+      </Dialog>
     </div>
   );
-};
+}
 
 export default Login;

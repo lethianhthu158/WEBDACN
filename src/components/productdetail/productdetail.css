@@ -1,0 +1,63 @@
+.wrappperProductdetail{
+    background-image: url('../../assets/SonA12.png');
+    background-size: 300px 400px;
+    background-repeat: no-repeat;
+    width: 300px;
+    height: 400px;
+  
+    box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+
+    
+    
+}
+.ProducdetailtName{
+    margin-top: 100%;
+    width: 300px;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border:rgba(0, 0, 0, 0.3) ;
+    align-items: center;
+    color: #ffffff;
+    font-size: 30px;
+
+}
+.Name-product{
+    text-align: left;
+    font-size: 25px;
+}
+.Price-product{
+    text-align: left;
+    font-size: 25px;
+    color: #FF3850;
+
+
+    
+}
+.wrapper-button{
+    display: flex;
+}
+.wrapper-star{
+  
+
+}
+.far{
+    font-size: 20px;
+    
+}
+.wrapper-love{
+    
+}
+.button-love{
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding-left: 0;
+    padding-right:0;
+    
+   
+}
+.fa-heart{
+    padding-top:0;
+}
