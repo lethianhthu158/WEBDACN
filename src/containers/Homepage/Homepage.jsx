@@ -13,9 +13,13 @@ import Productdetail from '../../components/productdetail/productdetail';
 
 function Homepage() {
     const [index, setIndex] = useState(0);
+    const [product, setProduct] = useState(0);
 
     const handleSelect = (selectedIndex, e) => {
         setIndex(selectedIndex);
+    };
+    const handleSelectProduct = (selectedIndexed, e) => {
+        setProduct(selectedIndexed);
     };
 
     return (
@@ -58,9 +62,11 @@ function Homepage() {
                 </Carousel.Item>
             </Carousel>
             <div className='Backgroud-Product'>
-                <Carousel onSelect={handleSelect} className='fix-high'>
+                <div className='NewArrival'>NEW ARRAILVALS</div>
+                <Carousel activeIndex={product} onSelect={handleSelectProduct} className='fix-high'>
                     <Carousel.Item >
                         <div className='Wrapper-Product'>
+                            
                             <ProductLayout></ProductLayout>
                             <ProductLayout></ProductLayout>
                             <ProductLayout></ProductLayout>
@@ -101,8 +107,27 @@ function Homepage() {
                 </Carousel>
 
             </div>
-            <div className="Backgroud-Product">
+            <div className='Banner'>
+                <div className='nameBanner'>Sale off</div>
+                <a className='SeeAll'>See all</a></div>
+            <div className="wrap-Sale-Product">
+                <div className='Sale-Product'>
                <Productdetail></Productdetail>
+               <Productdetail></Productdetail>
+               <Productdetail></Productdetail>
+               <Productdetail></Productdetail>
+               </div>
+            </div>
+            <div className='Banner'>
+                <div className='nameBanner'>Best Seller</div>
+                <a className='SeeAll'>See all</a></div>
+            <div className="wrap-Sale-Product">
+                <div className='Sale-Product'>
+               <Productdetail></Productdetail>
+               <Productdetail></Productdetail>
+               <Productdetail></Productdetail>
+               <Productdetail></Productdetail>
+               </div>
             </div>
 
 

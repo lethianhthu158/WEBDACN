@@ -1,0 +1,283 @@
+.container-productdetail {
+    padding-top: 250px;
+  }
+  
+  .productdetail-name {
+    background-color: #e4e4e4;
+    padding: 30px 60px;
+    margin-bottom: 40px;
+  }
+  
+  .productdetail-product {
+    display: flex;
+    padding: 0 70px 50px;
+    justify-content: center;
+  }
+  
+  .product-left {
+    width: 40%;
+    margin-right: 100px;
+  }
+  
+  .product-name {
+    font-size: 35px;
+    font-family: "Nunito";
+    font-style: normal;
+    font-weight: 300;
+  }
+  
+  .img-product {
+    width: 100%;
+    border: 1px solid;
+    margin-bottom: 30px;
+    max-height: 100%;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .producttail-listsuggest {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+  }
+  
+  .wrap-product-suggest-img {
+    width: 25%;
+    margin-right: 20px;
+  }
+  
+  .wrap-product-suggest-img:last-child {
+    margin-right: 0;
+  }
+  
+  .product-suggest-img {
+    max-width: 100%;
+  }
+  
+  .product-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  
+  .product-right-name {
+    font-size: 40px;
+    font-family: "Nunito";
+    font-style: normal;
+    font-weight: 300;
+    margin-bottom: 18px;
+  }
+  
+  .list-star {
+    display: flex;
+  }
+  
+  .wrap-star {
+    margin-right: 5px;
+  }
+  
+  .wrap-star:last-child {
+    margin-right: 0;
+  }
+  
+  .StarProduct {
+    font-size: 45px;
+  }
+  
+  .desc {
+    font-size: 25px;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 300;
+  }
+  
+  p {
+    margin: 0;
+  }
+  
+  .productdetail-review {
+    margin-bottom: 5px;
+  }
+  
+  .productdetail-code {
+    margin-bottom: 20px;
+  }
+  
+  .productdetail-price {
+    color: #e71717;
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+  }
+  
+  .list-product-colors {
+    display: flex;
+    padding-left: 30px;
+    margin-bottom: 30px;
+  }
+  
+  .variant-title {
+    margin-bottom: 10px;
+  }
+  
+  .color {
+    border-radius: 50%;
+    background-color: #ff9e67;
+    width: 60px;
+    height: 60px;
+    outline: none;
+    border: none;
+    margin-right: 30px;
+  }
+  
+  .color:last-child {
+    margin-right: 0;
+  }
+  
+  .btn-count {
+    border: none;
+    outline: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+    font-size: 38px;
+    line-height: 2px;
+  }
+  
+  .number-count {
+    font-family: "Nunito";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    color: #5f5b5b;
+    margin-right: 20px;
+    width: 50px;
+    border: none;
+    padding: 0 5px;
+  }
+  
+  .decrease {
+    background-color: #efefef;
+    margin-right: 20px;
+    color: #b16e4b;
+  }
+  
+  .increase {
+    background-color: #b16e4b;
+    color: #fff;
+  }
+  
+  .productdetail-count {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  .productdetail-btn {
+    padding-left: 30px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .btn-cta {
+    border-radius: 5px;
+    padding: 15px 20px;
+    background-color: transparent;
+    font-size: 25px;
+    margin-right: 20px;
+    width: 50%;
+    outline: none;
+  }
+  
+  .btn-cta:last-child {
+    margin-right: 0;
+  }
+  
+  .btn-add {
+    color: #5f5b5b;
+    border: 0.5px solid;
+  }
+  
+  .btn-buy {
+    color: #fff;
+    background-color: #5f5b5b;
+    border: none;
+  }
+  
+  @media screen and (max-width: 992px) {
+    .productdetail-product {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .product-left {
+  margin-right: 0;
+      margin-bottom: 60px;
+      width: 100%;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .productdetail-name {
+      padding: 15px 60px;
+    }
+  
+    .product-right-name {
+      font-size: 30px;
+    }
+  
+    .product-name {
+      font-size: 35px;
+    }
+  
+    .fa-star {
+      font-size: 24px;
+    }
+  
+    .desc {
+      font-size: 20px;
+    }
+  
+    .productdetail-price {
+      font-size: 25px;
+    }
+  
+    .color {
+      width: 30px;
+      height: 30px;
+      margin-right: 15px;
+    }
+  
+    .btn-count {
+      width: 40px;
+      height: 40px;
+      font-size: 30px;
+    }
+  
+    .number-count {
+      font-size: 30px;
+      text-align: center;
+      margin-right: 10px;
+    }
+  
+    .decrease {
+      margin-right: 10px;
+    }
+  
+    .btn-cta {
+      padding: 10px 15px;
+      font-size: 20px;
+    }
+  
+    .list-product-colors {
+      padding-left: 0;
+    }
+  
+    .productdetail-btn {
+      padding-left: 0;
+    }
+  }

@@ -132,7 +132,8 @@
 
 .Control-tab{  
     margin-right: 30%;
-  
+    color: black;
+    text-decoration: none;  
    width: 30%;
   }
 .Scroll-auto{

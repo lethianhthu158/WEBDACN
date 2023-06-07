@@ -6,7 +6,8 @@ import Login from "../login/loginform";
 import Register from "../register/registerform";
 import { Dialog } from "@material-ui/core";
 import Navbar from 'react-bootstrap/Navbar'
-import { NavLink , Nav} from "react-bootstrap";
+import {  Nav} from "react-bootstrap";
+import { Link,NavLink } from "react-router-dom";
 
 function Header(props) {
   const [openPopupLogin, setOpenPopupLogin] = useState(false);
@@ -60,36 +61,38 @@ function Header(props) {
     
       <Navbar.Toggle  aria-controls="navbarScroll" data-bs-target="#nabarScroll"/>
       <Navbar.Collapse  id="navbarScroll">
-        <Nav>
-          <div className="Control-tab">
-          <NavLink  eventKey="1" to="/">HOME
-          <hr className="tap-control"></hr></NavLink>
-          </div>
-          <div className="Control-tab">
-          <NavLink className="Control-tab" eventKey="2"  to="/">PRODUCTS</NavLink>
-          </div >
-          <NavLink className="Control-tab" eventKey="3"  to="/">DISTRIBUTION</NavLink>
-          <div className="Control-tab">
-          <NavLink  className="Control-tab" eventKey="4"  to="/">ABOUT</NavLink>
-          </div>
-          <div className="control right">
-            <input className="input-search"></input>
-            <button className="searchButton">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-        </Nav>
-      </Navbar.Collapse> 
-      </div>
-     
+          <Nav>
+            <div className="Control-tab">
+              <NavLink className="Control-tab" eventKey="1" to="/">HOME
+                <div id="HR-control">
+                  <hr className="tap-control"></hr></div></NavLink>
+            </div>
+            <div className="Control-tab">
+              <NavLink className="Control-tab" eventKey="2" to="/">PRODUCTS</NavLink>
+            </div >
+            <NavLink className="Control-tab" eventKey="3" to="/distribution-channel-page">BRAND</NavLink>
+            <div className="Control-tab">
 
-        <Dialog open={openPopupLogin} onClose={() => setOpenPopupLogin(false)}>
-          <Login onClose={() => setOpenPopupLogin(false)} />
-        </Dialog>
-        <Dialog
-          open={openPopupRegister}
-          onClose={() => setOpenPopupRegister(false)}
-        >
+              <NavLink className="Control-tab" eventKey="4" to="/about-us">ABOUT</NavLink>
+            </div>
+            <div className="control">
+              <input className="input-search"></input>
+              <button className="searchButton">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </Nav>
+        </Navbar.Collapse>
+      </div>
+
+
+      <Dialog open={openPopupLogin} onClose={() => setOpenPopupLogin(false)}>
+        <Login onClose={() => setOpenPopupLogin(false)} />
+      </Dialog>
+      <Dialog
+        open={openPopupRegister}
+        onClose={() => setOpenPopupRegister(false)}
+      >
           <Register onClose={() => setOpenPopupRegister(false)} />
         </Dialog>
         

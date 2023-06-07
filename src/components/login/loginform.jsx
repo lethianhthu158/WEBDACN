@@ -2,11 +2,32 @@ import "./loginform.css";
 import Register from "../register/registerform";
 import { Dialog } from "@material-ui/core";
 import React, { useState } from "react";
+import axios from "axios";
 
 
 function Login({ onClose }) {
   const [openPopupRegister, setOpenPopupRegister] = useState(false);
   const [openPopupLogin, setOpenPopupLogin] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name,setName]=useState("");
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:8080/api/v1/auth/login', {
+        email,
+        password,
+      });
+
+      // Handle response here
+      console.log(response.data);
+      setName(response.data.fullname);
+    } catch (error) {
+      // Handle error here
+      console.error(error);
+    }
+  };
+  
 
   return (
     <div className="wrap-loginform">
@@ -19,9 +40,9 @@ function Login({ onClose }) {
       <p className="title">Login</p>
       <div className="container-input">
         <p className="title-input"> Email</p>
-        <input className="input"></input>
+        <input className="input" value={email} onChange={e => setEmail(e.target.value)}></input>
         <p className="title-input"> Password</p>
-        <input className="input"></input>
+        <input className="input" value={password} onChange={e => setPassword(e.target.value)}></input>
         <div className="wrap-fotgot">
           <a
             className="forgot-pass"
@@ -50,7 +71,7 @@ function Login({ onClose }) {
             Register
           </a>
         </div>
-        <button className="login-button">Login</button>
+        <button className="login-button" onClick={handleSubmit}>Login</button>
       </div>
       <Dialog
         open={openPopupRegister}
