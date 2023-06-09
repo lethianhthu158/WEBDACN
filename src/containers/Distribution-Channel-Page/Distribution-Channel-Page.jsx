@@ -8,7 +8,7 @@ import channelImage5 from "../../assets/5-channel.png";
 import channelImage6 from "../../assets/6-channel.png";
 import React from "react";
 import { Footer } from "../../components/footer/footer";
-import { DistributionCard } from "../../components/DistributionCard/DistribytionCard";
+import { DistributionCard } from "../../components/DistributionCard/DistributionCard";
 
 const data = [
   {

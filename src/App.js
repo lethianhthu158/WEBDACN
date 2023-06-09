@@ -6,6 +6,8 @@ import Homepage from "./containers/Homepage/Homepage";
 import DistributionChannelPage from "./containers/Distribution-Channel-Page/Distribution-Channel-Page";
 import AboutUs from "./containers/About-Us/AboutUs";
 import ProductDetail from "./containers/Product-Detail/ProductDetail";
+import axios from "axios";
+import ProductPage from "./containers/ProductPage/ProductPage";
 
 // import { ProductLayout } from './components/productlayout';
 
@@ -19,6 +21,7 @@ function App() {
       />
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/product-detail" element={<ProductDetail />} />
+      <Route path="/product" element={<ProductPage/>}/>
     </Routes>
   );
 }

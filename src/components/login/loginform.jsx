@@ -3,6 +3,9 @@ import Register from "../register/registerform";
 import { Dialog } from "@material-ui/core";
 import React, { useState } from "react";
 import axios from "axios";
+import { atom, useAtom } from 'jotai';
+
+const textAtom = atom([])
 
 
 function Login({ onClose }) {
@@ -10,7 +13,9 @@ function Login({ onClose }) {
   const [openPopupLogin, setOpenPopupLogin] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name,setName]=useState("");
+  const [name, setName]=useAtom(textAtom);
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -21,7 +26,8 @@ function Login({ onClose }) {
 
       // Handle response here
       console.log(response.data);
-      setName(response.data.fullname);
+      localStorage.setItem("fullname", response.data.fullname);
+      setName(response.data);
     } catch (error) {
       // Handle error here
       console.error(error);
@@ -68,7 +74,7 @@ function Login({ onClose }) {
             className="forgot-pass"
             onClick={() => setOpenPopupRegister(true)}
           >
-            Register
+           Register
           </a>
         </div>
         <button className="login-button" onClick={handleSubmit}>Login</button>

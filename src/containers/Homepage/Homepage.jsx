@@ -11,6 +11,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import React, { useState } from "react";
 import Productdetail from '../../components/productdetail/productdetail';
 
+
 function Homepage() {
     const [index, setIndex] = useState(0);
     const [product, setProduct] = useState(0);
@@ -129,6 +130,7 @@ function Homepage() {
                <Productdetail></Productdetail>
                </div>
             </div>
+            
 
 
 
