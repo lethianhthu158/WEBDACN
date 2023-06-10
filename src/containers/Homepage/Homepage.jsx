@@ -8,9 +8,9 @@ import Background3 from '../../assets/Banner-Homepage-Website-COMING-SOON 1.png'
 import Background4 from '../../assets/2313x1089 1.png';
 import ProductLayout from '../../components/productlayout/productlayout';
 import Carousel from 'react-bootstrap/Carousel';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Productdetail from '../../components/productdetail/productdetail';
-
+import axios from "axios";
 
 function Homepage() {
     const [index, setIndex] = useState(0);
@@ -22,6 +22,33 @@ function Homepage() {
     const handleSelectProduct = (selectedIndexed, e) => {
         setProduct(selectedIndexed);
     };
+
+    const [products, setProducts] = useState([]);
+    const [bestSeller, setBestSeller] = useState([]);
+
+    useEffect(() => {
+        axios.get("http://localhost:8080/api/products/sales")
+            .then(response => {
+                setProducts(response.data);
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
+            });
+    }, []);
+
+    useEffect(() => {
+        axios.get("http://localhost:8080/api/products/best-sellers")
+            .then(response => {
+                setBestSeller(response.data);
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
+            });
+    }, []);
+
+    useEffect(() => {
+        console.log(products);
+    }, [products]);
 
     return (
         <div>
@@ -113,10 +140,9 @@ function Homepage() {
                 <a className='SeeAll'>See all</a></div>
             <div className="wrap-Sale-Product">
                 <div className='Sale-Product'>
-               <Productdetail></Productdetail>
-               <Productdetail></Productdetail>
-               <Productdetail></Productdetail>
-               <Productdetail></Productdetail>
+                {products.map(product => (
+                        <Productdetail nameProduct={product.name}  price={product.price}/>
+                    ))}
                </div>
             </div>
             <div className='Banner'>
@@ -124,10 +150,9 @@ function Homepage() {
                 <a className='SeeAll'>See all</a></div>
             <div className="wrap-Sale-Product">
                 <div className='Sale-Product'>
-               <Productdetail></Productdetail>
-               <Productdetail></Productdetail>
-               <Productdetail></Productdetail>
-               <Productdetail></Productdetail>
+                {bestSeller.map(product => (
+                        <Productdetail nameProduct={product.name}  price={product.price}/>
+                    ))}
                </div>
             </div>
             

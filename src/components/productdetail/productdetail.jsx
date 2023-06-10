@@ -11,10 +11,10 @@ function productdetail  (props) {
     <Link className="Link" to="/product-detail">
     <div className="wrappperProductdetail" >
      
-      <div className='Background-ProducdetailtName'> {props.nameProduct} 
+      <div className='Background-ProducdetailtName'>  
       <div className='ProducdetailtName'>
-      <div className='Name-product'>Black Rouge Air Fit</div>
-      <div className='Price-product'>$150.0</div>
+      <div className='Name-product'>{props.nameProduct}</div>
+      <div className='Price-product'>${props.price}</div>
       <div className='wrapper-button'>
         <div className="wrapper-star">
             <i class="StarIcon far fa-star"></i>
