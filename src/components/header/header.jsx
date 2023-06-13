@@ -44,9 +44,10 @@ function Header(props) {
           <button className="IconButton heartButton">
             <i class="icon fas fa-heart"></i>
           </button>
+          <Link to="/cart-page">
           <button className="IconButton cartButton">
             <i class="icon fas fa-shopping-cart"></i>
-          </button>
+          </button></Link>
           {localStorage.getItem('fullname') ?
             (<button
               className="RegisterButton"

@@ -8,7 +8,7 @@ import AboutUs from "./containers/About-Us/AboutUs";
 import ProductDetail from "./containers/Product-Detail/ProductDetail";
 import axios from "axios";
 import ProductPage from "./containers/ProductPage/ProductPage";
-
+import CartPage from "./containers/CartPage/CartPage";
 // import { ProductLayout } from './components/productlayout';
 
 function App() {
@@ -22,6 +22,7 @@ function App() {
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/product-detail" element={<ProductDetail />} />
       <Route path="/product" element={<ProductPage/>}/>
+      <Route path="/cart-page" element={<CartPage />} />
     </Routes>
   );
 }
