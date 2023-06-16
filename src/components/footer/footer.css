@@ -24,7 +24,7 @@
     align-items: center;
   }
   .title-footer {
-    font-family: "Space Grotesk";
+    font-family: 'Nunito Sans', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 31.5219px;
@@ -45,7 +45,7 @@
     margin-right: 10%;
  }
   .policy-title {
-    font-family: "Space Grotesk";
+    font-family: 'Nunito Sans', sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 15.0104px;
@@ -53,7 +53,7 @@
     color: #ffffff;
   }
   .main-footer-item span {
-    font-family: "Space Grotesk";
+    font-family: 'Nunito Sans', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 12.0083px;
@@ -61,7 +61,7 @@
     color: #ffffff;
   }
   .extra-footer-item {
-    font-family: "Space Grotesk";
+    font-family: 'Nunito Sans', sans-serif;;
     font-style: normal;
     margin-top: 39px;
     font-size: 10.5073px;

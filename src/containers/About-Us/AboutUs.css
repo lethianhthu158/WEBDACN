@@ -6,11 +6,11 @@
   }
   
   .aboutus-desc {
-    width: 60%;
+    width: 70%;
     text-align: center;
     margin: 0 auto 30px;
     font-size: 24px;
-    font-family: "Nunito";
+    font-family: 'Nunito Sans', sans-serif;
     font-style: normal;
     font-weight: 300;
   }
@@ -21,7 +21,7 @@
   }
   
   .aboutus-title {
-    font-family: "Nunito";
+    font-family: 'Nunito Sans', sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 30px;
@@ -37,7 +37,7 @@
   .aboutus-content-desc {
     padding-left: 50px;
     font-size: 24px;
-    font-family: "Nunito";
+    font-family: 'Nunito Sans', sans-serif;
     font-style: normal;
     font-weight: 300;
   }

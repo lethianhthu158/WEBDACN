@@ -65,11 +65,13 @@
 .Sale-Product{
     display: flex;
     justify-content: space-between;
+    font-family: 'Nunito Sans', sans-serif;
 
 }
 .SeeAll{
     cursor: pointer;
     text-decoration: none;
+    font-family: 'Nunito Sans', sans-serif;
  
 }
 .NewArrival{
@@ -78,5 +80,6 @@
     font-weight: 500;
     font-size: 2rem;
     padding-left: 43.5%;
+    font-family: 'Nunito Sans', sans-serif;
 }
 

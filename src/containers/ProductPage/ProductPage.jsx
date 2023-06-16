@@ -19,6 +19,24 @@ const ProductPage = () => {
             <div className='Productpage-Branner'>
                 <div className='nameBanner'>All Product</div>
             </div>
+            <div className="Wrapper-Tool">
+                <div className="Fillter-By"> Fillter by</div>
+                <div className="wrapper-Button-Fillter">
+                    <button className="bt All">All</button>
+                    <button className="bt Best-Seller">Best Seller</button>
+                    <button className="bt Discount">Discount</button>
+                    <button className="bt Low-price">Low Price</button>
+                    <button className="bt high-price">High Price</button>
+                </div>
+                <div className="Wrapper-Search-Fillter">
+                    <i class="fillter fas fa-search"></i>
+                    <input className="Search-Fillter"/>                   
+                    
+                    
+                </div>
+
+                
+            </div>
             <div className="Wrapper-Product-detail">
                 <Productdetail></Productdetail>
                 <Productdetail></Productdetail>

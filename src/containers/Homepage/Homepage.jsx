@@ -90,7 +90,7 @@ function Homepage() {
                 </Carousel.Item>
             </Carousel>
             <div className='Backgroud-Product'>
-                <div className='NewArrival'>NEW ARRAILVALS</div>
+                <div className='NewArrival'>NEW ARRIVALS</div>
                 <Carousel activeIndex={product} onSelect={handleSelectProduct} className='fix-high'>
                     <Carousel.Item >
                         <div className='Wrapper-Product'>

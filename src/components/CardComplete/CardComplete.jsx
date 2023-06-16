@@ -2,7 +2,13 @@ import "./CardComplete.css";
 import deleteIcon from "../../assets/delete-btn.png";
 import { useState } from "react";
 
-const CardComplete = ({ title, colorProduct, price, imgProduct }) => {
+const CardComplete = ({
+  title,
+  colorProduct,
+  price,
+  imgProduct,
+  isChooseNumProduct,
+}) => {
   const [countProduct, setCountProduct] = useState(1);
 
   return (
@@ -17,29 +23,41 @@ const CardComplete = ({ title, colorProduct, price, imgProduct }) => {
           </p>
         </div>
       </div>
-      <div className="cardcomplete-right">
-        <button
-          onClick={() => setCountProduct(countProduct - 1)}
-          className="btn-count decrease"
-          disabled={countProduct === 1}
-        >
-          -
-        </button>
-        <input
-          className="number-count"
-          type="text"
-          value={countProduct}
-        ></input>
-        <button
-          onClick={() => setCountProduct(countProduct + 1)}
-          className="btn-count increase"
-        >
-          +
-        </button>
-      </div>
-      <button className="btn-delete">
-        <img className="icon-delete" src={deleteIcon} alt="delete icon"></img>
-      </button>
+      {isChooseNumProduct ? (
+        <>
+          <div className="cardcomplete-right">
+            <button
+              onClick={() => setCountProduct(countProduct - 1)}
+              className="btn-count decrease"
+              disabled={countProduct === 1}
+            >
+              -
+            </button>
+            <input
+              className="number-count"
+              type="text"
+              value={countProduct}
+            ></input>
+            <button
+              onClick={() => setCountProduct(countProduct + 1)}
+              className="btn-count increase"
+            >
+              +
+            </button>
+          </div>
+          <button className="btn-delete">
+            <img
+              className="icon-delete"
+              src={deleteIcon}
+              alt="delete icon"
+            ></img>
+          </button>{" "}
+        </>
+      ) : (
+        <div className="wrap-number-product">
+          x<span className="number-product">1</span>
+        </div>
+      )}
     </div>
   );
 };

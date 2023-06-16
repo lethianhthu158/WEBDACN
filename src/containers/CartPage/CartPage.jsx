@@ -10,18 +10,21 @@ const dataExample = [
     colorProduct: "Pink",
     price: "$150",
     product: Product,
+    isChooseNumProduct: true,
   },
   {
     title: "Black Rouge Real Strawberry Milk Toner",
     colorProduct: "Pink",
     price: "$200",
     product: Product,
+    isChooseNumProduct: true,
   },
   {
     title: "Triple Layer Eye Palette",
     colorProduct: "01 Blossom Forest",
     price: "$180",
     product: Product,
+    isChooseNumProduct: true,
   },
 ];
 
@@ -37,7 +40,8 @@ const CartPage = () => {
               title={item.title}
               colorProduct={item.colorProduct}
               price={item.price}
-              imgProduct={Product}
+              imgProduct={item.product}
+              isChooseNumProduct={item.isChooseNumProduct}
             />
           ))}
         </div>
