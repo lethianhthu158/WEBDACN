@@ -1,6 +1,7 @@
 {
   "name": "web_cmt",
   "version": "0.1.0",
+  "homepage": "https://hungson.name.vn",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.4",
@@ -14,6 +15,7 @@
     "react-bootstrap": "^2.7.4",
     "react-bootstrap-carousel": "^4.1.1",
     "react-dom": "^18.2.0",
+    "react-google-login": "^5.2.2",
     "react-scripts": "5.0.1",
     "react-scroll-horizontal": "^1.6.6",
     "styled-components": "^5.3.10",

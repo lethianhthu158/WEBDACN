@@ -4,7 +4,7 @@ import { Dialog } from "@material-ui/core";
 import React, { useState } from "react";
 import axios from "axios";
 import { atom, useAtom } from 'jotai';
-
+import { GoogleLogin } from 'react-google-login';
 const textAtom = atom([])
 
 
@@ -15,6 +15,21 @@ function Login({ onClose }) {
   const [password, setPassword] = useState("");
   const [name, setName]=useAtom(textAtom);
 
+  
+  const responseGoogle = async (response) => {
+    try {
+      const { tokenId } = response;
+      const result = await axios.post('http://localhost:8080/api/v1/auth/google', { tokenId });
+      
+      // Handle response here
+      console.log(result.data);
+      localStorage.setItem("fullname", result.data.fullname);
+      setName(result.data);
+    } catch (error) {
+      // Handle error here
+      console.error(error);
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -62,9 +77,18 @@ function Login({ onClose }) {
         <button className="accout-button">
           <i className="Icon fab fa-facebook-f"></i>
         </button>
-        <button className="accout-button">
-          <i className="Icon fab fa-google"></i>
-        </button>
+        <GoogleLogin
+          clientId="325424392497-cbrjevbvt8t3jrrpm74gfp9lt2p8uvr1.apps.googleusercontent.com"
+          render={renderProps => (
+            <button className="accout-button" onClick={renderProps.onClick}>
+              <i className="Icon fab fa-google"></i>
+            </button>
+          )}
+          buttonText="Login"
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy={'single_host_origin'}
+        />
       </div>
 
       <div className="wrap-login">
