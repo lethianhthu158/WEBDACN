@@ -135,6 +135,7 @@
     color: black;
     text-decoration: none;  
    width: 30%;
+   font-family: 'Nunito Sans', sans-serif;
   }
 .Scroll-auto{
   width: 100%;
@@ -153,4 +154,29 @@
         display: none;
     }
   }
+  .ant-card-body {
+    padding: 0 !important;
+  }
+  
+  .ant-card {
+    background: unset !important;
+    border-radius: 0 !important;
+    box-shadow: unset !important;
+  }
+  
+  .header-link-profile {
+    text-decoration: none;
+  }
+  
+  .header-logout {
+    border: none;
+    background-color: transparent;
+    padding-inline: 0;
+  }
+  
+  .dropdown-content {
+    font-size: 15px;
+    font-family: "Nunito Sans", sans-serif;
+  }
+  
  

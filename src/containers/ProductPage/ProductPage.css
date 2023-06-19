@@ -9,7 +9,8 @@
 .Productpage-Branner{
 
     margin-top: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 15px;
+    font-family: 'Nunito Sans', sans-serif;
 
     padding-top:0.75%;
     padding-bottom: 0.75%;
@@ -30,4 +31,47 @@
     justify-content: flex-end;
     padding-right: 3%;
 
+}
+.Wrapper-Tool{
+    display: flex;
+    
+    padding-left: 2.5%;
+    padding-right: 2%;
+    font-family: 'Nunito Sans', sans-serif;
+    margin-bottom: 5px;
+}
+.Fillter-By{
+    font-size: 1.5rem;
+    margin-right: 30px;
+}
+.bt{
+    margin-right: 10px;
+    padding: 1% 5%;
+    border-radius:50px;
+    background-color: white;
+    font-size: 1rem;}
+
+.bt.selected {
+        background-color: black;
+        color: white;
+      }
+
+
+.wrapper-Button-Fillter{
+    width: 60%;
+    margin-right: 10%;
+}
+.fillter{
+    color: black;
+}
+.Wrapper-Search-Fillter{
+    border:1px solid black;
+    border-radius: 20px;
+    height: 50%;
+    display: flex;
+    padding: 2px 10px;
+    align-items: center;
+}
+.Search-Fillter{
+    border:none;
 }

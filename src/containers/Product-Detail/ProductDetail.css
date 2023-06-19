@@ -21,7 +21,7 @@
   
   .product-name {
     font-size: 35px;
-    font-family: "Nunito";
+    font-family: 'Nunito Sans', sans-serif;
     font-style: normal;
     font-weight: 300;
   }
@@ -65,7 +65,7 @@
   
   .product-right-name {
     font-size: 40px;
-    font-family: "Nunito";
+    font-family: 'Nunito Sans', sans-serif;
     font-style: normal;
     font-weight: 300;
     margin-bottom: 18px;
@@ -89,7 +89,7 @@
   
   .desc {
     font-size: 25px;
-    font-family: "Lato";
+    font-family: 'Nunito Sans', sans-serif;
     font-style: normal;
     font-weight: 300;
   }
@@ -108,7 +108,7 @@
   
   .productdetail-price {
     color: #e71717;
-    font-family: "Lato";
+    font-family: 'Nunito Sans', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 30px;
@@ -149,7 +149,7 @@
   }
   
   .number-count {
-    font-family: "Nunito";
+    font-family: 'Nunito Sans', sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 40px;
