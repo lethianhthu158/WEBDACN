@@ -3,6 +3,7 @@ import Login from "../login/loginform";
 import { Dialog } from "@material-ui/core";
 import React, { useState } from "react";
 import axios from "axios";
+import { GoogleLogin } from 'react-google-login';
 
 function Register({ onClose }) {
   const [openPopupRegister, setOpenPopupRegister] = useState(false);
@@ -11,6 +12,17 @@ function Register({ onClose }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
  
+  const responseGoogle = async (response, event) => {
+    event.preventDefault();
+    try {
+      const res = await axios.post('http://localhost:8080/api/v1/auth/register/google', {
+        token: response.tokenId,
+      });
+      console.log(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   function handleOpenLogin() {
     setOpenPopupLogin(true);
     setOpenPopupRegister(false);
@@ -65,9 +77,18 @@ function Register({ onClose }) {
         <button className="accout-button">
           <i class="Icon fab fa-facebook-f"></i>
         </button>
-        <button className="accout-button">
-          <i class="Icon fab fa-google"></i>
-        </button>
+        <GoogleLogin
+          clientId="325424392497-cbrjevbvt8t3jrrpm74gfp9lt2p8uvr1.apps.googleusercontent.com"
+          render={renderProps => (
+            <button className="accout-button" onClick={renderProps.onClick}>
+              <i className="Icon fab fa-google"></i>
+            </button>
+          )}
+          buttonText="Login"
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy={'single_host_origin'}
+        />
       </div>
       <div className="wrap-login">
         <div className="text-Resgiter">

@@ -16,7 +16,9 @@ function Login({ onClose }) {
   const [name, setName]=useAtom(textAtom);
 
   
-  const responseGoogle = async (response) => {
+  
+  const responseGoogle = async (response, event) => {
+    event.preventDefault();
     try {
       const { tokenId } = response;
       const result = await axios.post('http://localhost:8080/api/v1/auth/google', { tokenId });
