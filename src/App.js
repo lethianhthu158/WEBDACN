@@ -10,6 +10,8 @@ import axios from "axios";
 import ProductPage from "./containers/ProductPage/ProductPage";
 import CartPage from "./containers/CartPage/CartPage";
 import Payment from "./containers/Payment/Payment";
+import ProfilePage from "./containers/ProfilePage/ProfilePage";
+import Favorite from "./containers/favorite/favorite";
 // import { ProductLayout } from './components/productlayout';
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
       <Route path="/product" element={<ProductPage/>}/>
       <Route path="/cart-page" element={<CartPage />} />
       <Route path="/payment" element={<Payment />} />
+      <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/favoritepd" element={<Favorite />} />
     </Routes>
   );
 }

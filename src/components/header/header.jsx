@@ -1,5 +1,5 @@
 import "./header.css";
-import logoImage from "../../assets/logo.png";
+import logoImage from "../../assets/Logoweb.png";
 import logoName from "../../assets/name.png";
 import React, { useState, useEffect, useRef } from "react";
 import Login from "../login/loginform";
@@ -9,12 +9,31 @@ import Navbar from 'react-bootstrap/Navbar'
 import { Nav } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 // import { atom, useAtom } from 'jotai';
+import Avartar from "../../assets/avatar.png";
+import { HLDropdown, HLMenu, HLCard } from "synos-helena";
+import { Avatar } from "antd";
+import "synos-helena/lib/helena.css";
+
 
 function Header(props) {
   const [openPopupLogin, setOpenPopupLogin] = useState(false);
   const [openPopupRegister, setOpenPopupRegister] = useState(false);
   const [navBackground, setNavBackground] = useState(false)
   const navRef = useRef();
+  const menu = (
+    <HLMenu>
+      <HLMenu.Item>
+        <Link className="dropdown-content header-link-profile" to="/profile">
+        <i class="icon-p far fa-user"></i>
+          My Account
+        </Link>
+      </HLMenu.Item>
+      <HLMenu.Item>
+        <button className="dropdown-content header-logout">
+        <i class="icon-p fas fa-sign-out"></i>Logout</button>
+      </HLMenu.Item>
+    </HLMenu>
+  );
 
   // const [name]=useAtom(textAtom);
 
@@ -31,6 +50,7 @@ function Header(props) {
       document.removeEventListener('scroll', handleScroll)
     }
   }, [])
+  
 
 
 
@@ -41,33 +61,48 @@ function Header(props) {
         <img className="logoImage" src={logoImage} alt="Logo store" />
         <img className="logoName" src={logoName} alt="Logo name"></img>
         <div className="wrapButtons">
+          <Link to="/favoritepd">
           <button className="IconButton heartButton">
             <i class="icon fas fa-heart"></i>
-          </button>
-          <Link to="/cart-page">
-          <button className="IconButton cartButton">
-            <i class="icon fas fa-shopping-cart"></i>
           </button></Link>
+          <Link to="/cart-page">
+            <button className="IconButton cartButton">
+              <i class="icon fas fa-shopping-cart"></i>
+            </button></Link>
           {localStorage.getItem('fullname') ?
-            (<button
-              className="RegisterButton"
-              onClick={() => setOpenPopupRegister(true)}
-            >
-              {localStorage.getItem('fullname')}
-            </button>) :
-            (<button
-              className="RegisterButton"
+            (<>
+              <button
+                className="RegisterButton"
+                onClick={() => setOpenPopupRegister(true)}
+              >
+                {localStorage.getItem('fullname')}
+              </button>
+              <HLCard>
+                <HLDropdown overlay={menu} trigger={["click"]}>
+                  <Avatar
+                    size={45}
+                    src={Avartar}
+                  />
+                </HLDropdown>
+              </HLCard> </>) :
+            (<>
+              <button
+                className="LoginButton"
+                onClick={() => setOpenPopupLogin(true)}
+              >
+                Login
+              </button>
+              <button
+                className="RegisterButton"
               // onClick={() => setOpenPopupRegister(true)}
-            >
-              Register
-            </button>)}
+              >
+                Register
+              </button>
+            </>)}
 
-          <button
-            className="LoginButton"
-            onClick={() => setOpenPopupLogin(true)}
-          >
-            Login
-          </button>
+
+
+
         </div>
       </div>
       <div className="Scroll-auto">
@@ -108,6 +143,7 @@ function Header(props) {
       >
         <Register onClose={() => setOpenPopupRegister(false)} />
       </Dialog>
+
 
       {/* </div>
     </div> */}

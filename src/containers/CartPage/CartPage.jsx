@@ -11,6 +11,7 @@ const dataExample = [
     price: "$150",
     product: Product,
     isChooseNumProduct: true,
+    isCount: true,
   },
   {
     title: "Black Rouge Real Strawberry Milk Toner",
@@ -18,6 +19,7 @@ const dataExample = [
     price: "$200",
     product: Product,
     isChooseNumProduct: true,
+    isCount: true,
   },
   {
     title: "Triple Layer Eye Palette",
@@ -25,6 +27,7 @@ const dataExample = [
     price: "$180",
     product: Product,
     isChooseNumProduct: true,
+    isCount: true,
   },
 ];
 
@@ -42,6 +45,7 @@ const CartPage = () => {
               price={item.price}
               imgProduct={item.product}
               isChooseNumProduct={item.isChooseNumProduct}
+              isCount={item.isCount}
             />
           ))}
         </div>

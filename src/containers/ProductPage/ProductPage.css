@@ -49,13 +49,14 @@
     padding: 1% 5%;
     border-radius:50px;
     background-color: white;
-    font-size: 1rem;
+    font-size: 1rem;}
 
-}
-.All{
-    background-color: black;
-    color: #EAEAEA;
-}
+.bt.selected {
+        background-color: black;
+        color: white;
+      }
+
+
 .wrapper-Button-Fillter{
     width: 60%;
     margin-right: 10%;

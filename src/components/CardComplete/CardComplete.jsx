@@ -8,6 +8,7 @@ const CardComplete = ({
   price,
   imgProduct,
   isChooseNumProduct,
+  isCount,
 }) => {
   const [countProduct, setCountProduct] = useState(1);
 
@@ -24,35 +25,43 @@ const CardComplete = ({
         </div>
       </div>
       {isChooseNumProduct ? (
-        <>
-          <div className="cardcomplete-right">
-            <button
-              onClick={() => setCountProduct(countProduct - 1)}
-              className="btn-count decrease"
-              disabled={countProduct === 1}
-            >
-              -
-            </button>
-            <input
-              className="number-count"
-              type="text"
-              value={countProduct}
-            ></input>
-            <button
-              onClick={() => setCountProduct(countProduct + 1)}
-              className="btn-count increase"
-            >
-              +
-            </button>
-          </div>
-          <button className="btn-delete">
-            <img
-              className="icon-delete"
-              src={deleteIcon}
-              alt="delete icon"
-            ></img>
-          </button>{" "}
-        </>
+        isCount ? (
+          <>
+            <div className="cardcomplete-right">
+              <button
+                onClick={() => setCountProduct(countProduct - 1)}
+                className="btn-count decrease"
+                disabled={countProduct === 1}
+              >
+                -
+              </button>
+              <input
+                className="number-count"
+                type="text"
+                value={countProduct}
+              ></input>
+              <button
+                onClick={() => setCountProduct(countProduct + 1)}
+                className="btn-count increase"
+              >
+                +
+              </button>
+            </div>
+            <button className="btn-delete">
+              <img
+                className="icon-delete"
+                src={deleteIcon}
+                alt="delete icon"
+              ></img>
+            </button>{" "}
+          </>
+        ) : (<button className="btn-delete">
+          <img
+            className="icon-delete"
+            src={deleteIcon}
+            alt="delete icon"
+          ></img>
+        </button>)
       ) : (
         <div className="wrap-number-product">
           x<span className="number-product">1</span>
