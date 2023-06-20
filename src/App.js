@@ -13,6 +13,7 @@ import Payment from "./containers/Payment/Payment";
 import ProfilePage from "./containers/ProfilePage/ProfilePage";
 import Favorite from "./containers/favorite/favorite";
 // import { ProductLayout } from './components/productlayout';
+import OderManage from "./containers/OderManage/OderManage";
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
       <Route path="/payment" element={<Payment />} />
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/favoritepd" element={<Favorite />} />
+      <Route path="/oder-management" element={<OderManage/>} />
+      
     </Routes>
   );
 }

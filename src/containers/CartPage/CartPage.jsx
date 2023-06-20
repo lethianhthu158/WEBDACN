@@ -29,6 +29,7 @@ const dataExample = [
     isChooseNumProduct: true,
     isCount: true,
   },
+  
 ];
 
 const CartPage = () => {

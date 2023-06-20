@@ -10,6 +10,7 @@
     padding-top:255px;
     cursor: pointer;
     
+    margin-right: 5px;;
     
 }
 .Link{
@@ -35,11 +36,12 @@
     top:30%;
     margin-left: 3%;
     font-family: 'Nunito Sans', sans-serif;
-    height: 137px;
+    height:137px;
+   
     margin-right: 50px;
 }
 .Name-product{
-    max-width: 210px;    
+    max-width: 210px;
     text-align: left;
     font-size: 25px;
     width: 100%;
