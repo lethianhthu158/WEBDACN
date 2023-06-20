@@ -66,7 +66,7 @@ const ProfilePage = () => {
                                 <div className="Edit Name"><div className="tile-input">Name</div><input className="Input"></input></div>
                                 <div className="Edit Email"><div className="tile-input">Email</div><input className="Input"></input></div>
                                 <div className="Edit Phone"><div className="tile-input">Phone</div><input className="Input"></input></div>
-                                <div className="Edit Address"><div className="tile-input">Address</div><input className="Input-address"></input><input className="Input-address"></input><input className="Input-address"></input></div>
+                                <div className="Edit Address"><div className="tile-input">Address</div><input className="Input"></input></div>
                                 <Form>
                                     {['radio'].map((type) => (
                                         <div key={`inline-${type}`} className="mb-3">
@@ -99,7 +99,7 @@ const ProfilePage = () => {
                                 </Form>
                                
                             </div>
-                            <div className="wrapper-button">
+                            <div className="wrapper-button-profile">
                                     <button className="Button Update">Update</button>
                                     <button className="Button Save">Save</button>
                                     

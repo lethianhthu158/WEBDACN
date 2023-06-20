@@ -30,7 +30,8 @@ function Header(props) {
       </HLMenu.Item>
       <HLMenu.Item>
         <button className="dropdown-content header-logout">
-        <i class="icon-p fas fa-sign-out"></i>Logout</button>
+        <i class="icon-p fas fa-sign-out"></i>Logout {localStorage.removeItem('fullname')}
+        </button>
       </HLMenu.Item>
     </HLMenu>
   );
@@ -86,18 +87,19 @@ function Header(props) {
                 </HLDropdown>
               </HLCard> </>) :
             (<>
+             <button
+                className="RegisterButton"
+               onClick={() => setOpenPopupRegister(true)}
+              >
+                Register
+              </button>
               <button
                 className="LoginButton"
                 onClick={() => setOpenPopupLogin(true)}
               >
                 Login
               </button>
-              <button
-                className="RegisterButton"
-              // onClick={() => setOpenPopupRegister(true)}
-              >
-                Register
-              </button>
+             
             </>)}
 
 

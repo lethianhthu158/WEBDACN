@@ -1,3 +1,6 @@
+.nav-link{
+    color:peru;
+}
 .Body-ProfilePage{
     padding-top: 200px;
     width: 100%;
@@ -98,52 +101,11 @@
 .form-check-input:checked{
     background-color: #B16E4B;
 }
-.Form-check{
-    margin-top: 20px;
-    font-size: 20px;
+.wrapper-body-oder{
+    width: 80%;;
 }
-.Edit{
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 20px;
-    margin-bottom: 10px;
-}
-.wrapper-Input-edit{
-    padding-left: 5%;
-    margin-bottom: 10%;
-    
-}
-.tile-input{
-    color:#B16E4B
-}
-.Input{
-    width: 50%;
-    border-radius: 6px;
-    border-color: #B16E4B;
-}
-.wrapper-button-profile{
-   
-    margin-left: 20%;
-    width:20% ;
-    padding-bottom: 5%;
-
-}
-.Button{
-    border-radius: 5px;
-    font-family: 'Nunito Sans', sans-serif;
-    width: 100%;
-    padding-top: 5%;
-    padding-bottom: 5%;
-    margin-right: 10px;
-    font-size: 1rem;
-    border-color: #B16E4B;
-}
-.Button:hover{
+.Oder-management-Tab-Choose{
     background-color: #B16E4B;
     color: aliceblue;
-
-}
-.My-Account {
-    background-color: #B16E4B;
-    color: aliceblue !important; 
 
 }
