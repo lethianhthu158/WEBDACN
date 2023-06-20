@@ -99,7 +99,7 @@ const ProfilePage = () => {
                                 </Form>
                                
                             </div>
-                            <div className="wrapper-button">
+                            <div className="wrapper-button-profile">
                                     <button className="Button Update">Update</button>
                                     <button className="Button Save">Save</button>
                                     

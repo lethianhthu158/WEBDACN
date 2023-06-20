@@ -35,13 +35,14 @@
     top:30%;
     margin-left: 3%;
     font-family: 'Nunito Sans', sans-serif;
-   
+    height: 137px;
     margin-right: 50px;
 }
 .Name-product{
+    max-width: 210px;    
     text-align: left;
     font-size: 25px;
-    width: 105%;
+    width: 100%;
 }
 .Price-product{
     text-align: left;
@@ -54,8 +55,8 @@
 }
 .wrapper-button{
     display: flex;
-    justify-content: space-between;
-    margin-top: -7%;
+   
+    
     padding-right: 20px;
     width: 120%;
     
@@ -63,6 +64,7 @@
 .wrapper-star{
     margin-right: 20%;
     display: flex;
+
   
 
 }

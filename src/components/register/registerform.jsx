@@ -12,8 +12,7 @@ function Register({ onClose }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
  
-  const responseGoogle = async (response, event) => {
-    event.preventDefault();
+  const responseGoogle = async (response) => {
     try {
       const res = await axios.post('http://localhost:8080/api/v1/auth/register/google', {
         token: response.tokenId,

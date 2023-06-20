@@ -57,11 +57,18 @@
     justify-content: space-between;
 }
 .wrap-Sale-Product{
+    width: 100%;
     padding-left: 5%;
     padding-right: 5%;
     margin-top: 5%;
     margin-bottom: 5%;
 }
+@media (max-width: 991px) {
+    .wrap-Sale-Product{
+        width: 50%;
+    
+    }
+  }
 .Sale-Product{
     display: flex;
     justify-content: space-between;
