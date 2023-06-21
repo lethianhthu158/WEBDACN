@@ -84,3 +84,12 @@
     background-color: rgb(204, 159, 159);
     width: 2%;
 }
+
+.page-item .page-link{
+    color: #FF5C5C;
+}
+.page-item.active  .page-link{
+    background-color: #FF5C5C;
+    color: WHITE;
+    border-color: #FF5C5C
+}

@@ -52,23 +52,16 @@
     padding-left: 2%;
     padding-right: 2%;
     font-size: 1.5rem;
-    background-color: #d7d5d5;
+    background-color: #EAEAEA;
     display: flex;
     justify-content: space-between;
 }
 .wrap-Sale-Product{
-    width: 100%;
     padding-left: 5%;
     padding-right: 5%;
     margin-top: 5%;
     margin-bottom: 5%;
 }
-@media (max-width: 991px) {
-    .wrap-Sale-Product{
-        width: 50%;
-    
-    }
-  }
 .Sale-Product{
     display: flex;
     justify-content: space-between;

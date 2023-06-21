@@ -4,12 +4,26 @@ import aboutUsImage from "../../assets/aboutus.png";
 import { Footer } from "../../components/footer/footer";
 import Headerproduct from "../../components/Headerproduct/Headerproduct";
 import Productdetail from "../../components/productdetail/productdetail";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-
+import axios from "axios";
 
 
 const ProductPage = () => {
+    const [products, setProducts] = useState([]);
+    const [currentPage, setCurrentPage] = useState(0); 
+    const [totalPages, setTotalPages] = useState(0); // Add this line
+
+    useEffect(() => {
+        axios.get(`http://localhost:8080/api/products?page=${currentPage}&size=4`)
+            .then(response => {
+                setProducts(response.data.content);
+                setTotalPages(response.data.totalPages); // Set the total number of pages
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
+            });
+    }, [currentPage]);
     const [selectedButton, setSelectedButton] = useState(null);
     const [product, setProduct] = useState(0);
     const handleButtonClick = (buttonName) => {
@@ -18,6 +32,22 @@ const ProductPage = () => {
     const handleSelectProduct = (selectedIndexed, e) => {
         setProduct(selectedIndexed);
     };
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    let startPage, endPage;
+    if (currentPage <= 1) {
+        startPage = 0;
+        endPage = 2;
+    } else if (currentPage + 1 >= totalPages) {
+        startPage = totalPages - 3;
+        endPage = totalPages - 1;
+    } else {
+        startPage = currentPage - 1;
+        endPage = currentPage + 1;
+    }
+    const pageNumbers = [...Array((endPage + 1) - startPage).keys()].map(i => startPage + i);
 
 
     return (
@@ -46,25 +76,6 @@ const ProductPage = () => {
                         </div>
 
                     </Carousel.Item >
-                    <Carousel.Item >
-                        <div className='Wrapper-Product'>
-                            <Headerproduct></Headerproduct>
-                            <Headerproduct></Headerproduct>
-                            <Headerproduct></Headerproduct>
-                            <Headerproduct></Headerproduct>
-                        </div>
-
-
-                    </Carousel.Item>
-                    <Carousel.Item >
-                        <div className='Wrapper-Product'>
-                            <Headerproduct></Headerproduct>
-                            <Headerproduct></Headerproduct>
-                            <Headerproduct></Headerproduct>
-                            <Headerproduct></Headerproduct>
-
-                        </div>
-                    </Carousel.Item>
                 </Carousel>
 
 
@@ -97,36 +108,34 @@ const ProductPage = () => {
 
             </div>
             <div className="Wrapper-Product-detail">
-                <Productdetail></Productdetail>
-                <Productdetail></Productdetail>
-                <Productdetail></Productdetail>
-                <Productdetail></Productdetail>
-
-
-
-
+                {products.map(product => (
+                    <Productdetail nameProduct={product.name} price={product.price} image={product.image}/>
+                ))}
             </div>
 
 
             <div className="Wrapper-Pagniation">
-                <nav aria-label="Page navigation example">
-                    <ul className="pagination">
-                        <li className="page-item">
-                            <a className="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li className="page-item"><a class="page-link" href="#">1</a></li>
-                        <li className="page-item"><a class="page-link" href="#">2</a></li>
-                        <li className="page-item"><a class="page-link" href="#">3</a></li>
-                        <li className="page-item">
-                            <a className="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+    <nav aria-label="Page navigation example">
+        <ul className="pagination">
+            <li className="page-item">
+                <a className="page-link" href="#" aria-label="Previous" onClick={() => handlePageChange(currentPage > 0 ? currentPage - 1 : 0)}>
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {pageNumbers.map(number => (
+                <li className={`page-item ${currentPage === number ? 'active' : ''}`} key={number}>
+                    <a className="page-link" href="#" onClick={() => handlePageChange(number)}>{number + 1}</a>
+                </li>
+            ))}
+            <li className="page-item">
+                <a className="page-link" href="#" aria-label="Next" onClick={() => handlePageChange(currentPage + 1 < totalPages ? currentPage + 1 : totalPages - 1)}>
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
             <Footer />
         </>
     );

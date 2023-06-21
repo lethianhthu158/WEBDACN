@@ -7,6 +7,7 @@ import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import {app} from "../../firebase/firebase";
 import { useState, useEffect } from 'react';
 
+
 const ProductDetail = () => {
   const location = useLocation()
   const { nameProduct } = location.state || {};
