@@ -1,11 +1,15 @@
 import "./loginform.css";
 import Register from "../register/registerform";
 import { Dialog } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { atom, useAtom } from 'jotai';
 
 const textAtom = atom([])
+const validateEmail = (email) => {
+  const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return regex.test(email);
+}
 
 
 function Login({ onClose }) {
@@ -13,11 +17,23 @@ function Login({ onClose }) {
   const [openPopupLogin, setOpenPopupLogin] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordShown, setPasswordShown] = useState(false);
   const [name, setName]=useAtom(textAtom);
+  const [emailError, setEmailError] = useState("");
+  useEffect(() => {
+    if (email !== "") {
+      if (!validateEmail(email)) {
+        setEmailError("Invalid email address!");
+      } else {
+        setEmailError("");
+      }
+    }
+  }, [email]);
 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    
     try {
       const response = await axios.post('http://localhost:8080/api/v1/auth/login', {
         email,
@@ -46,9 +62,13 @@ function Login({ onClose }) {
       <p className="title">Login</p>
       <div className="container-input">
         <p className="title-input"> Email</p>
-        <input className="input" value={email} onChange={e => setEmail(e.target.value)}></input>
+        <input className="input" value={email} onChange={e => setEmail(e.target.value)}></input>   
+        {emailError && <p className="error-message">{emailError}</p>} {/* Hiển thị lỗi nếu có */}
         <p className="title-input"> Password</p>
-        <input className="input" value={password} onChange={e => setPassword(e.target.value)}></input>
+        <div className="wrapper-input">
+        <input className="input" type={passwordShown ? "text" : "password"} value={password} onChange={e => setPassword(e.target.value)}></input>
+        <button className="passwordShow" onClick={()=>setPasswordShown(!passwordShown)}>{passwordShown? <i class="fa-sharp fa-solid fa-eye"></i>:<i class="fa-sharp fa-solid fa-eye-slash"></i>}</button>
+        </div>
         <div className="wrap-fotgot">
           <a
             className="forgot-pass"

@@ -14,6 +14,7 @@ import ProfilePage from "./containers/ProfilePage/ProfilePage";
 import Favorite from "./containers/favorite/favorite";
 // import { ProductLayout } from './components/productlayout';
 import OderManage from "./containers/OderManage/OderManage";
+import Slidebar from "./Admin/component/Slidebar/Slidebar";
 
 function App() {
   return (
@@ -31,6 +32,8 @@ function App() {
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/favoritepd" element={<Favorite />} />
       <Route path="/oder-management" element={<OderManage/>} />
+      <Route path="/admin/dashboard" element={<Slidebar/>} />
+
       
     </Routes>
   );

@@ -39,6 +39,7 @@
     margin-left: 10%;
     margin-bottom: 0px;
     margin-top: 15%;
+    
    
 }
 .title-input{
@@ -54,6 +55,7 @@
     height: 30px;
     border-radius: 3px;
     border-color: #2F80ED;
+    outline-style: none;
     
 }
 .forgot-pass{
@@ -125,5 +127,13 @@
     cursor: pointer;
     border-color: #FFFFFF;
     
+}
+.passwordShow{
+    background-color: #ffffff;
+    border: none;
+}
+.error-message{
+    color:red;
+    font-weight: 400;
 }
 

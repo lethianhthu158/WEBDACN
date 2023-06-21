@@ -15,13 +15,13 @@ export const Footer = () => {
             </div>
             <div className="logo-social-network">
               <a href="https://www.facebook.com/profile.php?id=100077535672034">
-                <i class="Iconfooter fab fa-facebook-square"></i>
+                <i className="Iconfooter fab fa-facebook-square"></i>
               </a>
               <a href="https://github.com/PhuongLe222/IMGART">
-                <i class="Iconfooter fab fa-whatsapp-square"></i>
+                <i className="Iconfooter fab fa-whatsapp-square"></i>
               </a>
               <a href="https://mail.google.com/">
-              <i class="Iconfooter fab fa-instagram-square"></i>
+              <i className="Iconfooter fab fa-instagram-square"></i>
               </a>
             </div>
             <div className="extra-footer-item">
