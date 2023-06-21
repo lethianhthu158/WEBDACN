@@ -1,15 +1,29 @@
 import './productdetail.css'
 import logoName from '../../assets/SonA12.png';
 import { Link } from 'react-router-dom';
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import {app} from "../../firebase/firebase"
+import { useState, useEffect } from 'react';
 
 
 
+function Productdetail  (props) {
+  const [imageUrl, setImageUrl] = useState(null);
 
-
-function productdetail  (props) {
+  useEffect(() => {
+    const storage = getStorage(app);
+    var storageRef = ref(storage, "white.jpg"); 
+    if(props.image != null) {
+      storageRef = ref(storage, props.image);
+    }
+    console.log(props.image);
+    getDownloadURL(storageRef).then((url) => {
+      setImageUrl(url);
+    });
+  }, [props.image]);
   return(
-    <Link className="Link" to="/product-detail">
-    <div className="wrappperProductdetail" >
+    <Link state={{ nameProduct: props.nameProduct, price : props.price, image: props.image }} to="/product-detail">
+    <div className="wrappperProductdetail" style={{ backgroundImage: `url(${imageUrl})` }}>
      
       <div className='Background-ProducdetailtName'>  
       <div className='ProducdetailtName'>
@@ -38,4 +52,4 @@ function productdetail  (props) {
     </Link>
   );
 }
-  export default productdetail;
+  export default Productdetail;

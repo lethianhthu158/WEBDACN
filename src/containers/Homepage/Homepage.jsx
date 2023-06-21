@@ -47,8 +47,12 @@ function Homepage() {
     }, []);
 
     useEffect(() => {
-        console.log(products);
-    }, [products]);
+        console.log("Best seller:" + bestSeller);
+    }, [bestSeller]);
+
+    useEffect(() => {
+        console.log("product:" + product);
+    }, [product]);
 
     return (
         <div>
@@ -141,7 +145,7 @@ function Homepage() {
             <div className="wrap-Sale-Product">
                 <div className='Sale-Product'>
                 {products.map(product => (
-                        <Productdetail nameProduct={product.name}  price={product.price}/>
+                        <Productdetail  nameProduct={product.name}  price={product.price} image={product.image} type = {""}/>
                     ))}
                </div>
             </div>
@@ -151,11 +155,20 @@ function Homepage() {
             <div className="wrap-Sale-Product">
                 <div className='Sale-Product'>
                 {bestSeller.map(product => (
-                        <Productdetail nameProduct={product.name}  price={product.price}/>
+                        <Productdetail nameProduct={product.name}  price={product.price} image={product.image}/>
                     ))}
                </div>
             </div>
-            
+            <div className='Banner'>
+                <div className='nameBanner'>Best Brand</div>
+                <a className='SeeAll'>See all</a></div>
+            <div className="wrap-Sale-Product">
+                <div className='Sale-Product'>
+                {bestSeller.map(product => (
+                        <Productdetail nameProduct={product.name}  price={product.price} image={product.image}/>
+                    ))}
+               </div>
+            </div>
 
 
 

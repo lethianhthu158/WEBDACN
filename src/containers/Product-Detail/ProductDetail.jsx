@@ -2,20 +2,42 @@ import "./ProductDetail.css";
 import Header from "../../components/header/header";
 import product from "../../assets/product.png";
 import product1 from "../../assets/product 1.png";
+import { useLocation } from 'react-router-dom';
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import {app} from "../../firebase/firebase";
+import { useState, useEffect } from 'react';
 
 const ProductDetail = () => {
+  const location = useLocation()
+  const { nameProduct } = location.state || {};
+  const { price } = location.state || {};
+  const { image } = location.state || {};
+  const [imageUrl, setImageUrl] = useState(null);
+
+  useEffect(() => {
+    const storage = getStorage(app);
+    var storageRef = ref(storage, "white.jpg"); 
+    if(image != null) {
+      storageRef = ref(storage, image);
+    }
+    console.log(image);
+    getDownloadURL(storageRef).then((url) => {
+      setImageUrl(url);
+    });
+  }, [image]);
+  console.log("from:" + nameProduct);
   return (
     <>
       <Header />
       <main className="container-productdetail">
         <section className="productdetail-name">
-          <h3 className="product-name">Half n Half Water Glow Season 2 </h3>
+          <h3 className="product-name">{nameProduct}</h3>
         </section>
         <section className="productdetail-product">
           <div className="product-left">
             <img
               className="img-product"
-              src={product}
+              src={imageUrl}
               alt="image product"
             ></img>
             <ul className="producttail-listsuggest">
@@ -51,7 +73,7 @@ const ProductDetail = () => {
           </div>
           <div className="product-right">
             <h4 className="product-right-name">
-              Half n Half Water Glow Season 2
+            {nameProduct}
             </h4>
             <ul className="list-star">
               <li className="wrap-star">
@@ -72,7 +94,7 @@ const ProductDetail = () => {
             </ul>
             <p className="productdetail-review desc">(0 Review)</p>
             <p className="productdetail-code desc">Code SPMU3BRHNHWGHG </p>
-            <h6 className="productdetail-price">$298.0</h6>
+            <h6 className="productdetail-price">${price}</h6>
             <div className="productdetail-variant">
               <p className="variant-title desc">Option</p>
               <div className="list-product-colors">

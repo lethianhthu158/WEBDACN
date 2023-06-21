@@ -40,12 +40,12 @@ const ProductPage = () => {
                     <button className={`bt ${selectedButton === 'High-price' ? 'selected' : ''}`}
                     onClick={() => handleButtonClick('High-price')}>High Price</button>
                 </div>
-                <div className="Wrapper-Search-Fillter">
+                {/* <div className="Wrapper-Search-Fillter">
                     <i class="fillter fas fa-search"></i>
                     <input className="Search-Fillter"/>                   
                     
                     
-                </div>
+                </div> */}
 
                 
             </div>
