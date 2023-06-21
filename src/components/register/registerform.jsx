@@ -1,7 +1,7 @@
 import "./registerform.css";
 import Login from "../login/loginform";
 import { Dialog } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import axios from "axios";
 import { GoogleLogin } from 'react-google-login';
 
@@ -11,6 +11,22 @@ function Register({ onClose }) {
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const validateEmail = (email) => {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return regex.test(email);
+  }
+  const [emailError, setEmailError] = useState("");
+  useEffect(() => {
+    if (email !== "") {
+      if (!validateEmail(email)) {
+        setEmailError("Invalid email address!");
+      } else {
+        setEmailError("");
+      }
+    } ;
+  }, [email]);
  
   const responseGoogle = async (response) => {
     try {
@@ -34,11 +50,22 @@ function Register({ onClose }) {
     setOpenPopupLogin(false);
     setOpenPopupRegister(false);
   }
+
   
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (email === "") {setEmailError("Empty email!")}
+    if (password !== confirmPassword) {
+      console.log(password);
+      console.log(confirmPassword)
+     
+      setConfirmPasswordError("Passwords do not match");
+      return;
+    }
+    else {setConfirmPasswordError("")};
     try {
+  
       const response = await axios.post('http://localhost:8080/api/v1/auth/register', {
         fullname,
         email,
@@ -67,10 +94,14 @@ function Register({ onClose }) {
         <input className="input" value={fullname} onChange={e => setFullname(e.target.value)} />
         <p className="title-input"> Email</p>
         <input className="input" value={email} onChange={e => setEmail(e.target.value)} />
+        {emailError && <p className="error-message">{emailError}</p>} {/* Hiển thị lỗi nếu có */}
         <p className="title-input"> Password</p>
-        <input className="input" value={password} onChange={e => setPassword(e.target.value)} />
-        <p className="title-input"> Confirm Password</p>
-        <input className="input"></input>
+        <input className="input" value={password} type="password" onChange={e => setPassword(e.target.value)} />
+        <p className="title-input" value={confirmPassword} > Confirm Password</p>
+        <input className="input" type="password" onChange={e => setConfirmPassword(e.target.value)}></input>
+        {confirmPasswordError && (
+          <p className="error-message">{confirmPasswordError}</p>
+        )}
       </div>
       <div className="wrap-icon">
         <button className="accout-button">

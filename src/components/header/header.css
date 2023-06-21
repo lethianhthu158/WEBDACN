@@ -108,8 +108,10 @@
 .input-search{
     background-color: rgb(217, 210, 210);
     border-radius: 5px 0px 0px 5px;
-    border:none;
+   border-style: hidden;
     height: 25px;
+    outline: none;
+    
 }
 .searchButton{
     background-color: #FDCF76;

@@ -126,7 +126,7 @@ function Header(props) {
               <NavLink className="Control-tab" eventKey="4" to="/about-us">ABOUT</NavLink>
             </div>
             <div className="control">
-              <input className="input-search"></input>
+              <input className="input-search" type="text"  placeholder="Search.."></input>
               <button className="searchButton">
                 <i class="fas fa-search"></i>
               </button>

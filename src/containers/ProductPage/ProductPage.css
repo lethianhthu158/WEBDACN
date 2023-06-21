@@ -11,13 +11,14 @@
     margin-top: 50px;
     margin-bottom: 15px;
     font-family: 'Nunito Sans', sans-serif;
+    
 
     padding-top:0.75%;
     padding-bottom: 0.75%;
     padding-left: 2%;
     padding-right: 2%;
     font-size: 1.5rem;
-    background-color: #EAEAEA;
+    background-color: #d7d5d5;
     display: flex;
     justify-content: space-between;
 }
@@ -74,4 +75,12 @@
 }
 .Search-Fillter{
     border:none;
+}
+.Wrapper-HeaderProduct-ProductPage{
+    width: 100%;
+    padding-top: 210px;
+}
+.carousel-control-next, .carousel-control-prev{
+    background-color: rgb(204, 159, 159);
+    width: 2%;
 }

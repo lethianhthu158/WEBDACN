@@ -77,19 +77,19 @@ const ProductDetail = () => {
             </h4>
             <ul className="list-star">
               <li className="wrap-star">
-                <i class="far fa-star"></i>
+                <i class="StarProduct far fa-star"></i>
               </li>
               <li className="wrap-star">
-                <i class="far fa-star"></i>
+                <i class="StarProduct far fa-star"></i>
               </li>
               <li className="wrap-star">
-                <i class="far fa-star"></i>
+                <i class="StarProduct far fa-star"></i>
               </li>
               <li className="wrap-star">
-                <i class="far fa-star"></i>
+                <i class="StarProduct far fa-star"></i>
               </li>
               <li className="wrap-star">
-                <i class="far fa-star"></i>
+                <i class="StarProduct far fa-star"></i>
               </li>
             </ul>
             <p className="productdetail-review desc">(0 Review)</p>

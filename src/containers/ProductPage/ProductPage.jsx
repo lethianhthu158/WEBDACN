@@ -5,22 +5,69 @@ import { Footer } from "../../components/footer/footer";
 import Headerproduct from "../../components/Headerproduct/Headerproduct";
 import Productdetail from "../../components/productdetail/productdetail";
 import React, { useState } from 'react';
+import Carousel from 'react-bootstrap/Carousel';
 
-  
+
 
 const ProductPage = () => {
     const [selectedButton, setSelectedButton] = useState(null);
+    const [product, setProduct] = useState(0);
     const handleButtonClick = (buttonName) => {
         setSelectedButton(buttonName);
-      };
+    };
+    const handleSelectProduct = (selectedIndexed, e) => {
+        setProduct(selectedIndexed);
+    };
+
+
     return (
         <>
             <Header />
-            <div className="Wrapper-HeaderProduct">
-                <Headerproduct></Headerproduct>
-                <Headerproduct></Headerproduct>
-                <Headerproduct></Headerproduct>
-                <Headerproduct></Headerproduct>
+            <div className="Wrapper-HeaderProduct-ProductPage">
+                <Carousel activeIndex={product} onSelect={handleSelectProduct} className='fix-high'>
+                    <Carousel.Item >
+                        <div className='Wrapper-Product'>
+
+                            <Headerproduct></Headerproduct>
+                            <Headerproduct></Headerproduct>
+                            <Headerproduct></Headerproduct>
+                            <Headerproduct></Headerproduct>
+
+                        </div>
+
+                    </Carousel.Item>
+                    <Carousel.Item >
+                        <div className='Wrapper-Product'>
+                            <Headerproduct></Headerproduct>
+                            <Headerproduct></Headerproduct>
+                            <Headerproduct></Headerproduct>
+                            <Headerproduct></Headerproduct>
+
+                        </div>
+
+                    </Carousel.Item >
+                    <Carousel.Item >
+                        <div className='Wrapper-Product'>
+                            <Headerproduct></Headerproduct>
+                            <Headerproduct></Headerproduct>
+                            <Headerproduct></Headerproduct>
+                            <Headerproduct></Headerproduct>
+                        </div>
+
+
+                    </Carousel.Item>
+                    <Carousel.Item >
+                        <div className='Wrapper-Product'>
+                            <Headerproduct></Headerproduct>
+                            <Headerproduct></Headerproduct>
+                            <Headerproduct></Headerproduct>
+                            <Headerproduct></Headerproduct>
+
+                        </div>
+                    </Carousel.Item>
+                </Carousel>
+
+
 
             </div>
             <div className='Productpage-Branner'>
@@ -30,15 +77,15 @@ const ProductPage = () => {
                 <div className="Fillter-By"> Fillter by</div>
                 <div className="wrapper-Button-Fillter">
                     <button className={`bt ${selectedButton === 'All' ? 'selected' : ''}`}
-                    onClick={() => handleButtonClick('All')}>All</button>
+                        onClick={() => handleButtonClick('All')}>All</button>
                     <button className={`bt ${selectedButton === 'Best-seller' ? 'selected' : ''}`}
-                    onClick={() => handleButtonClick('Best-seller')}>Best Seller</button>
+                        onClick={() => handleButtonClick('Best-seller')}>Best Seller</button>
                     <button className={`bt ${selectedButton === 'Discount' ? 'selected' : ''}`}
-                    onClick={() => handleButtonClick('Discount')}>Discount</button>
+                        onClick={() => handleButtonClick('Discount')}>Discount</button>
                     <button className={`bt ${selectedButton === 'Low-price' ? 'selected' : ''}`}
-                    onClick={() => handleButtonClick('Low-price')}>Low Price</button>
+                        onClick={() => handleButtonClick('Low-price')}>Low Price</button>
                     <button className={`bt ${selectedButton === 'High-price' ? 'selected' : ''}`}
-                    onClick={() => handleButtonClick('High-price')}>High Price</button>
+                        onClick={() => handleButtonClick('High-price')}>High Price</button>
                 </div>
                 {/* <div className="Wrapper-Search-Fillter">
                     <i class="fillter fas fa-search"></i>
@@ -47,38 +94,38 @@ const ProductPage = () => {
                     
                 </div> */}
 
-                
+
             </div>
             <div className="Wrapper-Product-detail">
                 <Productdetail></Productdetail>
                 <Productdetail></Productdetail>
                 <Productdetail></Productdetail>
                 <Productdetail></Productdetail>
-               
-               
-                
+
+
+
 
             </div>
-           
-               
+
+
             <div className="Wrapper-Pagniation">
-            <nav aria-label="Page navigation example">
-                <ul className="pagination">
-                    <li className="page-item">
-                        <a className="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li className="page-item"><a class="page-link" href="#">1</a></li>
-                    <li className="page-item"><a class="page-link" href="#">2</a></li>
-                    <li className="page-item"><a class="page-link" href="#">3</a></li>
-                    <li className="page-item">
-                        <a className="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+                <nav aria-label="Page navigation example">
+                    <ul className="pagination">
+                        <li className="page-item">
+                            <a className="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li className="page-item"><a class="page-link" href="#">1</a></li>
+                        <li className="page-item"><a class="page-link" href="#">2</a></li>
+                        <li className="page-item"><a class="page-link" href="#">3</a></li>
+                        <li className="page-item">
+                            <a className="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
             <Footer />
         </>
