@@ -40,3 +40,27 @@
       width: 23rem;
     }
   }
+  .Bt-Admin-Details{
+    border-radius: 5px;
+    border-color: blue;
+    background-color: white;
+    color: blue;
+  }
+  .Bt-Admin-Details:hover{
+    background-color: blue;
+    color: white;
+  }
+  .Bt-Admin-Close{
+    padding: 0px 10px;
+    border-radius: 5px;
+    border-color: white;
+    background-color: rgb(126, 69, 34);
+    color: white;
+  }
+  .Bt-Admin-Close:hover{
+    border-radius: 5px;
+    border-color: rgb(126, 69, 34);
+    background-color: white;
+    color: rgb(126, 69, 34);
+
+  }

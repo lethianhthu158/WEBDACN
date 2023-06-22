@@ -18,8 +18,29 @@ import "synos-helena/lib/helena.css";
 function Header(props) {
   const [openPopupLogin, setOpenPopupLogin] = useState(false);
   const [openPopupRegister, setOpenPopupRegister] = useState(false);
-  const [navBackground, setNavBackground] = useState(false)
+  const [navBackground, setNavBackground] = useState(false);
+  const [selectedTab, setSelectedTab] = useState(1);
   const navRef = useRef();
+  // const [openModal,setOpenModal]= useState(false)
+  
+  const handleTabClick = (tabIndex) => {
+    setSelectedTab(tabIndex); // Cập nhật trạng thái khi người dùng nhấp vào tab
+  };
+
+  navRef.current = navBackground;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const show = window.scrollY > 50;
+      if (navRef.current !== show) {
+        setNavBackground(show);
+      }
+    };
+    document.addEventListener('scroll', handleScroll);
+    return () => {
+      document.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   const menu = (
     <HLMenu>
       <HLMenu.Item>
@@ -41,16 +62,16 @@ function Header(props) {
   navRef.current = navBackground
   useEffect(() => {
     const handleScroll = () => {
-      const show = window.scrollY > 50
+      const show = window.scrollY > 50;
       if (navRef.current !== show) {
-        setNavBackground(show)
+        setNavBackground(show);
       }
-    }
-    document.addEventListener('scroll', handleScroll)
+    };
+    document.addEventListener('scroll', handleScroll);
     return () => {
-      document.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+      document.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   
 
 
@@ -109,9 +130,45 @@ function Header(props) {
 
         </div>
       </div>
+      
       <div className="Scroll-auto">
-
         <Navbar.Toggle aria-controls="navbarScroll" data-bs-target="#nabarScroll" />
+        <Navbar.Collapse id="navbarScroll">
+          <Nav>
+            <div className={`Control-tab ${selectedTab === 1 ? 'active' : ''}`}>
+              <NavLink className="Control-tab" eventKey="1" to="/" onClick={() => handleTabClick(1)}>
+                HOME
+                {selectedTab === 1 && <hr className="tap-control" />}
+              </NavLink>
+            </div>
+            <div className={`Control-tab ${selectedTab === 2 ? 'active' : ''}`}>
+              <NavLink className="Control-tab" eventKey="2" to="/product" onClick={() => handleTabClick(2)}>
+                PRODUCTS
+                {selectedTab === 2 && <hr className="tap-control" />}
+              </NavLink>
+            </div>
+            <div className={`Control-tab ${selectedTab === 3 ? 'active' : ''}`}>
+            <Link className="Control-tab" eventKey="3" onClick={() => handleTabClick(3)} to="/distribution-channel-page">BRAND
+            {selectedTab === 3 && <hr className="tap-control" />}
+            </Link>
+            </div>
+            <div className={`Control-tab ${selectedTab === 4 ? 'active' : ''}`}>
+              <NavLink className="Control-tab" eventKey="4" to="/about-us" onClick={() => handleTabClick(4)}>
+                ABOUT
+                {selectedTab === 4 && <hr className="tap-control" />}
+              </NavLink>
+            </div>
+            <div className="control">
+              <input className="input-search" type="text" placeholder="Search.." />
+              <button className="searchButton">
+                <i className="fas fa-search"></i>
+              </button>
+            </div>
+          </Nav>
+        </Navbar.Collapse>
+      </div>
+
+        {/* <Navbar.Toggle aria-controls="navbarScroll" data-bs-target="#nabarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav>
             <div className="Control-tab">
@@ -135,7 +192,7 @@ function Header(props) {
             </div>
           </Nav>
         </Navbar.Collapse>
-      </div>
+      </div> */}
 
 
       <Dialog open={openPopupLogin} onClose={() => setOpenPopupLogin(false)}>
@@ -150,6 +207,13 @@ function Header(props) {
 
 
       {/* </div>
+      <Modal
+        openModal={openModal}
+        content="Do you want to delete 
+        the product from the cart?"
+        onCancel={() => setOpenModal(false)}
+      ></Modal>
+      
     </div> */}
 
 
