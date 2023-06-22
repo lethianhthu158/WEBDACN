@@ -25,6 +25,7 @@ function Homepage() {
 
     const [products, setProducts] = useState([]);
     const [bestSeller, setBestSeller] = useState([]);
+    const [bestBrand, setBestBrand] = useState([]);
 
     useEffect(() => {
         axios.get("http://localhost:8080/api/products/sales/top4")
@@ -40,6 +41,16 @@ function Homepage() {
         axios.get("http://localhost:8080/api/products/best-sellers/top4")
             .then(response => {
                 setBestSeller(response.data);
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
+            });
+    }, []);
+
+    useEffect(() => {
+        axios.get("http://localhost:8080/api/products/best-brand")
+            .then(response => {
+                setBestBrand(response.data);
             })
             .catch(error => {
                 console.error('There was an error!', error);
@@ -164,7 +175,7 @@ function Homepage() {
                 <a className='SeeAll'>See all</a></div>
             <div className="wrap-Sale-Product">
                 <div className='Sale-Product'>
-                {bestSeller.map(product => (
+                {bestBrand.map(product => (
                         <Productdetail nameProduct={product.name}  price={product.price} image={product.image}/>
                     ))}
                </div>

@@ -5,7 +5,7 @@ import product1 from "../../assets/product 1.png";
 import { useLocation } from 'react-router-dom';
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import {app} from "../../firebase/firebase";
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 
 const ProductDetail = () => {
@@ -26,6 +26,18 @@ const ProductDetail = () => {
       setImageUrl(url);
     });
   }, [image]);
+
+  const addToCart = () => {
+    const product = { nameProduct, price, imageUrl };
+    let cart = localStorage.getItem('cart');
+    if (cart) {
+      cart = JSON.parse(cart);
+    } else {
+      cart = [];
+    }
+    cart.push(product);
+    localStorage.setItem('cart', JSON.stringify(cart));
+  };
   console.log("from:" + nameProduct);
   return (
     <>
@@ -112,7 +124,7 @@ const ProductDetail = () => {
               <button className="btn-count increase">+</button>
             </div>
             <div className="productdetail-btn">
-              <button className="btn-cta btn-add">Add to card</button>
+              <button className="btn-cta btn-add" onClick={addToCart} >Add to card</button>
               <button className="btn-cta btn-buy">Buy</button>
             </div>
           </div>

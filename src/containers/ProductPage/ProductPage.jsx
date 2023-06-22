@@ -36,10 +36,10 @@ const ProductPage = () => {
                 setApiEndpoint("http://localhost:8080/api/products/sales");
                 break;
             case 'Low-price':
-                setApiEndpoint("http://localhost:8080/api/products/lowPrice");
+                setApiEndpoint("http://localhost:8080/api/products/low-price");
                 break;
             case 'High-price':
-                setApiEndpoint("http://localhost:8080/api/products/highPrice");
+                setApiEndpoint("http://localhost:8080/api/products/high-price");
                 break;
             default:
                 setApiEndpoint("http://localhost:8080/api/products");

@@ -33,20 +33,23 @@ const dataExample = [
 ];
 
 const CartPage = () => {
+  const cartData = localStorage.getItem('cart');
+  const cartItems = cartData ? JSON.parse(cartData) : [];
   return (
     <>
       <Header />
       <div className="container-cartpage">
         <h2 className="cartpage-title">CART</h2>
         <div className="wrap-listcard">
-          {dataExample.map((item) => (
+        {cartItems.map((item, index) => (
             <CardComplete
-              title={item.title}
-              colorProduct={item.colorProduct}
+              //key={index}
+              title={item.nameProduct}
+              colorProduct="Pink"
               price={item.price}
-              imgProduct={item.product}
-              isChooseNumProduct={item.isChooseNumProduct}
-              isCount={item.isCount}
+              imgProduct={item.image}
+              isChooseNumProduct={true}
+              isCount={true}
             />
           ))}
         </div>

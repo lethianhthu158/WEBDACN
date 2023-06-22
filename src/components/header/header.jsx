@@ -20,6 +20,7 @@ function Header(props) {
   const [openPopupRegister, setOpenPopupRegister] = useState(false);
   const [navBackground, setNavBackground] = useState(false)
   const navRef = useRef();
+  const userInfo = JSON.parse(localStorage.getItem('user-info'));
   const menu = (
     <HLMenu>
       <HLMenu.Item>
@@ -30,7 +31,7 @@ function Header(props) {
       </HLMenu.Item>
       <HLMenu.Item>
         <button className="dropdown-content header-logout">
-        <i class="icon-p fas fa-sign-out"></i>Logout {localStorage.removeItem('fullname')}
+        <i class="icon-p fas fa-sign-out"></i>Logout
         </button>
       </HLMenu.Item>
     </HLMenu>
@@ -70,13 +71,13 @@ function Header(props) {
             <button className="IconButton cartButton">
               <i class="icon fas fa-shopping-cart"></i>
             </button></Link>
-          {localStorage.getItem('fullname') ?
+          {userInfo && userInfo.fullname  ?
             (<>
               <button
                 className="RegisterButton"
                 onClick={() => setOpenPopupRegister(true)}
               >
-                {localStorage.getItem('fullname')}
+                {userInfo.fullname}
               </button>
               <HLCard>
                 <HLDropdown overlay={menu} trigger={["click"]}>

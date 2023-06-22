@@ -33,18 +33,18 @@ function Login({ onClose }) {
   
   
   const responseGoogle = async (response) => {
-    try {
-      const { tokenId } = response;
-      const result = await axios.post('http://localhost:8080/api/v1/auth/google', { tokenId });
+    // try {
+    //   const { tokenId } = response;
+    //   const result = await axios.post('http://localhost:8080/api/v1/auth/google', { tokenId });
       
-      // Handle response here
-      console.log(result.data);
-      localStorage.setItem("fullname", result.data.fullname);
-      setName(result.data);
-    } catch (error) {
-      // Handle error here
-      console.error(error);
-    }
+    //   // Handle response here
+    //   console.log(result.data);
+    //   localStorage.setItem("fullname", result.data.fullname);
+    //   setName(result.data);
+    // } catch (error) {
+    //   // Handle error here
+    //   console.error(error);
+    // }
   };
 
   const handleSubmit = async (event) => {
@@ -58,7 +58,7 @@ function Login({ onClose }) {
 
       // Handle response here
       console.log(response.data);
-      localStorage.setItem("fullname", response.data.fullname);
+      localStorage.setItem('user-info', JSON.stringify(response.data));
       setName(response.data);
     } catch (error) {
       // Handle error here
