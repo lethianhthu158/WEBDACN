@@ -21,11 +21,14 @@
     
 }
 .IconButton{
-    background-color: rgba(255, 255, 255, 0);
-    border: none;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
+   
+        background-color: rgba(255, 255, 255, 0);
+        border: none;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        position: relative;
+     
     
 
 }
@@ -179,6 +182,21 @@
   .dropdown-content {
     font-size: 15px;
     font-family: "Nunito Sans", sans-serif;
+  }
+  .num-fav {
+    position: absolute;
+    background: #ff5c5c;
+    border-radius: 50%;
+    top: 0;
+    right: -5px;
+    font-size: 8px;
+    font-family: "Nunito Sans", sans-serif;
+    width: 12px;
+    color: #ffff;
+  }
+  
+  .num-cart {
+    right: -8px;
   }
   
  

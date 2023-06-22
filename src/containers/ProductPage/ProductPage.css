@@ -93,3 +93,17 @@
     color: WHITE;
     border-color: #FF5C5C
 }
+.carousel-indicators .active{
+    opacity: 0;
+}
+.Wrapper-Product-page{
+    display: flex;   
+    justify-content: space-between;
+    
+  
+    margin-left: 8.5%;
+    margin-right: 8%;
+}
+.carousel-indicators{
+    opacity: 0;
+}

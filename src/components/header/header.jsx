@@ -66,10 +66,12 @@ function Header(props) {
           <Link to="/favoritepd">
           <button className="IconButton heartButton">
             <i class="icon fas fa-heart"></i>
+            <span className="num-fav">3</span>
           </button></Link>
           <Link to="/cart-page">
             <button className="IconButton cartButton">
               <i class="icon fas fa-shopping-cart"></i>
+              <span className="num-fav num-cart">3</span>
             </button></Link>
           {userInfo && userInfo.fullname  ?
             (<>

@@ -7,6 +7,7 @@ import "./Slidebar.css"
 import Logo from "../assets/Logoweb.png";
 import ProductManage from '../ProductManage/ProductManage';
 import Addproduct from '../AddProduct/AddProduct';
+import ProductWarehouse from '../ProductWarehouse/ProductWarehouse';
 
 function Slidebar() {
   return (
@@ -22,13 +23,19 @@ function Slidebar() {
             <Nav.Item>
               <Nav.Link className="menuItem" eventKey="second"><i class="far fa-list-alt"></i>Bill </Nav.Link>
             </Nav.Item>
+            <Nav.Item>
+              <Nav.Link className="menuItem" eventKey="third"><i class="fas fa-warehouse"></i>Product </Nav.Link>
+            </Nav.Item>
           </Nav>
         </Col>
         <Col sm={9}>
           <Tab.Content>
             <Tab.Pane eventKey="first"><MainDash/></Tab.Pane>
-            <Tab.Pane eventKey="second"><ProductManage/>
-            <Addproduct/></Tab.Pane>
+            <Tab.Pane eventKey="second"><ProductManage/></Tab.Pane>
+            <Tab.Pane eventKey="third"><ProductWarehouse/></Tab.Pane>
+            
+           
+            
           </Tab.Content>
         </Col>
       </Row>

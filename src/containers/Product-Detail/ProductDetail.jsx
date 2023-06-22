@@ -14,6 +14,7 @@ const ProductDetail = () => {
   const { price } = location.state || {};
   const { image } = location.state || {};
   const [imageUrl, setImageUrl] = useState(null);
+  const [countProduct, setCountProduct] = useState(1);
 
   useEffect(() => {
     const storage = getStorage(app);
@@ -119,9 +120,25 @@ const ProductDetail = () => {
               </div>
             </div>
             <div className="productdetail-count">
-              <button className="btn-count decrease">-</button>
-              <input placeholder="1" className="number-count"></input>
-              <button className="btn-count increase">+</button>
+            <button
+                onClick={() => setCountProduct(countProduct - 1)}
+                className="btn-count decrease"
+                disabled={countProduct === 1}
+              >
+                -
+              </button>
+              <input
+                className="number-count"
+                type="text"
+                value={countProduct}
+              ></input>
+              <button
+                onClick={() => setCountProduct(countProduct + 1)}
+                className="btn-count increase"
+              >
+                +
+              </button>
+              
             </div>
             <div className="productdetail-btn">
               <button className="btn-cta btn-add" onClick={addToCart} >Add to card</button>
