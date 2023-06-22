@@ -52,8 +52,8 @@ const ProfilePage = () => {
                             <i class="icon-p far fa-user"></i><div className="repone">My Account</div></div>
                         <Link to="/favoritepd"><div className="Tab Favorite-Product">
                             <i class="icon-p far fa-heart"></i><div className="repone">Favorite Product</div></div></Link>
-                        <div className="Tab Oder-management-Tab">
-                            <i class="icon-p fas fa-tasks"></i><div className="repone">Order management</div></div>
+                            <Link to="/oder-management">  <div className="Tab Oder-management-Tab">
+                           <i class="icon-p fas fa-tasks"></i><div className="repone">Order management</div></div></Link>
                         <div className="Tab Log-out"><i class="icon-p fas fa-sign-out"></i>
                             <div className="repone">Log out</div></div>
 

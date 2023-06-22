@@ -56,7 +56,7 @@ const ProductPage = () => {
             <div className="Wrapper-HeaderProduct-ProductPage">
                 <Carousel activeIndex={product} onSelect={handleSelectProduct} className='fix-high'>
                     <Carousel.Item >
-                        <div className='Wrapper-Product'>
+                        <div className='Wrapper-Product-page'>
 
                             <Headerproduct></Headerproduct>
                             <Headerproduct></Headerproduct>
@@ -67,7 +67,7 @@ const ProductPage = () => {
 
                     </Carousel.Item>
                     <Carousel.Item >
-                        <div className='Wrapper-Product'>
+                        <div className='Wrapper-Product-page'>
                             <Headerproduct></Headerproduct>
                             <Headerproduct></Headerproduct>
                             <Headerproduct></Headerproduct>
