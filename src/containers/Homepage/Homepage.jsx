@@ -27,7 +27,7 @@ function Homepage() {
     const [bestSeller, setBestSeller] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/products/sales")
+        axios.get("http://localhost:8080/api/products/sales/top4")
             .then(response => {
                 setProducts(response.data);
             })
@@ -37,7 +37,7 @@ function Homepage() {
     }, []);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/products/best-sellers")
+        axios.get("http://localhost:8080/api/products/best-sellers/top4")
             .then(response => {
                 setBestSeller(response.data);
             })
