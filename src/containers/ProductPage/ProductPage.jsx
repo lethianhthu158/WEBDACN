@@ -15,7 +15,7 @@ const ProductPage = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [apiEndpoint, setApiEndpoint] = useState("http://localhost:8080/api/products");
     useEffect(() => {
-        axios.get(`${apiEndpoint}?page=${currentPage}&size=4`)
+        axios.get(`${apiEndpoint}?page=${currentPage}&size=6`)
             .then(response => {
                 setProducts(response.data.content);
                 setTotalPages(response.data.totalPages);
@@ -125,7 +125,8 @@ const ProductPage = () => {
             </div>
             <div className="Wrapper-Product-detail">
                 {products.map(product => (
-                    <Productdetail nameProduct={product.name} price={product.price} image={product.image} />
+                    <div className="Product-detail">
+                    <Productdetail nameProduct={product.name} price={product.price} image={product.image} /></div>
                 ))}
             </div>
 
