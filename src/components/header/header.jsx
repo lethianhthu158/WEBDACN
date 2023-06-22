@@ -1,7 +1,7 @@
 import "./header.css";
 import logoImage from "../../assets/Logoweb.png";
 import logoName from "../../assets/name.png";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext  } from "react";
 import Login from "../login/loginform";
 import Register from "../register/registerform";
 import { Dialog } from "@material-ui/core";
@@ -13,6 +13,7 @@ import Avartar from "../../assets/avatar.png";
 import { HLDropdown, HLMenu, HLCard } from "synos-helena";
 import { Avatar } from "antd";
 import "synos-helena/lib/helena.css";
+import { CartContext } from '../../contexts/CartContext';
 
 
 function Header(props) {
@@ -21,6 +22,7 @@ function Header(props) {
   const [navBackground, setNavBackground] = useState(false);
   const [selectedTab, setSelectedTab] = useState(1);
   const navRef = useRef();
+<<<<<<< HEAD
   // const [openModal,setOpenModal]= useState(false)
   
   const handleTabClick = (tabIndex) => {
@@ -41,6 +43,11 @@ function Header(props) {
       document.removeEventListener('scroll', handleScroll);
     };
   }, []);
+=======
+  const userInfo = JSON.parse(localStorage.getItem('user-info'));
+  const { cart } = useContext(CartContext);
+  const totalQuantity = cart ? cart.reduce((total, item) => total + item.quantity, 0) : 0;
+>>>>>>> ceda24e37ed7b68ae7336d1d44ed62c92cbfbdbf
   const menu = (
     <HLMenu>
       <HLMenu.Item>
@@ -51,7 +58,7 @@ function Header(props) {
       </HLMenu.Item>
       <HLMenu.Item>
         <button className="dropdown-content header-logout">
-        <i class="icon-p fas fa-sign-out"></i>Logout {localStorage.removeItem('fullname')}
+        <i class="icon-p fas fa-sign-out"></i>Logout
         </button>
       </HLMenu.Item>
     </HLMenu>
@@ -74,8 +81,6 @@ function Header(props) {
   }, []);
   
 
-
-
   return (
 
     <Navbar collapseOnSelect className="wrapHead" expand="sm" fixed="top" style={{ transition: '1s ease', backgroundColor: navBackground ? 'white' : 'rgba(255, 255, 255, 0.75)' }}>
@@ -91,15 +96,15 @@ function Header(props) {
           <Link to="/cart-page">
             <button className="IconButton cartButton">
               <i class="icon fas fa-shopping-cart"></i>
-              <span className="num-fav num-cart">3</span>
+              <span className="num-fav num-cart">{totalQuantity}</span>
             </button></Link>
-          {localStorage.getItem('fullname') ?
+          {userInfo && userInfo.fullname  ?
             (<>
               <button
                 className="RegisterButton"
                 onClick={() => setOpenPopupRegister(true)}
               >
-                {localStorage.getItem('fullname')}
+                {userInfo.fullname}
               </button>
               <HLCard>
                 <HLDropdown overlay={menu} trigger={["click"]}>
@@ -124,10 +129,6 @@ function Header(props) {
               </button>
              
             </>)}
-
-
-
-
         </div>
       </div>
       

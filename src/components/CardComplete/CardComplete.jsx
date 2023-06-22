@@ -9,8 +9,9 @@ const CardComplete = ({
   imgProduct,
   isChooseNumProduct,
   isCount,
+  quantity
 }) => {
-  const [countProduct, setCountProduct] = useState(1);
+  const [countProduct, setCountProduct] = useState(quantity);
 
   return (
     <div className="container-cardcomplete">
@@ -20,7 +21,7 @@ const CardComplete = ({
           <h6 className="productcomplete-content">{title}</h6>
           <p className="productcomplete-content">{colorProduct}</p>
           <p className="productcomplete-content productcomplete-price">
-            {price}
+            ${price}
           </p>
         </div>
       </div>

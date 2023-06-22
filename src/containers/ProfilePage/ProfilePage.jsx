@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 
 
 const ProfilePage = () => {
+    const userInfo = JSON.parse(localStorage.getItem('user-info'));
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
@@ -35,7 +36,7 @@ const ProfilePage = () => {
                 <div className="Profile-person">
                     <div className="wrapper-avartar"><img className="avartar-image" src={Avartar}></img></div>
                     <div className="Wrapper-Name-Person">
-                        <div className="Name-person">Lê Thị Anh Thư</div>
+                        <div className="Name-person">{userInfo.fullname}</div>
                         <div className="Wrapper-edit">
                             <i class="edit-profile far fa-edit"></i>
                             <button className="Bt-edit">Edit Avatar</button>
@@ -63,8 +64,8 @@ const ProfilePage = () => {
                             <div className="Profile-Title">My Account <br />Manage and protect your account</div>
                             <hr></hr>
                             <div className="wrapper-Input-edit">
-                                <div className="Edit Name"><div className="tile-input">Name</div><input className="Input"></input></div>
-                                <div className="Edit Email"><div className="tile-input">Email</div><input className="Input"></input></div>
+                                <div className="Edit Name"><div className="tile-input">Name</div><input className="Input" value={userInfo.fullname}></input></div>
+                                <div className="Edit Email"><div className="tile-input">Email</div><input className="Input" value={userInfo.email}></input></div>
                                 <div className="Edit Phone"><div className="tile-input">Phone</div><input className="Input"></input></div>
                                 <div className="Edit Address"><div className="tile-input">Address</div><input className="Input"></input></div>
                                 <Form>

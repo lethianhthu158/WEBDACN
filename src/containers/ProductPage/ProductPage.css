@@ -23,8 +23,11 @@
     justify-content: space-between;
 }
 .Wrapper-Product-detail{
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-gap:50px;
+    grid-row-gap:30px;
+    padding:30px 30px;
 }
 
 .pagination{
@@ -85,6 +88,7 @@
     width: 2%;
 }
 
+
 .page-item .page-link{
     color: #FF5C5C;
 }
@@ -99,10 +103,9 @@
 .Wrapper-Product-page{
     display: flex;   
     justify-content: space-between;
+    width: 80%;
     
-  
-    margin-left: 8.5%;
-    margin-right: 8%;
+    margin-left: 10%;
 }
 .carousel-indicators{
     opacity: 0;
