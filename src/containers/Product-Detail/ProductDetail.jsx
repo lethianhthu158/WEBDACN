@@ -7,7 +7,8 @@ import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import {app} from "../../firebase/firebase";
 import React, { useState, useEffect, useContext  } from 'react';
 import { CartContext } from '../../contexts/CartContext';
-
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const ProductDetail = () => {
   const location = useLocation()

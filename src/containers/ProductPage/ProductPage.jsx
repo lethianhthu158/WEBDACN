@@ -126,7 +126,7 @@ const ProductPage = () => {
             <div className="Wrapper-Product-detail">
                 {products.map(product => (
                     <div className="Product-detail">
-                    <Productdetail nameProduct={product.name} price={product.price} image={product.image} /></div>
+                        <Productdetail nameProduct={product.name} price={product.price} image={product.image} /></div>
                 ))}
             </div>
 
