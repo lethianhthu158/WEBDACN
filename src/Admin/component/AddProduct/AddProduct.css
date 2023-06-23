@@ -42,6 +42,7 @@
     text-align: right;
     margin-bottom: 5%;
 }
+
 .Add-Admin-Add-Pd{
     padding:1% 6%;
     font-family: 'Nunito Sans', sans-serif;
@@ -51,4 +52,37 @@
     border-radius: 5px;
     border:none;
 
+}
+.Add-Admin-Add-Pd:active{
+    background-color: rgba(85, 56, 40, 0.78) ;
+
+}
+.Choose-image-admin{
+  padding: 0 50px;
+  border-radius: 5px;
+  font-weight: 700;
+  border-color:bisque;
+  background-color: bisque;
+  padding-top: 3px;
+  cursor: pointer;
+  color: brown;
+  
+  
+}
+.Choose-image-admin:hover{
+ 
+    background-color: brown;
+    color: bisque;
+    
+
+}
+.Choose-image-admin:active{
+    background-color: rgb(50, 8, 8);
+    color: bisque;
+
+}
+.wrapper-add-produc-design-input{
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
 }

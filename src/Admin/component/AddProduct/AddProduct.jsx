@@ -1,7 +1,23 @@
 import React from "react";
+import { useState } from "react";
 
 import "./AddProduct.css";
 const Addproduct = () => {
+  const [imagePath, setImagePath] = useState(""); 
+
+  // Xử lý sự kiện khi người dùng chọn tệp hình ảnh
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      setImagePath(e.target.result); // Lưu trữ đường dẫn hình ảnh vào state
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
   return (
     <div className="AddProduct">
       <div className="wrappper-Input-Product">
@@ -15,7 +31,24 @@ const Addproduct = () => {
           </div>
           <div className="input-add-product">
             <div className="Title-Input">IMAGE</div>
-            <input className="add-produc-design-input" type="text" />
+            <div className="wrapper-add-produc-design-input">
+            <input
+              className="add-produc-design-input imageProduct"
+              type="text"
+              value={imagePath} // Hiển thị đường dẫn hình ảnh trong khung nhập liệu
+              readOnly
+            />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange} // Xử lý sự kiện khi người dùng chọn tệp hình ảnh
+              style={{ display: "none" }}
+              id="fileInput"
+            />
+            <label htmlFor="fileInput" className="Choose-image-admin">
+              Choose file
+            </label>
+            </div>
           </div>
 
           <div className="input-add-product">

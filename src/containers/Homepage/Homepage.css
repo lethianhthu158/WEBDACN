@@ -57,15 +57,17 @@
     justify-content: space-between;
 }
 .wrap-Sale-Product{
-    padding-left: 5%;
-    padding-right: 5%;
+    
     margin-top: 5%;
     margin-bottom: 5%;
 }
 .Sale-Product{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     font-family: 'Nunito Sans', sans-serif;
+    width: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
 
 }
 .SeeAll{
