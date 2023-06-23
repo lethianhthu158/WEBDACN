@@ -114,19 +114,26 @@
 .left{
     margin-left: 20px;
 }
+.input-search-container {
+  position: relative;
+}
 .input-search{
     background-color: rgb(217, 210, 210);
     border-radius: 5px 0px 0px 5px;
-   border-style: hidden;
-    height: 25px;
+    border-style: hidden;
+    height: 30px;
     outline: none;
     
 }
+
+
+
+
 .searchButton{
     background-color: #FDCF76;
     border-radius: 0px 5px 5px 0px; ;
     border: #FDCF76;
-    height: 25px;
+    height: 30px;
     cursor: pointer;
 }
 .fa-search{
@@ -204,5 +211,35 @@
   .num-cart {
     right: -8px;
   }
+  .autocomple-search-product {
+    position: absolute;
+    top: 40%;
+    left: -10px;
+    list-style-type: none;
+    background-color:rgba(255, 255, 255, 0);
+    margin: 0;
+    padding: 10px;
+    border-radius: 5px;
+    width: 112%;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 999; 
+  }
   
- 
+  .result-search-product{
+    background-color: rgb(217, 210, 210);
+    padding: 10px 40px;
+    border-bottom: 1px solid #eee; 
+    cursor: pointer;
+    transition: background-color 0.2s ease; 
+    
+  }
+.result-search-product:hover {
+  background-color: #f6f6f6; 
+}
+
+.result-search-product:last-child {
+  border-bottom: none; 
+}
+
+  

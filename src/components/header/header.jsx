@@ -1,7 +1,7 @@
 import "./header.css";
 import logoImage from "../../assets/Logoweb.png";
 import logoName from "../../assets/name.png";
-import React, { useState, useEffect, useRef ,useContext} from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import Login from "../login/loginform";
 import Register from "../register/registerform";
 import { Dialog } from "@material-ui/core";
@@ -14,10 +14,13 @@ import { HLDropdown, HLMenu, HLCard } from "synos-helena";
 import { Avatar } from "antd";
 import "synos-helena/lib/helena.css";
 import { CartContext } from '../../contexts/CartContext';
+import axios from 'axios';
 
 
 
 function Header(props) {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
   const [openPopupLogin, setOpenPopupLogin] = useState(false);
   const [openPopupRegister, setOpenPopupRegister] = useState(false);
   const [navBackground, setNavBackground] = useState(false);
@@ -27,7 +30,7 @@ function Header(props) {
   // const [openModal,setOpenModal]= useState(false)
   const { cart } = useContext(CartContext);
   const totalQuantity = cart ? cart.reduce((total, item) => total + item.quantity, 0) : 0;
-  
+
   const handleTabClick = (tabIndex) => {
     setSelectedTab(tabIndex); // Cập nhật trạng thái khi người dùng nhấp vào tab
   };
@@ -50,7 +53,7 @@ function Header(props) {
     <HLMenu>
       <HLMenu.Item>
         <Link className="dropdown-content header-link-profile" to="/profile">
-        <i class="icon-p far fa-user"></i>
+          <i class="icon-p far fa-user"></i>
           My Account
         </Link>
       </HLMenu.Item>
@@ -77,7 +80,18 @@ function Header(props) {
       document.removeEventListener('scroll', handleScroll);
     };
   }, []);
-  
+
+  useEffect(() => {
+    if (searchTerm) {
+      axios.get(`http://localhost:8080/api/products/search/autocomplete?name=${searchTerm}`)
+        .then(res => {
+          setSearchResults(res.data);
+        })
+        .catch(err => console.error(err));
+    } else {
+      setSearchResults([]);
+    }
+  }, [searchTerm]);
 
 
 
@@ -89,22 +103,22 @@ function Header(props) {
         <img className="logoName" src={logoName} alt="Logo name"></img>
         <div className="wrapButtons">
           <Link to="/favoritepd">
-          <button className="IconButton heartButton">
-            <i class="icon fas fa-heart"></i>
-            <span className="num-fav">3</span>
-          </button></Link>
+            <button className="IconButton heartButton">
+              <i class="icon fas fa-heart"></i>
+              <span className="num-fav">3</span>
+            </button></Link>
           <Link to="/cart-page">
             <button className="IconButton cartButton">
               <i class="icon fas fa-shopping-cart"></i>
               <span className="num-fav num-cart" >{totalQuantity}</span>
             </button></Link>
-          {userInfo && userInfo.fullname   ?
+          {userInfo && userInfo.fullname ?
             (<>
               <button
                 className="RegisterButton"
                 onClick={() => setOpenPopupRegister(true)}
               >
-               {userInfo.fullname}
+                {userInfo.fullname}
               </button>
               <HLCard>
                 <HLDropdown overlay={menu} trigger={["click"]}>
@@ -115,9 +129,9 @@ function Header(props) {
                 </HLDropdown>
               </HLCard> </>) :
             (<>
-             <button
+              <button
                 className="RegisterButton"
-               onClick={() => setOpenPopupRegister(true)}
+                onClick={() => setOpenPopupRegister(true)}
               >
                 Register
               </button>
@@ -127,7 +141,7 @@ function Header(props) {
               >
                 Login
               </button>
-             
+
             </>)}
 
 
@@ -135,7 +149,7 @@ function Header(props) {
 
         </div>
       </div>
-      
+
       <div className="Scroll-auto">
         <Navbar.Toggle aria-controls="navbarScroll" data-bs-target="#nabarScroll" />
         <Navbar.Collapse id="navbarScroll">
@@ -153,9 +167,9 @@ function Header(props) {
               </NavLink>
             </div>
             <div className={`Control-tab ${selectedTab === 3 ? 'active' : ''}`}>
-            <NavLink className="Control-tab" eventKey="3" onClick={() => handleTabClick(3)} to="/distribution-channel-page">BRAND
-            {selectedTab === 3 && <hr className="tap-control" />}
-            </NavLink>
+              <NavLink className="Control-tab" eventKey="3" onClick={() => handleTabClick(3)} to="/distribution-channel-page">BRAND
+                {selectedTab === 3 && <hr className="tap-control" />}
+              </NavLink>
             </div>
             <div className={`Control-tab ${selectedTab === 4 ? 'active' : ''}`}>
               <NavLink className="Control-tab" eventKey="4" to="/about-us" onClick={() => handleTabClick(4)}>
@@ -164,7 +178,26 @@ function Header(props) {
               </NavLink>
             </div>
             <div className="control">
-              <input className="input-search" type="text" placeholder="Search.." />
+              <div className="input-search-container">
+                <input
+                  className="input-search"
+                  type="text"
+                  placeholder="Search.."
+                  value={searchTerm}
+                  onChange={e => setSearchTerm(e.target.value)}
+                />
+                <ul className="autocomple-search-product">
+                  {searchResults.map(product => (
+                    <li key={product.id} className="result-search-product">
+                      <Link state={{ nameProduct: product.name, price : product.price, image: product.image }} to="/product-detail">
+                        {product.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+
+              </div>
+
               <button className="searchButton">
                 <i className="fas fa-search"></i>
               </button>
@@ -173,7 +206,7 @@ function Header(props) {
         </Navbar.Collapse>
       </div>
 
-        {/* <Navbar.Toggle aria-controls="navbarScroll" data-bs-target="#nabarScroll" />
+      {/* <Navbar.Toggle aria-controls="navbarScroll" data-bs-target="#nabarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav>
             <div className="Control-tab">

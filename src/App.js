@@ -33,7 +33,6 @@ function App() {
       <Route path="/favoritepd" element={<Favorite />} />
       <Route path="/oder-management" element={<OderManage/>} />
       <Route path="/admin/dashboard" element={<Slidebar/>} />
-
       
     </Routes>
   );
