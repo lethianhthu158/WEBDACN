@@ -52,7 +52,7 @@ const dataExample = [
     Description:"Beautiful",
   },
   {
-    Name: "Half n Half Water Glow Season 3",    
+    Name: "Half n Half Water Glow Season ",    
     Price: "$150",
     Image: "Product.png",
     Brand: "3CE",

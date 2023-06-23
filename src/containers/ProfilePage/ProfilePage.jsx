@@ -7,6 +7,9 @@ import Form from 'react-bootstrap/Form';
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
+import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import {app, storage} from "../../firebase/firebase";
+
 
 
 
@@ -16,6 +19,7 @@ const ProfilePage = () => {
     const [isMobile, setIsMobile] = useState(false);
 
     const [imagePath, setImagePath] = useState("");
+    const [url, setUrl] = useState('');
 
     // Xử lý sự kiện khi người dùng chọn tệp hình ảnh
     const handleFileChange = (event) => {
@@ -29,7 +33,27 @@ const ProfilePage = () => {
         if (file) {
             reader.readAsDataURL(file);
         }
+        const storeRef = ref(storage,`Avartar-User/${file.name}`);
+        const uploadTask = uploadBytesResumable(storeRef, file)
+
+        uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          
+        },
+        (error) => {
+          // Xử lý lỗi (nếu có)
+          console.log(error);
+        },
+        () => {
+          // Hoàn thành tải lên thành công
+          uploadTask.snapshot.ref.getDownloadURL().then((downloadUrl) => {
+            setUrl(downloadUrl);
+          });
+        }
+      );
     };
+   
 
     useEffect(() => {
         const handleResize = () => {
@@ -51,7 +75,7 @@ const ProfilePage = () => {
             <div className="Body-ProfilePage">
                 <hr></hr>
                 <div className="Profile-person">
-                    <div className="wrapper-avartar"><img className="avartar-image" src={Avartar}></img></div>
+                    <div className="wrapper-avartar"><img className="avartar-image" src={imagePath}></img></div>
                     <div className="Wrapper-Name-Person">
                         <div className="Name-person">{userInfo.fullname}</div>
                         <div className="Wrapper-edit">
@@ -63,7 +87,7 @@ const ProfilePage = () => {
                                 style={{ display: "none" }}
                                 id="fileInput"
                             />
-                            <label htmlFor="fileInput" className="Bt-edit">
+                            <label htmlFor="fileInput" className="Bt-edit" >
                                 Edit Avatar
                             </label>
                            
