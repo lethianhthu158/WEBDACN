@@ -14,7 +14,7 @@ function Slidebar() {
     <Tab.Container id="left-tabs-example" defaultActiveKey="first">
       <Row>
        
-        <Col className="Tab-Sidebar" sm={3}>
+        <Col className="Tab-Sidebar" sm={2}>
           <img className="logo" src={Logo}/>
           <Nav variant="pills" className="flex-column">
             <Nav.Item>
@@ -28,7 +28,7 @@ function Slidebar() {
             </Nav.Item>
           </Nav>
         </Col>
-        <Col sm={9}>
+        <Col sm={10}>
           <Tab.Content>
             <Tab.Pane eventKey="first"><MainDash/></Tab.Pane>
             <Tab.Pane eventKey="second"><ProductManage/></Tab.Pane>
