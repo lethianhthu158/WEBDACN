@@ -65,3 +65,23 @@
     color:white;
 
 }
+.Product-img-admin{
+  display: flex;
+  width: 100%;
+}
+.Img-Admin-add{
+  width: 100%;
+  text-align: center;
+  
+}
+.wrapper-img-admin-add{
+  width: 20%;
+}
+.wrapper-item-img{
+  width: 80%;
+  padding-top: 5%!important;
+}
+
+.delete-button {
+  padding: 16px;
+}
