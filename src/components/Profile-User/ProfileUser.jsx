@@ -76,7 +76,7 @@ const ProfileUser = () => {
                 <div className="Profile-person">
                     <div className="wrapper-avartar"><img className="avartar-image" src={imagePath}></img></div>
                     <div className="Wrapper-Name-Person">
-                        <div className="Name-person">{userInfo.fullname}</div>
+                        <div className="Name-person">{userInfo.fullName}</div>
                         <div className="Wrapper-edit">
                             <i class="edit-profile far fa-edit"></i>
                             <input

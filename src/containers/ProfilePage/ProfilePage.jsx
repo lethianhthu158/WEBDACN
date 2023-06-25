@@ -11,14 +11,14 @@ import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/
 import {app, storage} from "../../firebase/firebase";
 import ProfileUser from "../../components/Profile-User/ProfileUser";
 import Modal from "../../components/Modal/Modal"
-
-
-
-
-
+import axios from 'axios';
 
 const ProfilePage = () => {
-    const userInfo = localStorage.getItem('user-info');   
+    const userInfo = JSON.parse(localStorage.getItem('user-info')) 
+    const [fullName, setFullName] = useState(userInfo.fullName);
+    const [email, setEmail] = useState(userInfo.email);
+    const [address, setAddress] = useState(userInfo.address);
+    const [phone, setPhone] = useState(userInfo.phone)  
     const [isMobile, setIsMobile] = useState(false);
     const [openModal,setOpenModal]= useState(false);
 
@@ -64,6 +64,7 @@ const ProfilePage = () => {
       );
     };
    
+    console.log(userInfo);
 
     useEffect(() => {
         if (!userInfo) {
@@ -84,6 +85,22 @@ const ProfilePage = () => {
         };
     }, []);
 
+    const handleSave = async () => {
+        const newCustomerData = {
+          fullName, 
+          email,
+          phone,
+          address  
+        };
+        const updatedCustomer = await updateCustomer(userInfo.customerId, newCustomerData);
+    };
+
+    const updateCustomer = async (customerId, customerDto) => {
+        const response = await axios.put(`/customers/${customerId}`, customerDto);
+        return response.data;
+    };
+      
+      
     return (
         <>
             <Header />
@@ -106,10 +123,10 @@ const ProfilePage = () => {
                             <div className="Profile-Title">My Account <br />Manage and protect your account</div>
                             <hr></hr>
                             <div className="wrapper-Input-edit">
-                                <div className="Edit Name"><div className="tile-input">Name</div><input className="Input" value={userInfo ? userInfo.fullname: ''}></input></div>
-                                <div className="Edit Email"><div className="tile-input">Email</div><input className="Input" value={userInfo ? userInfo.email : ''}></input></div>
-                                <div className="Edit Phone"><div className="tile-input">Phone</div><input className="Input"></input></div>
-                                <div className="Edit Address"><div className="tile-input">Address</div><input className="Input"></input></div>
+                                <div className="Edit Name"><div className="tile-input">Name</div><input className="Input" value={userInfo ? userInfo.fullName: ''} onChange={(e) => setFullName(e.target.value)}></input></div>
+                                <div className="Edit Email"><div className="tile-input">Email</div><input className="Input" value={userInfo ? userInfo.email : ''} onChange={(e) =>setEmail(e.target.value)}></input></div>
+                                <div className="Edit Phone"><div className="tile-input">Phone</div><input className="Input" value={userInfo.phone ? userInfo.phone: ''} onChange={(e) =>setPhone(e.target.value)}></input></div>
+                                <div className="Edit Address"><div className="tile-input">Address</div><input className="Input" value={userInfo.address ? userInfo.address: ''} onChange={(e) =>setAddress(e.target.value)}></input></div>
                                 <Form>
                                     {['radio'].map((type) => (
                                         <div key={`inline-${type}`} className="mb-3">
@@ -143,9 +160,7 @@ const ProfilePage = () => {
 
                             </div>
                             <div className="wrapper-button-profile">
-                                <button className="Button Update">Update</button>
-                                <button className="Button Save">Save</button>
-
+                               <button className="Button Save" onClick={() => handleSave}>Save</button>
                             </div>
                         </div>
                     </div>

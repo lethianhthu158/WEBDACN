@@ -119,13 +119,13 @@ function Header(props) {
               <i class="icon fas fa-shopping-cart"></i>
               <span className="num-fav num-cart" >{totalQuantity}</span>
             </button></Link>
-          {userInfo && userInfo.fullname ?
+          {userInfo && userInfo.fullName ?
             (<>
               <button
                 className="RegisterButton"
                 onClick={() => setOpenPopupRegister(true)}
               >
-                {userInfo.fullname}
+                {userInfo.fullName}
               </button>
               <HLCard>
                 <HLDropdown overlay={menu} trigger={["click"]}>
