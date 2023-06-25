@@ -4,19 +4,29 @@ import Header from "../../components/header/header";
 import { Footer } from "../../components/footer/footer";
 import Avartar from "../../assets/avatar.png";
 import Form from 'react-bootstrap/Form';
-import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import React, { useState, useEffect} from 'react';
+import { Link, useH } from "react-router-dom";
 
 import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import {app, storage} from "../../firebase/firebase";
+import ProfileUser from "../../components/Profile-User/ProfileUser";
+import Modal from "../../components/Modal/Modal"
+
 
 
 
 
 
 const ProfilePage = () => {
-    const userInfo = JSON.parse(localStorage.getItem('user-info'));
+    const userInfo = localStorage.getItem('user-info');   
     const [isMobile, setIsMobile] = useState(false);
+    const [openModal,setOpenModal]= useState(false);
+
+    const handleLogout = () => {
+        localStorage.removeItem('user-info');
+        setOpenModal(false);
+        window.location.href = "/";
+      };
 
     const [imagePath, setImagePath] = useState("");
     const [url, setUrl] = useState('');
@@ -56,6 +66,11 @@ const ProfilePage = () => {
    
 
     useEffect(() => {
+        if (!userInfo) {
+            window.location.href = "/";
+
+        }
+        
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 765);
         };
@@ -73,31 +88,7 @@ const ProfilePage = () => {
         <>
             <Header />
             <div className="Body-ProfilePage">
-                <hr></hr>
-                <div className="Profile-person">
-                    <div className="wrapper-avartar"><img className="avartar-image" src={imagePath}></img></div>
-                    <div className="Wrapper-Name-Person">
-                        <div className="Name-person">{userInfo.fullname}</div>
-                        <div className="Wrapper-edit">
-                            <i class="edit-profile far fa-edit"></i>
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={handleFileChange} // Xử lý sự kiện khi người dùng chọn tệp hình ảnh
-                                style={{ display: "none" }}
-                                id="fileInput"
-                            />
-                            <label htmlFor="fileInput" className="Bt-edit" >
-                                Edit Avatar
-                            </label>
-                           
-                        </div>
-                    </div>
-                    <div>
-
-                    </div>
-                </div>
-                <hr></hr>
+                <ProfileUser></ProfileUser>
                 <div className={`Info-person ${isMobile ? "hide-text" : ""}`}>
                     <div className="Category-account">
                         <div className=" Tab My-Account">
@@ -106,7 +97,7 @@ const ProfilePage = () => {
                             <i class="icon-p far fa-heart"></i><div className="repone">Favorite Product</div></div></Link>
                         <Link to="/oder-management">  <div className="Tab Oder-management-Tab">
                             <i class="icon-p fas fa-tasks"></i><div className="repone">Order management</div></div></Link>
-                        <div className="Tab Log-out"><i class="icon-p fas fa-sign-out"></i>
+                        <div className="Tab Log-out" onClick={()=>setOpenModal(true)}><i class="icon-p fas fa-sign-out"></i>
                             <div className="repone">Log out</div></div>
 
                     </div>
@@ -115,8 +106,8 @@ const ProfilePage = () => {
                             <div className="Profile-Title">My Account <br />Manage and protect your account</div>
                             <hr></hr>
                             <div className="wrapper-Input-edit">
-                                <div className="Edit Name"><div className="tile-input">Name</div><input className="Input" value={userInfo.fullname}></input></div>
-                                <div className="Edit Email"><div className="tile-input">Email</div><input className="Input" value={userInfo.email}></input></div>
+                                <div className="Edit Name"><div className="tile-input">Name</div><input className="Input" value={userInfo ? userInfo.fullname: ''}></input></div>
+                                <div className="Edit Email"><div className="tile-input">Email</div><input className="Input" value={userInfo ? userInfo.email : ''}></input></div>
                                 <div className="Edit Phone"><div className="tile-input">Phone</div><input className="Input"></input></div>
                                 <div className="Edit Address"><div className="tile-input">Address</div><input className="Input"></input></div>
                                 <Form>
@@ -164,6 +155,12 @@ const ProfilePage = () => {
             </div>
 
             <Footer />
+            <Modal
+        openModal={openModal}
+        content="Do you want to log out ?"
+        onCancel={() => setOpenModal(false)}
+        onYes={handleLogout}
+      ></Modal>
         </>
     );
 };

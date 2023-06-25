@@ -13,6 +13,7 @@ const ProductPage = () => {
     const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
+    const [TileProduct,setTitleProduct]=useState();
     const [apiEndpoint, setApiEndpoint] = useState("http://localhost:8080/api/products");
     useEffect(() => {
         axios.get(`${apiEndpoint}?page=${currentPage}&size=6`)
@@ -26,6 +27,8 @@ const ProductPage = () => {
     }, [currentPage, apiEndpoint]);
     const [selectedButton, setSelectedButton] = useState(null);
     const [product, setProduct] = useState(0);
+    const [expandedProduct, setExpandedProduct] = useState(null); // New state for expanded product
+
     const handleButtonClick = (buttonName) => {
         setSelectedButton(buttonName);
         switch (buttonName) {
@@ -47,7 +50,16 @@ const ProductPage = () => {
     };
     const handleSelectProduct = (selectedIndexed, e) => {
         setProduct(selectedIndexed);
+        setExpandedProduct(selectedIndexed);
     };
+    const handleExpandProduct = (selectedIndexed) => {
+        if (expandedProduct === selectedIndexed) {
+            setExpandedProduct(null); // Collapse the expanded product if clicked again
+        } else {
+            setExpandedProduct(selectedIndexed); // Expand the clicked product
+        }
+    };
+
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
@@ -73,32 +85,86 @@ const ProductPage = () => {
                 <Carousel activeIndex={product} onSelect={handleSelectProduct} className='fix-high'>
                     <Carousel.Item >
                         <div className='Wrapper-Product-page'>
-
-                            <Headerproduct></Headerproduct>
-                            <Headerproduct></Headerproduct>
-                            <Headerproduct></Headerproduct>
-                            <Headerproduct></Headerproduct>
-
+                            <div className="wrapper-header-product">
+                                <Headerproduct
+                                    background={require("../../assets/Blush.png")}
+                                    nameProduct="Blush"
+                                    expanded={expandedProduct === 0} // Pass the expanded state for each product
+                                    onClick={() =>{ handleExpandProduct(0);setTitleProduct("Blush")}} // Handle click to expand/collapse
+                                />
+                            </div>
+                            <div className="wrapper-header-product">
+                                <Headerproduct
+                                    background={require("../../assets/Cleanser.jpg")}
+                                    nameProduct="Cleanser"
+                                    expanded={expandedProduct === 1}
+                                    onClick={() => {handleExpandProduct(1);setTitleProduct("Cleanser")}}
+                                />
+                            </div>
+                            <div className="wrapper-header-product">
+                                <Headerproduct
+                                    background={require("../../assets/CleansingWater.png")}
+                                    nameProduct="Cleansing Water"
+                                    expanded={expandedProduct === 2}
+                                    onClick={() => {handleExpandProduct(2);setTitleProduct("Cleansing Water");}}
+                                />
+                            </div>
+                            <div className="wrapper-header-product">
+                                <Headerproduct
+                                    background={require("../../assets/Toner.jpg")}
+                                    nameProduct="Toner"
+                                    expanded={expandedProduct === 3}
+                                    onClick={() => {handleExpandProduct(3); setTitleProduct("Toner");}}
+                                />
+                            </div>
                         </div>
-
                     </Carousel.Item>
                     <Carousel.Item >
                         <div className='Wrapper-Product-page'>
-                            <Headerproduct></Headerproduct>
-                            <Headerproduct></Headerproduct>
-                            <Headerproduct></Headerproduct>
-                            <Headerproduct></Headerproduct>
-
+                            <div className="wrapper-header-product">
+                                <Headerproduct
+                                    background={require("../../assets/Lips.png")}
+                                    nameProduct="Liptick"
+                                    expanded={expandedProduct === 4}
+                                    onClick={() => {handleExpandProduct(4);
+                                        setTitleProduct("Liptick");}}
+                                />
+                            </div>
+                            <div className="wrapper-header-product">
+                                <Headerproduct
+                                    background={require("../../assets/Powder.jpg")}
+                                    nameProduct="Powder"
+                                    expanded={expandedProduct === 5}
+                                    onClick={() => { handleExpandProduct(5);
+                                            setTitleProduct("Powder");}}
+                                />
+                            </div>
+                            <div className="wrapper-header-product">
+                                <Headerproduct
+                                    background={require("../../assets/EyeLine.jpg")}
+                                    nameProduct="Eyeliner"
+                                    expanded={expandedProduct === 6}
+                                    onClick={() => {handleExpandProduct(6);
+                                        setTitleProduct("Eyeliner");}}
+                                />
+                            </div>
+                            <div className="wrapper-header-product">
+                                <Headerproduct
+                                    background={require("../../assets/Primer.png")}
+                                    nameProduct="Primer"
+                                    expanded={expandedProduct === 7}
+                                    onClick={() => {
+                                        handleExpandProduct(7);
+                                        setTitleProduct("Primer");
+                                      }}
+                                />
+                            </div>
                         </div>
-
                     </Carousel.Item >
                 </Carousel>
-
-
-
             </div>
             <div className='Productpage-Branner'>
-                <div className='nameBanner'>All Product</div>
+                <div className='nameBanner'>{TileProduct}</div>
             </div>
             <div className="Wrapper-Tool">
                 <div className="Fillter-By"> Fillter by</div>
@@ -126,7 +192,7 @@ const ProductPage = () => {
             <div className="Wrapper-Product-detail">
                 {products.map(product => (
                     <div className="Product-detail">
-                        <Productdetail nameProduct={product.name} price={product.price} image={product.image} /></div>
+                        <Productdetail nameProduct={product.name} price={product.price} image={product.image} description={product.description} /></div>
                 ))}
             </div>
 

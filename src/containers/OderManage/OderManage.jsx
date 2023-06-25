@@ -8,6 +8,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import CardComplete from "../../components/CardComplete/CardComplete";
 import Product from "../../assets/product.png";
+import ProfileUser from "../../components/Profile-User/ProfileUser";
+import Modal from "../../components/Modal/Modal";
 
 import {
     MDBIcon,
@@ -78,25 +80,12 @@ function OderManage() {
         <>
             <Header />
             <div className="Body-ProfilePage">
-                <hr></hr>
-                <div className="Profile-person">
-                    <div className="wrapper-avartar"><img className="avartar-image" src={Avartar}></img></div>
-                    <div className="Wrapper-Name-Person">
-                        <div className="Name-person">Lê Thị Anh Thư</div>
-                        <div className="Wrapper-edit">
-                            <i class="edit-profile far fa-edit"></i>
-                            <button className="Bt-edit">Edit Avatar</button>
-                        </div>
-                    </div>
-                    <div>
-
-                    </div>
-                </div>
-                <hr></hr>
+                <ProfileUser></ProfileUser>
                 <div className={`Info-person ${isMobile ? "hide-text" : ""}`}>
                     <div className="Category-account">
+                    <Link to="/profile">
                         <div className=" Tab My-Account-Oder">
-                            <i class="icon-p far fa-user"></i><div className="repone">My Account</div></div>
+                            <i class="icon-p far fa-user"></i><div className="repone">My Account</div></div></Link>
                         <Link to="/favoritepd"><div className="Tab Favorite-Product">
                             <i class="icon-p far fa-heart"></i><div className="repone">Favorite Product</div></div></Link>
                         <div className="Tab Oder-management-Tab-Choose">

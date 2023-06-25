@@ -72,3 +72,6 @@
   .btn-action.yes {
     background: rgba(177, 110, 75, 0.78);
   }
+   .btn-action.yes:active{
+    background-color: brown;
+  }

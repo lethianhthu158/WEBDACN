@@ -8,7 +8,7 @@
     margin-right: 10px;
     border-radius: 5px;
    
-    
+    transition: transform 0.3s ease, border-radius 0.3s ease;
     
 }
 .HeaderProductName{
@@ -16,12 +16,15 @@
     width: 100%;
     padding-top: 20%;
     padding-bottom: 20%;
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: rgba(0, 0, 0, 0.45);
     border:rgba(0, 0, 0, 0.3) ;
     align-items: center;
     color: #ffffff;
     font-size: 1.9rem;
     border-radius: 5px 5px 5px 5px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+    height: 100%;
 
 
     
@@ -32,3 +35,11 @@
         font-size: 1rem;
     }
 }
+.HeaderProduct:hover {
+    transform: scale(1.2);
+    border-radius: 10px;
+  }
+  .HeaderProduct.expanded {
+    transform: scale(1.2);
+    border-radius: 10px;
+  }

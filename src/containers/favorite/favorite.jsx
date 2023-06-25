@@ -6,6 +6,7 @@ import Avartar from "../../assets/avatar.png";
 import CardComplete from "../../components/CardComplete/CardComplete";
 import Product from "../../assets/product.png";
 import { Link } from "react-router-dom";
+import ProfileUser from "../../components/Profile-User/ProfileUser";
 
 
 import React, { useState, useEffect } from 'react';
@@ -54,21 +55,7 @@ const Favorite = () => {
         <>
             <Header />
             <div className="Body-ProfilePage">
-                <hr></hr>
-                <div className="Profile-person">
-                    <div className="wrapper-avartar"><img className="avartar-image" src={Avartar}></img></div>
-                    <div className="Wrapper-Name-Person">
-                        <div className="Name-person">Lê Thị Anh Thư</div>
-                        <div className="Wrapper-edit">
-                            <i class="edit-profile far fa-edit"></i>
-                            <button className="Bt-edit">Edit Avatar</button>
-                        </div>
-                    </div>
-                    <div>
-
-                    </div>
-                </div>
-                <hr></hr>
+               <ProfileUser></ProfileUser>
                 <div className={`Info-person ${isMobile ? "hide-text" : ""}`}>
                     <div className="Category-account">
                       <Link to="/profile">

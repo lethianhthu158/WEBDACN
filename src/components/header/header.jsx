@@ -15,6 +15,8 @@ import { Avatar } from "antd";
 import "synos-helena/lib/helena.css";
 import { CartContext } from '../../contexts/CartContext';
 import axios from 'axios';
+import Modal from "../../components/Modal/Modal"
+
 
 
 
@@ -27,12 +29,17 @@ function Header(props) {
   const [selectedTab, setSelectedTab] = useState(1);
   const navRef = useRef();
   const userInfo = JSON.parse(localStorage.getItem('user-info'));
-  // const [openModal,setOpenModal]= useState(false)
+  const [openModal,setOpenModal]= useState(false);
   const { cart } = useContext(CartContext);
   const totalQuantity = cart ? cart.reduce((total, item) => total + item.quantity, 0) : 0;
 
+
   const handleTabClick = (tabIndex) => {
     setSelectedTab(tabIndex); // Cập nhật trạng thái khi người dùng nhấp vào tab
+  };
+  const handleLogout = () => {
+    localStorage.removeItem('user-info');
+    setOpenModal(false);
   };
 
   navRef.current = navBackground;
@@ -58,8 +65,8 @@ function Header(props) {
         </Link>
       </HLMenu.Item>
       <HLMenu.Item>
-        <button className="dropdown-content header-logout">
-        {/* <i class="icon-p fas fa-sign-out"></i>Logout {localStorage.removeItem('fullname')} */}
+        <button className="dropdown-content header-logout" onClick={() => setOpenModal(true)}>
+         <i class="icon-p fas fa-sign-out"></i>Logout  
         </button>
       </HLMenu.Item>
     </HLMenu>
@@ -243,19 +250,22 @@ function Header(props) {
         <Register onClose={() => setOpenPopupRegister(false)} />
       </Dialog>
 
-
-      {/* </div>
       <Modal
         openModal={openModal}
-        content="Do you want to delete 
-        the product from the cart?"
+        content="Do you want to log out ?"
         onCancel={() => setOpenModal(false)}
+        onYes={handleLogout}
       ></Modal>
       
-    </div> */}
+
+
+    
+    
+
 
 
     </Navbar>
+    
 
 
   );

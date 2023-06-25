@@ -60,10 +60,12 @@ function Login({ onClose }) {
       console.log(response.data);
       localStorage.setItem('user-info', JSON.stringify(response.data));
       setName(response.data);
+      onClose(); 
     } catch (error) {
       // Handle error here
       console.error(error);
     }
+    
   };
   
 

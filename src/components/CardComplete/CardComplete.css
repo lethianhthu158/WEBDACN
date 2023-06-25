@@ -60,6 +60,9 @@
   font-style: normal;
   font-weight: 700;
 }
+.number-count{
+  width: 55px;
+}
 
 @media screen and (max-width: 768px) {
   .container-cardcomplete {

@@ -63,6 +63,7 @@
 
 .wrapper-Button-Fillter{
     width: 80%;
+    transition: transform 0.3s ease, border-radius 0.3s ease;
     
 }
 .fillter{
@@ -85,7 +86,12 @@
 }
 .carousel-control-next, .carousel-control-prev{
     background-color: rgb(204, 159, 159);
+   
     width: 2%;
+}
+.wrapper-header-product{
+    width: 80%;
+    margin-right: 40px;
 }
 
 

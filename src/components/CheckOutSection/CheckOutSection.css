@@ -8,7 +8,7 @@
 }
 
 .checkout-desc {
-  font-family: "Nunito";
+  font-family: 'Nunito Sans', sans-serif;
   font-style: normal;
   font-weight: 700;
   color: #5f5b5b;
@@ -24,7 +24,7 @@
   background: rgba(177, 110, 75, 0.78);
   border-radius: 5px;
   color: #fff;
-  font-family: "Nunito";
+  font-family: 'Nunito Sans', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 25px;

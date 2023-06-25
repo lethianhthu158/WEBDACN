@@ -71,6 +71,7 @@ function Register({ onClose }) {
         email,
         password,
       });
+      onClose();
 
       // Handle response here
       console.log(response.data);
