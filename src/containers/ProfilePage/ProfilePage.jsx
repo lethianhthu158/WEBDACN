@@ -11,16 +11,21 @@ import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/
 import {app, storage} from "../../firebase/firebase";
 import ProfileUser from "../../components/Profile-User/ProfileUser";
 import Modal from "../../components/Modal/Modal"
+import axios from 'axios';
 
-
-
-
-
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 
 const ProfilePage = () => {
     const [userInfo,setUserInfo] = useState(JSON.parse(localStorage.getItem('user-info')));   
+    const { user, updateUserProfile } = useContext(UserContext);
+    const [fullName, setFullName] = useState(user.fullName);
+    const [email, setEmail] = useState(user.email);
+    const [address, setAddress] = useState(user.address);
+    const [phone, setPhone] = useState(user.phone)  
     const [isMobile, setIsMobile] = useState(false);
     const [openModal,setOpenModal]= useState(false);
+
 
     const handleLogout = () => {
         localStorage.removeItem('user-info'); 
@@ -65,6 +70,7 @@ const ProfilePage = () => {
       );
     };
    
+    console.log(userInfo);
 
     useEffect(() => {
         if (!userInfo) {
@@ -85,6 +91,27 @@ const ProfilePage = () => {
         };
     }, [userInfo]);
 
+    const handleSave = async () => {
+        console.log("test")
+        const newCustomerData = {
+          fullName, 
+          email,
+          phone,
+          address  
+        };
+        const updatedCustomer = await updateCustomer(user.customerId, newCustomerData);
+        
+    };
+
+    const updateCustomer = async (customerId, customerDto) => {
+        const response = await axios.put(`http://localhost:8080/api/v1/customer/${customerId}`, customerDto);
+        localStorage.setItem('user-info', JSON.stringify(response.data));
+        updateUserProfile(response.data);
+        console.log(response.data)
+        return response.data;
+    };
+      
+      
     return (
         <>
             <Header />
@@ -107,10 +134,10 @@ const ProfilePage = () => {
                             <div className="Profile-Title">My Account <br />Manage and protect your account</div>
                             <hr></hr>
                             <div className="wrapper-Input-edit">
-                                <div className="Edit Name"><div className="tile-input">Name</div><input className="Input" value={userInfo ? userInfo.fullName: ''}></input></div>
-                                <div className="Edit Email"><div className="tile-input">Email</div><input className="Input" value={userInfo ? userInfo.email : ''}></input></div>
-                                <div className="Edit Phone"><div className="tile-input">Phone</div><input className="Input"></input></div>
-                                <div className="Edit Address"><div className="tile-input">Address</div><input className="Input"></input></div>
+                                <div className="Edit Name"><div className="tile-input">Name</div><input className="Input" value={fullName ? fullName: ''} onChange={(e) => setFullName(e.target.value)}></input></div>
+                                <div className="Edit Email"><div className="tile-input">Email</div><input className="Input" value={email ? email : ''} onChange={(e) =>setEmail(e.target.value)}></input></div>
+                                <div className="Edit Phone"><div className="tile-input">Phone</div><input className="Input" value={phone ? phone: ''} onChange={(e) =>setPhone(e.target.value)}></input></div>
+                                <div className="Edit Address"><div className="tile-input">Address</div><input className="Input" value={address ? address: ''} onChange={(e) =>setAddress(e.target.value)}></input></div>
                                 <Form>
                                     {['radio'].map((type) => (
                                         <div key={`inline-${type}`} className="mb-3">
@@ -144,9 +171,7 @@ const ProfilePage = () => {
 
                             </div>
                             <div className="wrapper-button-profile">
-                                <button className="Button Update">Update</button>
-                                <button className="Button Save">Save</button>
-
+                               <button className="Button Save" onClick={handleSave}>Save</button>
                             </div>
                         </div>
                     </div>

@@ -16,6 +16,7 @@ import "synos-helena/lib/helena.css";
 import { CartContext } from '../../contexts/CartContext';
 import axios from 'axios';
 import Modal from "../../components/Modal/Modal"
+import { UserContext } from "../../contexts/UserContext";
 
 
 
@@ -28,11 +29,11 @@ function Header(props) {
   const [navBackground, setNavBackground] = useState(false);
   const [selectedTab, setSelectedTab] = useState(1);
   const navRef = useRef();
-  const userInfo = JSON.parse(localStorage.getItem('user-info'));
   const [openModal,setOpenModal]= useState(false);
   const { cart } = useContext(CartContext);
   const totalQuantity = cart ? cart.reduce((total, item) => total + item.quantity, 0) : 0;
-
+  const { user, updateUserProfile } = useContext(UserContext);
+  const [userInfo,setUserInfo] = useState(JSON.parse(localStorage.getItem('user-info')));   
 
   const handleTabClick = (tabIndex) => {
     setSelectedTab(tabIndex); // Cập nhật trạng thái khi người dùng nhấp vào tab
@@ -40,25 +41,15 @@ function Header(props) {
   const handleLogout = () => {
     localStorage.removeItem('user-info');
     setOpenModal(false);
+    setUserInfo("");
+    window.location.href = "/";
+
   };
   const  handleProfileClick=()=>{  window.location.href = "/profile";
 
   }
 
-  navRef.current = navBackground;
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const show = window.scrollY > 50;
-      if (navRef.current !== show) {
-        setNavBackground(show);
-      }
-    };
-    document.addEventListener('scroll', handleScroll);
-    return () => {
-      document.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
   const menu = (
     <HLMenu>
       <HLMenu.Item>
@@ -90,8 +81,14 @@ function Header(props) {
       document.removeEventListener('scroll', handleScroll);
     };
   }, []);
+  
 
   useEffect(() => {
+    if(user.role=="ADMIN") {
+      console.log("testbug")
+      window.location.href = "/admin";
+
+    }
     if (searchTerm) {
       axios.get(`http://localhost:8080/api/products/search/autocomplete?name=${searchTerm}`)
         .then(res => {
@@ -122,13 +119,13 @@ function Header(props) {
               <i class="icon fas fa-shopping-cart"></i>
               <span className="num-fav num-cart" >{totalQuantity}</span>
             </button></Link>
-          {userInfo  ?
+          {user.fullName  ?
             (<>
               <button
                 className="RegisterButton"
                 onClick={ handleProfileClick}
               >
-                {userInfo.fullName}
+                {user.fullName}
               </button>
               <HLCard>
                 <HLDropdown overlay={menu} trigger={["click"]}>

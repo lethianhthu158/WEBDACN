@@ -1,10 +1,12 @@
 import "./loginform.css";
 import Register from "../register/registerform";
 import { Dialog } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import axios from "axios";
 import { atom, useAtom } from 'jotai';
 import { GoogleLogin } from 'react-google-login';
+import { UserContext } from "../../contexts/UserContext";
+
 const textAtom = atom([])
 const validateEmail = (email) => {
   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -13,6 +15,8 @@ const validateEmail = (email) => {
 
 
 function Login({ onClose }) {
+  const [userInfo,setUserInfo] = useState(JSON.parse(localStorage.getItem('user-info')));
+  const { user, updateUserProfile } = useContext(UserContext);
   const [openPopupRegister, setOpenPopupRegister] = useState(false);
   const [openPopupLogin, setOpenPopupLogin] = useState(false);
   const [email, setEmail] = useState("");
@@ -46,6 +50,10 @@ function Login({ onClose }) {
     //   console.error(error);
     // }
   };
+  useEffect(() => {
+
+
+  },[userInfo])
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -59,6 +67,8 @@ function Login({ onClose }) {
       // Handle response here
       console.log(response.data);
       localStorage.setItem('user-info', JSON.stringify(response.data));
+      updateUserProfile(response.data);
+      setUserInfo(response.data);
       setName(response.data);
       onClose(); 
     } catch (error) {
