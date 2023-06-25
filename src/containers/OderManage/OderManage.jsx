@@ -27,6 +27,14 @@ import {
 function OderManage() {
     const [isMobile, setIsMobile] = useState(false);
     const [iconsActive, setIconsActive] = useState('tab1');
+    const [userInfo,setUserInfo] = useState(JSON.parse(localStorage.getItem('user-info')));
+    const [openModal,setOpenModal]= useState(false); 
+    const handleLogout = () => {
+        localStorage.removeItem('user-info'); 
+        setUserInfo("");
+        setOpenModal(false);
+        window.location.href = "/";
+      };
     const dataExample = [
         {
             title: "Half n Half Water Glow Season 2",
@@ -56,6 +64,10 @@ function OderManage() {
 
 
     useEffect(() => {
+        if (!userInfo) {
+            window.location.href = "/";
+
+        }
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 765);
         };
@@ -67,7 +79,7 @@ function OderManage() {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    }, []);
+    },  [userInfo]);
     const handleIconsClick = (value) => {
         if (value === iconsActive) {
             return;
@@ -90,7 +102,7 @@ function OderManage() {
                             <i class="icon-p far fa-heart"></i><div className="repone">Favorite Product</div></div></Link>
                         <div className="Tab Oder-management-Tab-Choose">
                             <i class="icon-p fas fa-tasks"></i><div className="repone">Order management</div></div>
-                        <div className="Tab Log-out"><i class="icon-p fas fa-sign-out"></i>
+                        <div className="Tab Log-out" onClick={()=>setOpenModal(true)}><i class="icon-p fas fa-sign-out"></i>
                             <div className="repone">Log out</div></div>
 
                     </div>
@@ -153,6 +165,12 @@ function OderManage() {
             </div>
 
             <Footer />
+            <Modal
+        openModal={openModal}
+        content="Do you want to log out ?"
+        onCancel={() => setOpenModal(false)}
+        onYes={handleLogout}
+      ></Modal>
         </>
     );
 };

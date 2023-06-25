@@ -71,6 +71,7 @@ function Register({ onClose }) {
         email,
         password,
       });
+      localStorage.setItem('user-info', JSON.stringify(response.data));
       onClose();
 
       // Handle response here

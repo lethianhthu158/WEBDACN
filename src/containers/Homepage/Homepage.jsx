@@ -37,7 +37,7 @@ function Homepage() {
     const [bestBrand, setBestBrand] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/products/sales/top4")
+        axios.get("http://localhost:8080/api/products/sales/top8")
             .then(response => {
                 setProducts(response.data);
             })

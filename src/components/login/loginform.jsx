@@ -65,6 +65,12 @@ function Login({ onClose }) {
       // Handle error here
       console.error(error);
     }
+    const userInfo = JSON.parse(localStorage.getItem('user-info'));
+    if(userInfo.role === "ADMIN")
+    {
+      window.location.href = "/admin";
+    }
+    
     
   };
   

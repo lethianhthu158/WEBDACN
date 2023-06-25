@@ -18,12 +18,13 @@ import Modal from "../../components/Modal/Modal"
 
 
 const ProfilePage = () => {
-    const userInfo = localStorage.getItem('user-info');   
+    const [userInfo,setUserInfo] = useState(JSON.parse(localStorage.getItem('user-info')));   
     const [isMobile, setIsMobile] = useState(false);
     const [openModal,setOpenModal]= useState(false);
 
     const handleLogout = () => {
-        localStorage.removeItem('user-info');
+        localStorage.removeItem('user-info'); 
+        setUserInfo("");
         setOpenModal(false);
         window.location.href = "/";
       };
@@ -82,7 +83,7 @@ const ProfilePage = () => {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    }, []);
+    }, [userInfo]);
 
     return (
         <>
@@ -106,7 +107,7 @@ const ProfilePage = () => {
                             <div className="Profile-Title">My Account <br />Manage and protect your account</div>
                             <hr></hr>
                             <div className="wrapper-Input-edit">
-                                <div className="Edit Name"><div className="tile-input">Name</div><input className="Input" value={userInfo ? userInfo.fullname: ''}></input></div>
+                                <div className="Edit Name"><div className="tile-input">Name</div><input className="Input" value={userInfo ? userInfo.fullName: ''}></input></div>
                                 <div className="Edit Email"><div className="tile-input">Email</div><input className="Input" value={userInfo ? userInfo.email : ''}></input></div>
                                 <div className="Edit Phone"><div className="tile-input">Phone</div><input className="Input"></input></div>
                                 <div className="Edit Address"><div className="tile-input">Address</div><input className="Input"></input></div>

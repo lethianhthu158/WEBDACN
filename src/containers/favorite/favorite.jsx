@@ -7,6 +7,7 @@ import CardComplete from "../../components/CardComplete/CardComplete";
 import Product from "../../assets/product.png";
 import { Link } from "react-router-dom";
 import ProfileUser from "../../components/Profile-User/ProfileUser";
+import Modal from "../../components/Modal/Modal"
 
 
 import React, { useState, useEffect } from 'react';
@@ -36,8 +37,20 @@ const dataExample = [
 ];
 const Favorite = () => {
     const [isMobile, setIsMobile] = useState(false);
+    const [userInfo,setUserInfo] = useState(JSON.parse(localStorage.getItem('user-info')));   
+    const [openModal,setOpenModal]= useState(false);
+    const handleLogout = () => {
+        localStorage.removeItem('user-info'); 
+        setUserInfo("");
+        setOpenModal(false);
+        window.location.href = "/";
+      };
 
     useEffect(() => {
+        if (!userInfo) {
+            window.location.href = "/";
+
+        }
         const handleResize = () => {
             setIsMobile(window.innerWidth <= 765);
         };
@@ -49,7 +62,7 @@ const Favorite = () => {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    }, []);
+    }, [userInfo]);
 
     return (
         <>
@@ -65,7 +78,7 @@ const Favorite = () => {
                             <i class="icon-p far fa-heart"></i><div className="repone">Favorite Product</div></div>
                          <Link to="/oder-management"><div className="Tab Oder-management-Tab">
                             <i class="icon-p fas fa-tasks"></i><div className="repone">Order management</div></div></Link>
-                        <div className="Tab Log-out"><i class="icon-p fas fa-sign-out"></i>
+                        <div className="Tab Log-out" onClick={()=>setOpenModal(true)}><i class="icon-p fas fa-sign-out"></i>
                             <div className="repone">Log out</div></div>
 
                     </div>
@@ -88,6 +101,12 @@ const Favorite = () => {
             </div>
 
             <Footer />
+            <Modal
+        openModal={openModal}
+        content="Do you want to log out ?"
+        onCancel={() => setOpenModal(false)}
+        onYes={handleLogout}
+      ></Modal>
         </>
     );
 };
