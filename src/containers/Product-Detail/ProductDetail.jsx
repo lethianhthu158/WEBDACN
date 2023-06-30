@@ -21,7 +21,12 @@ const ProductDetail = () => {
   const [apiEndpoint, setApiEndpoint] = useState("http://localhost:8080/api/products");
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
-
+  const userInfo = JSON.parse(localStorage.getItem('user-info'));
+  const [customerId, setCustomerId] = useState(userInfo.customerId);
+  const { productId } = location.state || {};
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
+  const [reviews, setReviews] = useState([]);
   useEffect(() => {
     axios.get(`${apiEndpoint}?page=${currentPage}&size=6`)
       .then(response => {
@@ -32,6 +37,44 @@ const ProductDetail = () => {
         console.error('There was an error!', error);
       });
   }, [currentPage, apiEndpoint]);
+
+  useEffect(() => {
+    axios.get(`http://localhost:8080/api/review/product/${productId}`)
+        .then(response => {
+          setReviews(response.data);
+        })
+        .catch(error => {
+            console.error('There was an error!', error);
+        });
+}, []);
+
+  const handleReviewSubmit = (event) => {
+    event.preventDefault();
+
+    const reviewData = {
+      customerId,
+      productId,
+      rating,
+      comment
+    };
+
+    console.log(reviewData);
+    axios.post('http://localhost:8080/api/review/addReview', reviewData)
+      .then(response => {
+        console.log('Review added successfully:', response.data);
+        // If needed, clear the form inputs here.
+        setRating(0);
+        setComment('');
+        // Optionally, fetch the product details again to show the new review.
+      })
+      .catch(error => {
+        console.error('There was an error!', error);
+      });
+  };
+
+  const handleRatingChange = (event) => {
+    setRating(event.target.value);
+  };
 
   useEffect(() => {
     const storage = getStorage(app);
@@ -50,22 +93,21 @@ const ProductDetail = () => {
     const product = { nameProduct, price, imageUrl, quantity: countProduct };
     addToCart(product);
   };
-  console.log("from:" + nameProduct);
   const commetexample = [
     {
-      name:"ABCD",
-      Countstar:5,
-      content:"Black Rouge Real Strawberry Milk Toner is very good"
+      name: "ABCD",
+      Countstar: 5,
+      content: "Black Rouge Real Strawberry Milk Toner is very good"
     },
     {
-      name:"123456",
-      Countstar:4,
-      content:"Black Rouge Real Strawberry Milk Toner is very good, beautifull"
+      name: "123456",
+      Countstar: 4,
+      content: "Black Rouge Real Strawberry Milk Toner is very good, beautifull"
     },
     {
-      name:"123456",
-      Countstar:4,
-      content:"Black Rouge Real Strawberry Milk Toner is very good, beautifull"
+      name: "123456",
+      Countstar: 4,
+      content: "Black Rouge Real Strawberry Milk Toner is very good, beautifull"
     },
   ];
   return (
@@ -208,27 +250,27 @@ const ProductDetail = () => {
                   <div className="wrapper-comment-from-user">
                     <p className="title-rating">Rating</p>
                     <form class="star-rating">
-                      <input class="radio-input" type="radio" id="star1" name="star-input" value="1" />
-                      <label class="radio-label" for="star1" title="1 stars">1 stars</label>
+                      <input class="radio-input" type="radio" id="star5" name="star-input" value="5" onChange={handleRatingChange}/>
+                      <label class="radio-label" for="star5" title="5 stars">5 stars</label>
 
-                      <input class="radio-input" type="radio" id="star2" name="star-input" value="2" />
-                      <label class="radio-label" for="star2" title="2 stars">2 stars</label>
-
-                      <input class="radio-input" type="radio" id="star3" name="star-input" value="3" />
-                      <label class="radio-label" for="star3" title="3 stars">3 stars</label>
-
-                      <input class="radio-input" type="radio" id="star4" name="star-input" value="4" />
+                      <input class="radio-input" type="radio" id="star4" name="star-input" value="4" onChange={handleRatingChange}/>
                       <label class="radio-label" for="star4" title="4 stars">4 stars</label>
 
-                      <input class="radio-input" type="radio" id="star5" name="star-input" value="5" />
-                      <label class="radio-label" for="star5" title="5 star">5 star</label>
+                      <input class="radio-input" type="radio" id="star3" name="star-input" value="3" onChange={handleRatingChange}/>
+                      <label class="radio-label" for="star3" title="3 stars">3 stars</label>
+
+                      <input class="radio-input" type="radio" id="star2" name="star-input" value="2" onChange={handleRatingChange}/>
+                      <label class="radio-label" for="star2" title="2 stars">2 stars</label>
+
+                      <input class="radio-input" type="radio" id="star1" name="star-input" value="1" onChange={handleRatingChange}/>
+                      <label class="radio-label" for="star1" title="1 star">1 star</label>
                     </form>
                   </div>
                   <div className="wrapper-comment-input">
                     <p className="comment-description" >Comment description</p>
-                    <input className="input-comment-user" type="text" placeholder="Enter comment description..." ></input>
+                    <input className="input-comment-user" type="text" placeholder="Enter comment description..." onChange={(e) => setComment(e.target.value)}></input>
 
-                    <button className="button-comment-description">Submit</button>
+                    <button className="button-comment-description" onClick={handleReviewSubmit}>Submit</button>
                   </div>
                 </div>
               </div>
@@ -238,25 +280,25 @@ const ProductDetail = () => {
 
           </div>
           <div className="wrapper-show-comment-product">
-          <div className="Show-comment-product">
-          {commetexample.map((item)=><>
-          <div className="Avatar-user-container">
-            <div className="Avatar-user-comment-show">
-              <img className="Avatar-user-comment"src={product}></img>
-            </div>
-          
-            
-              <div>
-                <div className="Name-user-comment">{item.name}</div>
-                <div className="Count-Start-comment">{item.Countstar}★</div>
-              </div>
-              </div>
-              <div className="Content-user-comment">{item.content}
-              </div>
-              <hr></hr>
+            <div className="Show-comment-product">
+              {commetexample.map((item) => <>
+                <div className="Avatar-user-container">
+                  <div className="Avatar-user-comment-show">
+                    <img className="Avatar-user-comment" src={product}></img>
+                  </div>
+
+
+                  <div>
+                    <div className="Name-user-comment">{item.name}</div>
+                    <div className="Count-Start-comment">{item.Countstar}★</div>
+                  </div>
+                </div>
+                <div className="Content-user-comment">{item.content}
+                </div>
+                <hr></hr>
               </>
-            
-         )} </div></div>
+
+              )} </div></div>
         </div>
         <div className="Product-detail-page-wrapper-right">
           {products.map(product => (

@@ -37,7 +37,7 @@ function Homepage() {
     const [bestBrand, setBestBrand] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/products/sales/top4")
+        axios.get("http://localhost:8080/api/products/sales/top8")
             .then(response => {
                 setProducts(response.data);
             })
@@ -167,16 +167,16 @@ function Homepage() {
             <Carousel activeIndex={Saleproduct} onSelect={handleSaleproduct}>
                 <Carousel.Item >
                 <div className='Sale-Product'>
-                {products.map(product => (
-                        <Productdetail  nameProduct={product.name}  price={product.price} image={product.image} type = {""}/>
+                {products.slice(0, 4).map(product => (
+                        <Productdetail  nameProduct={product.name}  price={product.price} image={product.image} productId={product.id}/>
                         
                     ))}
                      </div>
                 </Carousel.Item>
                 <Carousel.Item >
                 <div className='Sale-Product'>
-                {products.map(product => (
-                        <Productdetail  nameProduct={product.name}  price={product.price} image={product.image} type = {""}/>
+                {products.slice(4,8).map(product => (
+                        <Productdetail  nameProduct={product.name}  price={product.price} image={product.image} productId={product.id}/>
                         
                     ))}
                      </div>
@@ -193,14 +193,14 @@ function Homepage() {
                 <Carousel.Item >
                 <div className='Sale-Product'>
                 {bestSeller.map(product => (
-                        <Productdetail nameProduct={product.name}  price={product.price} image={product.image}/>
+                        <Productdetail nameProduct={product.name} description={product.description} price={product.price} image={product.image} productId={product.id}/>
                     ))}
                </div>
                </Carousel.Item>
                <Carousel.Item >
                 <div className='Sale-Product'>
                 {bestSeller.map(product => (
-                        <Productdetail nameProduct={product.name}  price={product.price} image={product.image}/>
+                        <Productdetail nameProduct={product.name} description={product.description} price={product.price} image={product.image} productId={product.id}/>
                     ))}
                </div>
                </Carousel.Item>
@@ -214,7 +214,7 @@ function Homepage() {
                 <Carousel.Item >
                 <div className='Sale-Product'>
                 {bestBrand.map(product => (
-                        <Productdetail nameProduct={product.name}  price={product.price} image={product.image}/>
+                        <Productdetail nameProduct={product.name} description={product.description} price={product.price} image={product.image} productId={product.id}/>
                     ))}
                </div>
                </Carousel.Item>

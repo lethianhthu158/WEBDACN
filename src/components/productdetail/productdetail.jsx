@@ -16,13 +16,13 @@ function Productdetail  (props) {
     if(props.image != null) {
       storageRef = ref(storage, props.image);
     }
-    console.log(props.image);
+    console.log(props.productId);
     getDownloadURL(storageRef).then((url) => {
       setImageUrl(url);
     });
   }, [props.image]);
   return(
-    <Link state={{ nameProduct: props.nameProduct, price : props.price, image: props.image }} to="/product-detail">
+    <Link state={{ nameProduct: props.nameProduct, price : props.price, image: props.image, description:props.description, productId: props.productId }} to="/product-detail">
     <div className="wrappperProductdetail" style={{ backgroundImage: `url(${imageUrl})` }}>
      
       <div className='Background-ProducdetailtName'>  
