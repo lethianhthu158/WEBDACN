@@ -1,11 +1,14 @@
 import "./registerform.css";
 import Login from "../login/loginform";
 import { Dialog } from "@material-ui/core";
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import axios from "axios";
 import { GoogleLogin } from 'react-google-login';
+import { UserContext } from "../../contexts/UserContext";
+
 
 function Register({ onClose }) {
+  const { user, updateUserProfile } = useContext(UserContext);
   const [openPopupRegister, setOpenPopupRegister] = useState(false);
   const [openPopupLogin, setOpenPopupLogin] = useState(false);
   const [fullname, setFullname] = useState("");
@@ -71,7 +74,9 @@ function Register({ onClose }) {
         email,
         password,
       });
+      localStorage.setItem('user-info', JSON.stringify(response.data));
       onClose();
+      updateUserProfile(response.data);
 
       // Handle response here
       console.log(response.data);

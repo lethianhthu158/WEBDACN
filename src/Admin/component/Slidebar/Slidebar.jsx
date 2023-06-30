@@ -8,9 +8,21 @@ import Logo from "../assets/Logoweb.png";
 import ProductManage from '../ProductManage/ProductManage';
 import Addproduct from '../AddProduct/AddProduct';
 import ProductWarehouse from '../ProductWarehouse/ProductWarehouse';
+import { useState } from 'react';
+import Modal from '../../../components/Modal/Modal';
 
 function Slidebar() {
-  return (
+  const [openModal,setOpenModal]=useState(false);
+  const [userInfo,setUserInfo] = useState(JSON.parse(localStorage.getItem('user-info')));  
+  
+  const handleLogout = () => {
+    localStorage.removeItem('user-info'); 
+    setUserInfo("");
+    setOpenModal(false);
+    window.location.href = "/";
+  };
+
+  return (<>
     <Tab.Container id="left-tabs-example" defaultActiveKey="first">
       <Row>
        
@@ -26,6 +38,9 @@ function Slidebar() {
             <Nav.Item>
               <Nav.Link className="menuItem" eventKey="third"><i class="fas fa-warehouse"></i>Product </Nav.Link>
             </Nav.Item>
+            <Nav.Item>
+              <Nav.Link className="menuItem" eventKey="four" onClick={()=>setOpenModal(true)}> <i class=" fas fa-sign-out"></i>Log out</Nav.Link>
+            </Nav.Item>
           </Nav>
         </Col>
         <Col sm={10}>
@@ -40,6 +55,13 @@ function Slidebar() {
         </Col>
       </Row>
     </Tab.Container>
+     <Modal
+     openModal={openModal}
+     content="Do you want to log out ?"
+     onCancel={() => setOpenModal(false)}
+     onYes={handleLogout}
+   ></Modal>
+   </>
   );
 }
 

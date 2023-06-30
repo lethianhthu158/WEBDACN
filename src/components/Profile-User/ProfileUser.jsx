@@ -4,22 +4,23 @@ import Header from "../../components/header/header";
 import { Footer } from "../../components/footer/footer";
 import Avartar from "../../assets/avatar.png";
 import Form from 'react-bootstrap/Form';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useContext} from 'react';
 import { Link } from "react-router-dom";
 
 import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import {app, storage} from "../../firebase/firebase";
+import { UserContext } from "../../contexts/UserContext";
 
 
 
 
 
 const ProfileUser = () => {
-    const userInfo = JSON.parse(localStorage.getItem('user-info'));
     const [isMobile, setIsMobile] = useState(false);
 
     const [imagePath, setImagePath] = useState("");
     const [url, setUrl] = useState('');
+    const { user, updateUserProfile } = useContext(UserContext);
 
     // Xử lý sự kiện khi người dùng chọn tệp hình ảnh
     const handleFileChange = (event) => {
@@ -76,7 +77,7 @@ const ProfileUser = () => {
                 <div className="Profile-person">
                     <div className="wrapper-avartar"><img className="avartar-image" src={imagePath}></img></div>
                     <div className="Wrapper-Name-Person">
-                        <div className="Name-person">{userInfo.fullName}</div>
+                        <div className="Name-person">{user ? user.fullName: ""}</div>
                         <div className="Wrapper-edit">
                             <i class="edit-profile far fa-edit"></i>
                             <input
