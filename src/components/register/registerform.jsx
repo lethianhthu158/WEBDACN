@@ -5,6 +5,7 @@ import React, { useState,useEffect,useContext } from "react";
 import axios from "axios";
 import { GoogleLogin } from 'react-google-login';
 import { UserContext } from "../../contexts/UserContext";
+import SuccessFull from "../../assets/Success.gif"
 
 
 function Register({ onClose }) {
@@ -16,6 +17,7 @@ function Register({ onClose }) {
   const [password, setPassword] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const validateEmail = (email) => {
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return regex.test(email);
@@ -75,8 +77,15 @@ function Register({ onClose }) {
         password,
       });
       localStorage.setItem('user-info', JSON.stringify(response.data));
-      onClose();
+      setRegistrationSuccess(true);
       updateUserProfile(response.data);
+      
+      setTimeout(() => {
+        onClose();
+      }, 1000);
+      
+      
+     
 
       // Handle response here
       console.log(response.data);
@@ -88,7 +97,12 @@ function Register({ onClose }) {
 
 
   return (
-    <div className="wrap-loginform">
+    <> { registrationSuccess  ? 
+      (<div className="wrap-loginform">
+        <div className="Register_OK">
+          <img src={SuccessFull} className="Img-Success-register"></img>
+    
+        </div></div>):(<div className="wrap-loginform">
       <div className="wrap-close">
         <button onClick={onClose} className="close-button">
           <i class="far fa-times-circle"></i>
@@ -144,7 +158,9 @@ function Register({ onClose }) {
       >
         <Login onClose={() => { setOpenPopupLogin(false); setOpenPopupRegister(false); }} />
       </Dialog>
-    </div>
+     </div>) }
+    </>
+   
   );
 };
 

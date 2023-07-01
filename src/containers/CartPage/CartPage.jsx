@@ -8,11 +8,14 @@ import EmtyPage from "../../assets/EmtyPage.gif";
 import { Link } from "react-router-dom";
 
 const CartPage = () => {
-  const { cart } = useContext(CartContext);
+ 
+  const { cart, removeFromCart } = useContext(CartContext);
   const cartItems = cart || [];
 
   const totalPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
-
+  const handleRemoveItem = (index) => {
+    removeFromCart(index);
+  };
   return (
     <>
       <Header />
@@ -43,6 +46,7 @@ const CartPage = () => {
                 isChooseNumProduct={true}
                 isCount={true}
                 quantity={item.quantity}
+                onRemove={() => handleRemoveItem(index)}
               />
             ))}
           </div>    
