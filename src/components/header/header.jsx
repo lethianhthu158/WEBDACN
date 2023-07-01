@@ -17,7 +17,8 @@ import { CartContext } from '../../contexts/CartContext';
 import axios from 'axios';
 import Modal from "../../components/Modal/Modal"
 import { UserContext } from "../../contexts/UserContext";
-
+import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { app, storage } from "../../firebase/firebase";
 
 
 
@@ -33,7 +34,8 @@ function Header(props) {
   const { cart } = useContext(CartContext);
   const totalQuantity = cart ? cart.reduce((total, item) => total + item.quantity, 0) : 0;
   const { user, updateUserProfile } = useContext(UserContext);
-  const [userInfo,setUserInfo] = useState(JSON.parse(localStorage.getItem('user-info')));   
+  const [userInfo,setUserInfo] = useState(JSON.parse(localStorage.getItem('user-info')));  
+  const [url, setUrl] = useState(''); 
 
   const handleTabClick = (tabIndex) => {
     setSelectedTab(tabIndex); // Cập nhật trạng thái khi người dùng nhấp vào tab
@@ -100,7 +102,13 @@ function Header(props) {
     }
   }, [searchTerm]);
 
-
+  useEffect(() => {
+    const storeRef = ref(storage, `Avartar-User/${user.image}`);
+    getDownloadURL(storeRef).then((downloadUrl) => {
+      console.log("Download URL: ", downloadUrl);
+      setUrl(downloadUrl);
+    });
+  },[user])
 
   return (
 
@@ -131,7 +139,7 @@ function Header(props) {
                 <HLDropdown overlay={menu} trigger={["click"]}>
                   <Avatar
                     size={45}
-                    src={Avartar}
+                    src={url}
                   />
                 </HLDropdown>
               </HLCard> </>) :

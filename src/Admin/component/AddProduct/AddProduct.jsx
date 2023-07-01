@@ -21,12 +21,13 @@ const Addproduct = (props) => {
   const [file, setFile] = useState(props.product ? props.product.image : null);
 
   console.log(id);
+
   const responseAddProduct = async () => {
     try {
       const res = await axios.post("http://localhost:8080/api/products", {
         name,
         brand,
-        image: file.name ? file.name: file,
+        image: file && file.name ? file.name : file,
         price,
         description,
         categoryName,
@@ -36,23 +37,25 @@ const Addproduct = (props) => {
     } catch (error) {
       console.error(error);
     }
-    const storeRef = ref(storage, `${file.name}`);
-    const uploadTask = uploadBytesResumable(storeRef, file);
+    if (file) {
+      const storeRef = ref(storage, `${file.name}`);
+      const uploadTask = uploadBytesResumable(storeRef, file);
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {},
-      (error) => {
-        // Xử lý lỗi (nếu có)
-        console.log(error);
-      },
-      () => {
-        // Hoàn thành tải lên thành công
-        uploadTask.snapshot.ref.getDownloadURL().then((downloadUrl) => {
-          setUrl(downloadUrl);
-        });
-      }
-    );
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {},
+        (error) => {
+          // Xử lý lỗi (nếu có)
+          console.log(error);
+        },
+        () => {
+          // Hoàn thành tải lên thành công
+          uploadTask.snapshot.ref.getDownloadURL().then((downloadUrl) => {
+            setUrl(downloadUrl);
+          });
+        }
+      );
+    }
   };
 
   const handleAddProduct = () => {
@@ -65,7 +68,7 @@ const Addproduct = (props) => {
         id,
         name,
         brand,
-        image: file.name,
+        image: file && file.name,
         price,
         description,
         categoryName,
@@ -75,23 +78,21 @@ const Addproduct = (props) => {
     } catch (error) {
       console.error(error);
     }
-    const storeRef = ref(storage, `${file.name}`);
-    const uploadTask = uploadBytesResumable(storeRef, file);
+    if (file) {
+      const storeRef = ref(storage, `${file.name}`);
+      const uploadTask = uploadBytesResumable(storeRef, file);
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {},
-      (error) => {
-        // Xử lý lỗi (nếu có)
-        console.log(error);
-      },
-      () => {
-        // Hoàn thành tải lên thành công
-        uploadTask.snapshot.ref.getDownloadURL().then((downloadUrl) => {
-          setUrl(downloadUrl);
-        });
-      }
-    );
+      uploadTask.on('state_changed', 
+        (snapshot) => {},
+        (error) => console.log(error), 
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
+            console.log("Download URL: ", downloadUrl);
+            setUrl(downloadUrl);
+          });
+        }
+      );
+    }
   };
 
   const handleUpdateProduct = () => {
@@ -103,17 +104,21 @@ const Addproduct = (props) => {
 
   // Xử lý sự kiện khi người dùng chọn tệp hình ảnh
   const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+    const file = event.target.files[0];
+    setFile(file);
     const reader = new FileReader();
-
+  
     reader.onload = (e) => {
-      setImagePath(e.target.result); // Lưu trữ đường dẫn hình ảnh vào state
+      if(file) {
+        setImagePath(e.target.result); // Lưu trữ đường dẫn hình ảnh vào state
+      }
     };
-
+  
     if (file) {
       reader.readAsDataURL(file);
     }
   };
+  
 
   return (
     <div className="AddProduct">
@@ -142,7 +147,7 @@ const Addproduct = (props) => {
             <input
               className="add-produc-design-input imageProduct"
               type="text"
-              value={file.name ? file.name : file}
+              value={file && file.name ? file.name : file}
               readOnly
             />
             <input
@@ -224,7 +229,7 @@ const Addproduct = (props) => {
       <div className="Wrapper-Add-Admin-Add-Pd">
         <button
           className="Add-Admin-Add-Pd"
-          onClick={props.type == "Add" ? handleAddProduct : handleUpdateProduct}
+          onClick={props.type === "Add" ? handleAddProduct : handleUpdateProduct}
           // disabled={!name || !brand || !file.name || !price || !description || !categoryName || !origin}
         >
           {props.type}

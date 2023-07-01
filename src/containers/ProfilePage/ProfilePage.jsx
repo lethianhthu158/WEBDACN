@@ -70,7 +70,6 @@ const ProfilePage = () => {
       );
     };
    
-    console.log(userInfo);
 
     useEffect(() => {
         if (!userInfo) {
@@ -97,7 +96,8 @@ const ProfilePage = () => {
           fullName, 
           email,
           phone,
-          address  
+          address,
+          //image  
         };
         const updatedCustomer = await updateCustomer(user.customerId, newCustomerData);
         

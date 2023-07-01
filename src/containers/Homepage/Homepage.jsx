@@ -192,14 +192,14 @@ function Homepage() {
             <Carousel activeIndex={BestSellerproduct} onSelect={handleBestSellerproduct}>
                 <Carousel.Item >
                 <div className='Sale-Product'>
-                {bestSeller.map(product => (
+                {bestSeller.slice(0,4).map(product => (
                         <Productdetail nameProduct={product.name} description={product.description} price={product.price} image={product.image} productId={product.id}/>
                     ))}
                </div>
                </Carousel.Item>
                <Carousel.Item >
                 <div className='Sale-Product'>
-                {bestSeller.map(product => (
+                {bestSeller.slice(4,8).map(product => (
                         <Productdetail nameProduct={product.name} description={product.description} price={product.price} image={product.image} productId={product.id}/>
                     ))}
                </div>
@@ -213,14 +213,14 @@ function Homepage() {
             <Carousel activeIndex={BestSellerproduct} onSelect={handleBestSellerproduct}>
                 <Carousel.Item >
                 <div className='Sale-Product'>
-                {bestBrand.map(product => (
+                {bestBrand.slice(0,4).map(product => (
                         <Productdetail nameProduct={product.name} description={product.description} price={product.price} image={product.image} productId={product.id}/>
                     ))}
                </div>
                </Carousel.Item>
                <Carousel.Item >
                 <div className='Sale-Product'>
-                {bestBrand.map(product => (
+                {bestBrand.slice(4,8).map(product => (
                         <Productdetail nameProduct={product.name}  price={product.price} image={product.image}/>
                     ))}
                </div>
