@@ -1,6 +1,9 @@
 import "./Modal.css";
 
-const Modal = ({ openModal, content, onCancel, onYes }) => {
+
+const Modal = ({ openModal, content, onCancel, onYes,YesShow=true }) => {
+  // const [ShowYes, setShowYes] = useState(quantity);
+
   return (
     <>
       {openModal && (
@@ -14,9 +17,9 @@ const Modal = ({ openModal, content, onCancel, onYes }) => {
               <button onClick={onCancel} className="btn-action cancel">
                 Cancel
               </button>
-              <button onClick={onYes} className="btn-action yes">
+              {YesShow ? (<button onClick={onYes} className="btn-action yes">
                 Yes
-              </button>
+              </button> ):<></>}
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import "./CardComplete.css";
 import deleteIcon from "../../assets/delete-btn.png";
 import { useState } from "react";
+import Modal from "../Modal/Modal";
 
 const CardComplete = ({
   title,
@@ -9,12 +10,18 @@ const CardComplete = ({
   imgProduct,
   isChooseNumProduct,
   isCount,
+  onRemove,
   quantity
 }) => {
   const [countProduct, setCountProduct] = useState(quantity);
+  const [openModal,setOpenModal]= useState(false);
+  const handleRemove = () => {
+    setOpenModal(false); // Close the modal
+    onRemove(); // Call the callback function to remove the component from the cart
+  };
 
   return (
-    <div className="container-cardcomplete">
+    <><div className="container-cardcomplete">
       <div className="cardcomplete-left">
         <img className="productcard-image" src={imgProduct} alt="product"></img>
         <div className="productcomplete-desc">
@@ -48,15 +55,17 @@ const CardComplete = ({
                 +
               </button>
             </div>
-            <button className="btn-delete">
+            <button className="btn-delete" onClick={() => setOpenModal(true)}>
               <img
                 className="icon-delete"
                 src={deleteIcon}
                 alt="delete icon"
+               
               ></img>
+              
             </button>{" "}
           </>
-        ) : (<button className="btn-delete">
+        ) : (<button className="btn-delete" onClick={() => setOpenModal(true)} >
           <img
             className="icon-delete"
             src={deleteIcon}
@@ -69,6 +78,16 @@ const CardComplete = ({
         </div>
       )}
     </div>
+    <Modal
+        openModal={openModal}
+        content="Do you want to remove the product from the cart?"
+        onCancel={() => setOpenModal(false)}
+        onYes={handleRemove}
+       
+        
+
+      ></Modal>
+      </>
   );
 };
 
