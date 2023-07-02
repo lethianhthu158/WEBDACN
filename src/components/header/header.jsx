@@ -19,6 +19,7 @@ import Modal from "../../components/Modal/Modal"
 import { UserContext } from "../../contexts/UserContext";
 import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { app, storage } from "../../firebase/firebase";
+import { FavoriteContext } from "../../contexts/FavoriteContext";
 
 
 
@@ -33,9 +34,14 @@ function Header(props) {
   const [openModal,setOpenModal]= useState(false);
   const { cart } = useContext(CartContext);
   const totalQuantity = cart ? cart.reduce((total, item) => total + item.quantity, 0) : 0;
+  const { FavoriteCart } = useContext(FavoriteContext);
+  const totalfavoriteQuantity = FavoriteCart ? FavoriteCart.length : 0;
+  // const totalfavoriteQuantity = FavoriteCart ? FavoriteCart.reduce((total, item) => total + item.quantity, 0) : 0;
   const { user, updateUserProfile } = useContext(UserContext);
+  const customerId = user && user.customerId;
   const [userInfo,setUserInfo] = useState(JSON.parse(localStorage.getItem('user-info')));  
   const [url, setUrl] = useState(''); 
+
 
   const handleTabClick = (tabIndex) => {
     setSelectedTab(tabIndex); // Cập nhật trạng thái khi người dùng nhấp vào tab
@@ -120,7 +126,7 @@ function Header(props) {
           <Link to="/favoritepd">
             <button className="IconButton heartButton">
               <i class="icon fas fa-heart"></i>
-              <span className="num-fav">3</span>
+              <span className="num-fav">{totalfavoriteQuantity}</span>
             </button></Link>
           <Link to="/cart-page">
             <button className="IconButton cartButton">

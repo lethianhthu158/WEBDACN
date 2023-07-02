@@ -10,10 +10,19 @@ import { CartContext } from '../../contexts/CartContext';
 import { UserContext } from "../../contexts/UserContext";
 import Productdetail from "../../components/productdetail/productdetail";
 import axios from "axios";
+import Register from "../../components/register/registerform";
+import Login from "../../components/login/loginform";
+import { Dialog } from "@material-ui/core";
+import { UserContext } from "../../contexts/UserContext";
+
+
+
+
+// import { Modal } from "react-bootstrap";
+import Modal from "../../components/Modal/Modal";
 
 const ProductDetail = () => {
   const location = useLocation()
-  const { user, updateUserProfile } = useContext(UserContext);
   const { nameProduct } = location.state || {};
   const { price } = location.state || {};
   const { image } = location.state || {};
@@ -24,11 +33,18 @@ const ProductDetail = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const userInfo = JSON.parse(localStorage.getItem('user-info'));
-  const [customerId, setCustomerId] = useState(user ? user.customerId : "");
+  const [customerId, setCustomerId] = useState(userInfo ? userInfo.customerId : "");
   const { productId } = location.state || {};
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const [reviews, setReviews] = useState([]);
+  const [openModal,setOpenModal]= useState(false);
+  const [openPopupRegister, setOpenPopupRegister] = useState(false);
+  const { user, updateUserProfile } = useContext(UserContext);
+  const [openPopupLogin, setOpenPopupLogin] = useState(false);
+  
+  
+
   useEffect(() => {
     axios.get(`${apiEndpoint}?page=${currentPage}&size=6`)
       .then(response => {
@@ -53,6 +69,7 @@ const ProductDetail = () => {
   const handleReviewSubmit = (event) => {
     if(!customerId) {
       console.log("No customerId");
+      setOpenModal(true)
       return;
     }
     event.preventDefault();
@@ -81,12 +98,17 @@ const ProductDetail = () => {
   const handleRatingChange = (event) => {
     setRating(event.target.value);
   };
+  const handleYes=()=>{
+    setOpenModal(false);
+    setOpenPopupRegister(true);
+
+  }
 
   useEffect(() => {
     const storage = getStorage(app);
     var storageRef = ref(storage, "white.jpg");
     if (image != null) {
-      storageRef = ref(storage, image);
+storageRef = ref(storage, image);
     }
     console.log(image);
     getDownloadURL(storageRef).then((url) => {
@@ -96,8 +118,11 @@ const ProductDetail = () => {
 
   const { addToCart } = useContext(CartContext);
   const handleAddToCart = () => {
+    if (user.fullName)
+    {
     const product = { nameProduct, price, imageUrl, quantity: countProduct };
-    addToCart(product);
+    addToCart(product);} 
+    else {setOpenPopupLogin(true)}
   };
   const commetexample = [
     {
@@ -135,29 +160,29 @@ const ProductDetail = () => {
                   alt="image product"
                 ></img>
                 <ul className="producttail-listsuggest">
-                  <li className="wrap-product-suggest-img">
+                  <li className="wrap-product-suggest-img" onClick={()=>setImageUrl(product)}>
                     <img
                       className="product-suggest-img"
-                      src={product1}
+                      src={product}
                       alt="immage product suggest"
 
                     ></img>
                   </li>
-                  <li className="wrap-product-suggest-img">
+                  <li className="wrap-product-suggest-img"  onClick={()=>setImageUrl(product1)}>
                     <img
                       className="product-suggest-img"
                       src={product1}
                       alt="immage product suggest"
                     ></img>
                   </li>
-                  <li className="wrap-product-suggest-img">
+                  <li className="wrap-product-suggest-img"  onClick={()=>setImageUrl(product)}>
                     <img
                       className="product-suggest-img"
-                      src={product1}
+                      src={product}
                       alt="immage product suggest"
                     ></img>
                   </li>
-                  <li className="wrap-product-suggest-img">
+                  <li className="wrap-product-suggest-img"  onClick={()=>setImageUrl(product1)}>
                     <img
                       className="product-suggest-img"
                       src={product1}
@@ -235,7 +260,7 @@ const ProductDetail = () => {
 
               This lip product features a unique dashed texture, adding depth and dimension to your lips. The formula is smooth and creamy, providing comfortable wear throughout the day. Its long-lasting formula ensures that your lips stay vibrant and pigmented for hours without fading or smudging.<br />
 
-              The Dashed Brown shade is suitable for a wide range of skin tones, making it a versatile choice for anyone looking to enhance their lips with a touch of elegance. Whether you're going for a natural everyday look or a more dramatic evening look, this lip product is sure to make a statement.<br />
+The Dashed Brown shade is suitable for a wide range of skin tones, making it a versatile choice for anyone looking to enhance their lips with a touch of elegance. Whether you're going for a natural everyday look or a more dramatic evening look, this lip product is sure to make a statement.<br />
 
               The Lip A12 Dashed Brown comes in a sleek and compact packaging, making it easy to carry in your purse or makeup bag for on-the-go touch-ups. Its applicator allows for precise and effortless application, ensuring a flawless finish every time.<br />
 
@@ -274,7 +299,7 @@ const ProductDetail = () => {
                   </div>
                   <div className="wrapper-comment-input">
                     <p className="comment-description" >Comment description</p>
-                    <input className="input-comment-user" type="text" placeholder="Enter comment description..." onChange={(e) => setComment(e.target.value)}></input>
+<input className="input-comment-user" type="text" placeholder="Enter comment description..." onChange={(e) => setComment(e.target.value)}></input>
 
                     <button className="button-comment-description" onClick={handleReviewSubmit}>Submit</button>
                   </div>
@@ -313,6 +338,22 @@ const ProductDetail = () => {
           ))}
         </div>
       </div>
+      <Dialog open={openPopupLogin} onClose={() => setOpenPopupLogin(false)}>
+        <Login onClose={() => setOpenPopupLogin(false)} />
+      </Dialog>
+      <Dialog
+        open={openPopupRegister}
+        onClose={() => setOpenPopupRegister(false)}
+      >
+        <Register onClose={() => setOpenPopupRegister(false)} />
+      </Dialog>
+      <Modal
+        openModal={openModal}
+        content="You can't comment if you don't have an account. Do you want to register now?"
+        onCancel={() => setOpenModal(false)}
+       onYes={handleYes}
+      ></Modal>
+      
     </>
   );
 };

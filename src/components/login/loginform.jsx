@@ -6,6 +6,7 @@ import axios from "axios";
 import { atom, useAtom } from 'jotai';
 import { GoogleLogin } from 'react-google-login';
 import { UserContext } from "../../contexts/UserContext";
+import Modal from "../../components/Modal/Modal";
 
 const textAtom = atom([])
 const validateEmail = (email) => {
@@ -24,6 +25,8 @@ function Login({ onClose }) {
   const [passwordShown, setPasswordShown] = useState(false);
   const [name, setName]=useAtom(textAtom);
   const [emailError, setEmailError] = useState("");
+  const [openModal,setOpenModal]= useState(false);
+ 
   useEffect(() => {
     if (email !== "") {
       if (!validateEmail(email)) {
@@ -74,6 +77,8 @@ function Login({ onClose }) {
     } catch (error) {
       // Handle error here
       console.error(error);
+      setOpenModal(true);
+      
     }
     const userInfo = JSON.parse(localStorage.getItem('user-info'));
     if(userInfo.role === "ADMIN")
@@ -156,6 +161,16 @@ function Login({ onClose }) {
           }}
         />
       </Dialog>
+      <Modal className="Modal-Error"
+         style={{ left: "0px" }}
+        openModal={openModal}
+        content="Check your login information?"
+        onYes={() => setOpenModal(false)}
+
+        CancelShow={false}
+        stylebtn={{ justifyContent: "space-around" }}
+       
+      ></Modal>
     </div>
   );
 }
