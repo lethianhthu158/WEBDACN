@@ -19,8 +19,6 @@ const CartPage = () => {
   return (
     <>
       <Header />
-     
-      
         {cartItems.length === 0 ? (
           <div className="Emty-CartPage">
             <div className="wrapper-gif-empty">
@@ -39,10 +37,9 @@ const CartPage = () => {
             {cartItems.map((item, index) => (
               <CardComplete
                 key={index}
-                title={item.nameProduct}
-                colorProduct="Pink"
+                nameProduct={item.nameProduct}
                 price={item.price}
-                imgProduct={item.imageUrl}
+                imageUrl={item.imageUrl}
                 isChooseNumProduct={true}
                 isCount={true}
                 quantity={item.quantity}
@@ -57,38 +54,10 @@ const CartPage = () => {
             priceItems={totalPrice}
             priceDelivery="$30"
             priceTotal={totalPrice + 30}
+            itemQuantity={cartItems.length}
           />
           </div>
         )}
-     
-        {/* <div className="wrap-listcard">
-          {cartItems.map((item, index) => (
-            <CardComplete
-              key={index}
-              title={item.nameProduct}
-              colorProduct="Pink"
-              price={item.price}
-              imgProduct={item.imageUrl}
-              isChooseNumProduct={true}
-              isCount={true}
-              quantity={item.quantity}
-            />
-          ))}
-        </div>
-        <CheckOutSection
-          className="cartpage-checkout"
-          priceItems={totalPrice}
-          priceDelivery="$30"
-          priceTotal={totalPrice + 30}
-        />
-      </div>
-      <div className="Emty-CartPage">
-        <div className="wrapper-gif-empty">
-        <img className="gif-empty"src={EmtyPage}></img></div>
-        <p className="Cart-empty">Sorry, cart is empty. Would you like to return to the homepage</p>
-        <Link to="/"><button className="HomePage-comeback">Homepage</button></Link>
-
-      </div> */}
     </>
   );
 };

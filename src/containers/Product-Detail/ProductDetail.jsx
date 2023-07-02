@@ -7,11 +7,13 @@ import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { app } from "../../firebase/firebase";
 import React, { useState, useEffect, useContext } from 'react';
 import { CartContext } from '../../contexts/CartContext';
+import { UserContext } from "../../contexts/UserContext";
 import Productdetail from "../../components/productdetail/productdetail";
 import axios from "axios";
 
 const ProductDetail = () => {
   const location = useLocation()
+  const { user, updateUserProfile } = useContext(UserContext);
   const { nameProduct } = location.state || {};
   const { price } = location.state || {};
   const { image } = location.state || {};
@@ -22,7 +24,7 @@ const ProductDetail = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const userInfo = JSON.parse(localStorage.getItem('user-info'));
-  const [customerId, setCustomerId] = useState(userInfo.customerId);
+  const [customerId, setCustomerId] = useState(user ? user.customerId : "");
   const { productId } = location.state || {};
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
@@ -49,6 +51,10 @@ const ProductDetail = () => {
 }, []);
 
   const handleReviewSubmit = (event) => {
+    if(!customerId) {
+      console.log("No customerId");
+      return;
+    }
     event.preventDefault();
 
     const reviewData = {
@@ -58,18 +64,18 @@ const ProductDetail = () => {
       comment
     };
 
-    console.log(reviewData);
     axios.post('http://localhost:8080/api/review/addReview', reviewData)
       .then(response => {
         console.log('Review added successfully:', response.data);
-        // If needed, clear the form inputs here.
+        
         setRating(0);
         setComment('');
-        // Optionally, fetch the product details again to show the new review.
+        setReviews(prevReviews => [...prevReviews, response.data]);
       })
       .catch(error => {
         console.error('There was an error!', error);
       });
+    
   };
 
   const handleRatingChange = (event) => {
@@ -281,7 +287,7 @@ const ProductDetail = () => {
           </div>
           <div className="wrapper-show-comment-product">
             <div className="Show-comment-product">
-              {commetexample.map((item) => <>
+              {reviews.map((item) => <>
                 <div className="Avatar-user-container">
                   <div className="Avatar-user-comment-show">
                     <img className="Avatar-user-comment" src={product}></img>
@@ -289,11 +295,11 @@ const ProductDetail = () => {
 
 
                   <div>
-                    <div className="Name-user-comment">{item.name}</div>
-                    <div className="Count-Start-comment">{item.Countstar}★</div>
+                    <div className="Name-user-comment">{item.customerFullName}</div>
+                    <div className="Count-Start-comment">{item.rating}★</div>
                   </div>
                 </div>
-                <div className="Content-user-comment">{item.content}
+                <div className="Content-user-comment">{item.comment}
                 </div>
                 <hr></hr>
               </>

@@ -48,6 +48,9 @@ const ProductPage = () => {
                 setApiEndpoint("http://localhost:8080/api/products");
         }
     };
+    const handleFilterCategoryName = (categoryName) => {
+        setApiEndpoint(`http://localhost:8080/api/products/category/${categoryName}`)
+    }
     const handleSelectProduct = (selectedIndexed, e) => {
         setProduct(selectedIndexed);
         setExpandedProduct(selectedIndexed);
@@ -83,42 +86,6 @@ const ProductPage = () => {
             <Header />
             <div className="Wrapper-HeaderProduct-ProductPage">
                 <Carousel activeIndex={product} onSelect={handleSelectProduct} >
-                    {/* <Carousel.Item >
-                        <div className='Wrapper-Product-page'>
-                            <div className="wrapper-header-product">
-                                <Headerproduct
-                                    background={require("../../assets/Blush.png")}
-                                    nameProduct="Blush"
-                                    expanded={expandedProduct === 0} // Pass the expanded state for each product
-                                    onClick={() =>{ handleExpandProduct(0);setTitleProduct("Blush")}} // Handle click to expand/collapse
-                                />
-                            </div>
-                            <div className="wrapper-header-product">
-                                <Headerproduct
-                                    background={require("../../assets/Cleanser.jpg")}
-                                    nameProduct="Cleanser"
-                                    expanded={expandedProduct === 1}
-                                    onClick={() => {handleExpandProduct(1);setTitleProduct("Cleanser")}}
-                                />
-                            </div>
-                            <div className="wrapper-header-product">
-                                <Headerproduct
-                                    background={require("../../assets/CleansingWater.png")}
-                                    nameProduct="Cleansing Water"
-                                    expanded={expandedProduct === 2}
-                                    onClick={() => {handleExpandProduct(2);setTitleProduct("Cleansing Water");}}
-                                />
-                            </div>
-                            <div className="wrapper-header-product">
-                                <Headerproduct
-                                    background={require("../../assets/Toner.jpg")}
-                                    nameProduct="Toner"
-                                    expanded={expandedProduct === 3}
-                                    onClick={() => {handleExpandProduct(3); setTitleProduct("Toner");}}
-                                />
-                            </div>
-                        </div>
-                    </Carousel.Item> */}
                     <Carousel.Item >
                         <div className='Wrapper-Product-page'>
                             <div className="wrapper-header-product">
@@ -127,6 +94,7 @@ const ProductPage = () => {
                                     nameProduct="Blush"
                                     expanded={expandedProduct === 0}
                                     onClick={() => {handleExpandProduct(0);
+                                        handleFilterCategoryName("Blush");
                                         setTitleProduct("Blush");}}
                                 />
                             </div>
@@ -136,7 +104,8 @@ const ProductPage = () => {
                                     nameProduct="Cleanser"
                                     expanded={expandedProduct === 1}
                                     onClick={() => { handleExpandProduct(1);
-                                            setTitleProduct("Powder");}}
+                                            handleFilterCategoryName("Cleanser");
+                                            setTitleProduct("Cleanser");}}
                                 />
                             </div>
                             <div className="wrapper-header-product">
@@ -145,6 +114,7 @@ const ProductPage = () => {
                                     nameProduct="Eyeshadow"
                                     expanded={expandedProduct === 2}
                                     onClick={() => {handleExpandProduct(2);
+                                        handleFilterCategoryName("Eyeshadow");
                                         setTitleProduct("Eyeshadow");}}
                                 />
                             </div>
@@ -155,6 +125,7 @@ const ProductPage = () => {
                                     expanded={expandedProduct ===3}
                                     onClick={() => {
                                         handleExpandProduct(3);
+                                        handleFilterCategoryName("Toner");
                                         setTitleProduct("Toner");
                                       }}
                                 />
@@ -166,9 +137,10 @@ const ProductPage = () => {
                             <div className="wrapper-header-product">
                                 <Headerproduct
                                     background={require("../../assets/Lips.png")}
-                                    nameProduct="Liptick"
+                                    nameProduct="Lipstick"
                                     expanded={expandedProduct === 4}
                                     onClick={() => {handleExpandProduct(4);
+                                        handleFilterCategoryName("Lipstick");
                                         setTitleProduct("Liptick");}}
                                 />
                             </div>
@@ -178,6 +150,7 @@ const ProductPage = () => {
                                     nameProduct="Powder"
                                     expanded={expandedProduct === 5}
                                     onClick={() => { handleExpandProduct(5);
+                                            handleFilterCategoryName("Lipstick");
                                             setTitleProduct("Powder");}}
                                 />
                             </div>
@@ -187,6 +160,7 @@ const ProductPage = () => {
                                     nameProduct="Eyeliner"
                                     expanded={expandedProduct === 6}
                                     onClick={() => {handleExpandProduct(6);
+                                        handleFilterCategoryName("Eyeliner");
                                         setTitleProduct("Eyeliner");}}
                                 />
                             </div>
@@ -197,6 +171,7 @@ const ProductPage = () => {
                                     expanded={expandedProduct === 7}
                                     onClick={() => {
                                         handleExpandProduct(7);
+                                        handleFilterCategoryName("Primer");
                                         setTitleProduct("Primer");
                                       }}
                                 />
@@ -222,14 +197,6 @@ const ProductPage = () => {
                     <button className={`bt ${selectedButton === 'High-price' ? 'selected' : ''}`}
                         onClick={() => handleButtonClick('High-price')}>High Price</button>
                 </div>
-                {/* <div className="Wrapper-Search-Fillter">
-                    <i class="fillter fas fa-search"></i>
-                    <input className="Search-Fillter"/>                   
-                    
-                    
-                </div> */}
-
-
             </div>
             <div className="Wrapper-Product-detail">
                 {products.map(product => (

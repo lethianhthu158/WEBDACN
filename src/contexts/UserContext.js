@@ -5,10 +5,12 @@ export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
     const userInfo = JSON.parse(localStorage.getItem('user-info'));
     var item = {
+        customerId: "",
         fullName:"",
         email:"",
         phone:"",
         address:"",
+        image: "",
     }
     const [user, setUser] = useState(userInfo?userInfo:item);
 

@@ -12,7 +12,6 @@ import CartPage from "./containers/CartPage/CartPage";
 import Payment from "./containers/Payment/Payment";
 import ProfilePage from "./containers/ProfilePage/ProfilePage";
 import Favorite from "./containers/favorite/favorite";
-// import { ProductLayout } from './components/productlayout';
 import OderManage from "./containers/OderManage/OderManage";
 import Slidebar from "./Admin/component/Slidebar/Slidebar";
 import PaymentPayPal from "./containers/PaymentPaypal/PaymentPaypal";
