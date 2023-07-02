@@ -17,6 +17,7 @@ function Homepage() {
     const [product, setProduct] = useState(0);
     const [Saleproduct, setSaleProduct] = useState(0);
     const [BestSellerproduct,setBestSellerproduct]= useState(0);
+    const [BestBrandrproduct,setBestBrandproduct]= useState(0);
 
     const handleSelect = (selectedIndex, e) => {
         setIndex(selectedIndex);
@@ -30,7 +31,9 @@ function Homepage() {
     const  handleBestSellerproduct = (selectedBest, e) => {
         setBestSellerproduct(selectedBest);
     };
-   
+    const  handleBestBrandproduct = (selectedBestBrand, e) => {
+        setBestBrandproduct(selectedBestBrand); 
+    };
 
     const [products, setProducts] = useState([]);
     const [bestSeller, setBestSeller] = useState([]);
@@ -50,6 +53,7 @@ function Homepage() {
         axios.get("http://localhost:8080/api/products/best-sellers/top4")
             .then(response => {
                 setBestSeller(response.data);
+                console.log(response.data)
             })
             .catch(error => {
                 console.error('There was an error!', error);
@@ -210,7 +214,8 @@ function Homepage() {
                 <div className='nameBanner'>Best Brand</div>
                 <a className='SeeAll'>See all</a></div>
             <div className="wrap-Sale-Product">
-            <Carousel activeIndex={BestSellerproduct} onSelect={handleBestSellerproduct}>
+            <Carousel activeIndex={BestBrandrproduct} onSelect={handleBestBrandproduct }>
+
                 <Carousel.Item >
                 <div className='Sale-Product'>
                 {bestBrand.slice(0,4).map(product => (

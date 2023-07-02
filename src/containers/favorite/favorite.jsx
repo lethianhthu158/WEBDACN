@@ -3,47 +3,33 @@ import Header from "../../components/header/header";
 
 import { Footer } from "../../components/footer/footer";
 import Avartar from "../../assets/avatar.png";
-import CardComplete from "../../components/CardComplete/CardComplete";
+import FavoriteCard from "../../components/FavoriteCart/FavoriteCart";
 import Product from "../../assets/product.png";
 import { Link } from "react-router-dom";
 import ProfileUser from "../../components/Profile-User/ProfileUser";
 import Modal from "../../components/Modal/Modal"
+import { useContext } from "react";
 
 
 import React, { useState, useEffect } from 'react';
+import { FavoriteContext } from "../../contexts/FavoriteContext";
+import EmtyPage from "../../assets/EmtyPage.gif";
 
-const dataExample = [
-    {
-        title: "Half n Half Water Glow Season 2",
-        colorProduct: "Pink",
-        price: "$150",
-        product: Product,
-        isChooseNumProduct: true,
-    },
-    {
-        title: "Black Rouge Real Strawberry Milk Toner",
-        colorProduct: "Pink",
-        price: "$200",
-        product: Product,
-        isChooseNumProduct: true,
-    },
-    {
-        title: "Triple Layer Eye Palette",
-        colorProduct: "01 Blossom Forest",
-        price: "$180",
-        product: Product,
-        isChooseNumProduct: true,
-    },
-];
+
 const Favorite = () => {
     const [isMobile, setIsMobile] = useState(false);
-    const [userInfo,setUserInfo] = useState(JSON.parse(localStorage.getItem('user-info')));   
-    const [openModal,setOpenModal]= useState(false);
+    const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem('user-info')));
+    const [openModal, setOpenModal] = useState(false);
+    const {FavoriteCart,  removeFromFavortieCart} = useContext(FavoriteContext);
+    const favoriteItems = FavoriteCart || [];
     const handleLogout = () => {
-        localStorage.removeItem('user-info'); 
+        localStorage.removeItem('user-info');
         setUserInfo("");
         setOpenModal(false);
         window.location.href = "/";
+    };
+    const handleRemoveItem = (index) => {
+        removeFromFavortieCart(index);
       };
 
     useEffect(() => {
@@ -68,32 +54,48 @@ const Favorite = () => {
         <>
             <Header />
             <div className="Body-ProfilePage">
-               <ProfileUser></ProfileUser>
+                <ProfileUser></ProfileUser>
                 <div className={`Info-person ${isMobile ? "hide-text" : ""}`}>
                     <div className="Category-account">
-                      <Link to="/profile">
-                        <div className=" Tab My-Account-Tab ">
-                            <i class="icon-p far fa-user"></i><div className="repone">My Account</div></div></Link>
+                        <Link to="/profile">
+                            <div className=" Tab My-Account-Tab ">
+                                <i class="icon-p far fa-user"></i><div className="repone">My Account</div></div></Link>
                         <div className="Tab Favorite-Product-Tab">
                             <i class="icon-p far fa-heart"></i><div className="repone">Favorite Product</div></div>
-                         <Link to="/oder-management"><div className="Tab Oder-management-Tab">
+                        <Link to="/oder-management"><div className="Tab Oder-management-Tab">
                             <i class="icon-p fas fa-tasks"></i><div className="repone">Order management</div></div></Link>
-                        <div className="Tab Log-out" onClick={()=>setOpenModal(true)}><i class="icon-p fas fa-sign-out"></i>
+                        <div className="Tab Log-out" onClick={() => setOpenModal(true)}><i class="icon-p fas fa-sign-out"></i>
                             <div className="repone">Log out</div></div>
 
                     </div>
-                    <div className="Wrapper-Favorite-Product">
-                        {dataExample.map((item) => (
-                            <CardComplete
-                                title={item.title}
-                                colorProduct={item.colorProduct}
-                                price={item.price}
-                                imgProduct={item.product}
-                                isChooseNumProduct={item.isChooseNumProduct}
-                            />
-                        ))}
+                    {favoriteItems.length === 0 ? (
+                        <div className="Emty-CartPage-fa">
+                            <div className="wrapper-gif-empty-fa">
+                                <img className="gif-empty-fa" src={EmtyPage} alt="Empty Cart" />
+                            </div>
+                            <div className="Content-empty-car-page-fa">
+                                <p className="Cart-empty-fa">Sorry, cart is empty. Would you like to return to the homepage</p>
+                                <Link to="/">
+                                    <button className="HomePage-comeback-fa">Homepage</button>
+                                </Link></div>
+                        </div>
+                    ) : (
+                        <div className="Wrapper-Favorite-Product">
+                            {favoriteItems.map((item, index) => (
+                                <FavoriteCard
+                                    key={index}
+                                    title={item.nameProduct}
+                                    colorProduct="Pink"
+                                    price={item.price}
+                                    imgProduct={item.imageUrl}
+                                    onRemove={() => handleRemoveItem(index)}
 
-                    </div>
+
+                                />
+                            ))}
+
+
+                        </div>)}
 
 
                 </div>
@@ -102,11 +104,11 @@ const Favorite = () => {
 
             <Footer />
             <Modal
-        openModal={openModal}
-        content="Do you want to log out ?"
-        onCancel={() => setOpenModal(false)}
-        onYes={handleLogout}
-      ></Modal>
+                openModal={openModal}
+                content="Do you want to log out ?"
+                onCancel={() => setOpenModal(false)}
+                onYes={handleLogout}
+            ></Modal>
         </>
     );
 };

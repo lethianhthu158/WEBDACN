@@ -45,6 +45,10 @@ ul {
 .wrap-product-suggest-img {
   width: 25%;
   margin-right: 20px;
+  border-color: #b16e4b;
+  border-width: 2px;
+  border-style: solid;
+  cursor: pointer;
 }
 
 .wrap-product-suggest-img:last-child {
