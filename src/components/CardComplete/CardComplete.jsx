@@ -4,7 +4,7 @@ import Modal from "../Modal/Modal";
 import deleteIcon from "../../assets/delete-btn.png";
 import "./CardComplete.css";
 
-const CardComplete = ({ nameProduct, price, imageUrl, quantity, onRemove }) => {
+const CardComplete = ({productId, nameProduct, price, imageUrl, quantity, onRemove }) => {
   const [countProduct, setCountProduct] = useState(quantity);
   const [openModal, setOpenModal] = useState(false);
 
@@ -12,7 +12,7 @@ const CardComplete = ({ nameProduct, price, imageUrl, quantity, onRemove }) => {
 
   const handleUpdateCart = (amount) => {
     setCountProduct(countProduct + amount);
-    const product = { nameProduct, price, imageUrl, quantity: amount };
+    const product = {productId, nameProduct, price, imageUrl, quantity: amount };
     addToCart(product);
   };
 

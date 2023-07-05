@@ -20,6 +20,7 @@ function Productdetail  (props) {
   const [openPopupLogin, setOpenPopupLogin] = useState(false);
   const { nameProduct = "" } = props;
   const { price } =  props;
+  const { productId } = props;
 
   const [countProduct, setCountProduct] = useState(1);
   const { addToFavoriteCart } = useContext( FavoriteContext);
@@ -28,7 +29,7 @@ function Productdetail  (props) {
   const handleFavorite = () => {
     if (user.fullName)
     {
-    const product = { nameProduct, price, imageUrl, quantity: countProduct};
+    const product = { productId, nameProduct, price, imageUrl, quantity: countProduct};
     console.log(product)
     addToFavoriteCart(product);} 
     else {setOpenPopupLogin(true)}
@@ -37,7 +38,7 @@ function Productdetail  (props) {
   const handleAddToCart = () => {
     if (user.fullName)
     {
-    const product = { nameProduct, price, imageUrl, quantity: countProduct };
+    const product = { productId, nameProduct, price, imageUrl, quantity: countProduct };
     console.log(product)
     addToCart(product);} 
     else {setOpenPopupLogin(true)}

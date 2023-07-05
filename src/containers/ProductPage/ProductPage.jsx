@@ -141,7 +141,7 @@ const ProductPage = () => {
                                     expanded={expandedProduct === 4}
                                     onClick={() => {handleExpandProduct(4);
                                         handleFilterCategoryName("Lipstick");
-                                        setTitleProduct("Liptick");}}
+                                        setTitleProduct("Lipstick");}}
                                 />
                             </div>
                             <div className="wrapper-header-product">
@@ -150,7 +150,7 @@ const ProductPage = () => {
                                     nameProduct="Powder"
                                     expanded={expandedProduct === 5}
                                     onClick={() => { handleExpandProduct(5);
-                                            handleFilterCategoryName("Lipstick");
+                                            handleFilterCategoryName("Powder");
                                             setTitleProduct("Powder");}}
                                 />
                             </div>

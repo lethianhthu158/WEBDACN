@@ -43,6 +43,7 @@ const CartPage = () => {
                 isChooseNumProduct={true}
                 isCount={true}
                 quantity={item.quantity}
+                productId={item.productId}
                 onRemove={() => handleRemoveItem(index)}
               />
             ))}
