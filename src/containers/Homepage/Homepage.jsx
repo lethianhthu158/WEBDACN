@@ -11,13 +11,16 @@ import Carousel from 'react-bootstrap/Carousel';
 import React, { useState, useEffect } from "react";
 import Productdetail from '../../components/productdetail/productdetail';
 import axios from "axios";
+import { Link } from 'react-router-dom';
 
 function Homepage() {
     const [index, setIndex] = useState(0);
     const [product, setProduct] = useState(0);
     const [Saleproduct, setSaleProduct] = useState(0);
-    const [BestSellerproduct,setBestSellerproduct]= useState(0);
-    const [BestBrandrproduct,setBestBrandproduct]= useState(0);
+    const [BestSellerproduct, setBestSellerproduct] = useState(0);
+    const [BestBrandrproduct, setBestBrandproduct] = useState(0);
+    const [isselectsee, setisSelectSee] = useState(null);
+
 
     const handleSelect = (selectedIndex, e) => {
         setIndex(selectedIndex);
@@ -25,14 +28,14 @@ function Homepage() {
     const handleSelectProduct = (selectedIndexed, e) => {
         setProduct(selectedIndexed);
     };
-    const  handleSaleproduct = (selected, e) => {
+    const handleSaleproduct = (selected, e) => {
         setSaleProduct(selected);
     };
-    const  handleBestSellerproduct = (selectedBest, e) => {
+    const handleBestSellerproduct = (selectedBest, e) => {
         setBestSellerproduct(selectedBest);
     };
-    const  handleBestBrandproduct = (selectedBestBrand, e) => {
-        setBestBrandproduct(selectedBestBrand); 
+    const handleBestBrandproduct = (selectedBestBrand, e) => {
+        setBestBrandproduct(selectedBestBrand);
     };
 
     const [products, setProducts] = useState([]);
@@ -53,7 +56,8 @@ function Homepage() {
         axios.get("http://localhost:8080/api/products/best-sellers/top4")
             .then(response => {
                 setBestSeller(response.data);
-                console.log(response.data)
+                console.log("test", response.data);
+
             })
             .catch(error => {
                 console.error('There was an error!', error);
@@ -122,7 +126,7 @@ function Homepage() {
                 <Carousel activeIndex={product} onSelect={handleSelectProduct} className='fix-high'>
                     <Carousel.Item >
                         <div className='Wrapper-Product'>
-                            
+
                             <ProductLayout></ProductLayout>
                             <ProductLayout></ProductLayout>
                             <ProductLayout></ProductLayout>
@@ -167,70 +171,78 @@ function Homepage() {
                 <div className='nameBanner'>Sale off</div>
                 <a className='SeeAll'>See all</a></div>
             <div className="wrap-Sale-Product">
-               
-            <Carousel activeIndex={Saleproduct} onSelect={handleSaleproduct}>
-                <Carousel.Item >
-                <div className='Sale-Product'>
-                {products.slice(0, 4).map(product => (
-                        <Productdetail  nameProduct={product.name}  price={product.price} image={product.image} productId={product.id}/>
-                        
-                    ))}
-                     </div>
-                </Carousel.Item>
-                <Carousel.Item >
-                <div className='Sale-Product'>
-                {products.slice(4,8).map(product => (
-                        <Productdetail  nameProduct={product.name}  price={product.price} image={product.image} productId={product.id}/>
-                        
-                    ))}
-                     </div>
-                </Carousel.Item>
-                
-                    </Carousel>
-              
+
+                <Carousel activeIndex={Saleproduct} onSelect={handleSaleproduct}>
+                    <Carousel.Item >
+                        <div className='Sale-Product'>
+                            {products.slice(0, 4).map(product => (
+                                <Productdetail nameProduct={product.name} description={product.description} price={product.price} image={product.image} productId={product.id} sales={product.sales} />
+
+
+                            ))}
+                        </div>
+                    </Carousel.Item>
+                    <Carousel.Item >
+                        <div className='Sale-Product'>
+                            {products.slice(4, 8).map(product => (
+                                <Productdetail nameProduct={product.name} description={product.description} price={product.price} image={product.image} productId={product.id} sales={product.sales} />
+
+                            ))}
+                        </div>
+                    </Carousel.Item>
+
+                </Carousel>
+
             </div>
             <div className='Banner'>
                 <div className='nameBanner'>Best Seller</div>
-                <a className='SeeAll'>See all</a></div>
+                <div className='SeeAll' onClick={() => setisSelectSee('Best-seller')}>
+                    <Link to={{
+                        pathname: '/product',
+                        state: { isselectsee: 'Best-seller' },
+                    }}>See all</Link>
+                </div>
+            </div>
             <div className="wrap-Sale-Product">
-            <Carousel activeIndex={BestSellerproduct} onSelect={handleBestSellerproduct}>
-                <Carousel.Item >
-                <div className='Sale-Product'>
-                {bestSeller.slice(0,4).map(product => (
-                        <Productdetail nameProduct={product.name} description={product.description} price={product.price} image={product.image} productId={product.id}/>
-                    ))}
-               </div>
-               </Carousel.Item>
-               <Carousel.Item >
-                <div className='Sale-Product'>
-                {bestSeller.slice(4,8).map(product => (
-                        <Productdetail nameProduct={product.name} description={product.description} price={product.price} image={product.image} productId={product.id}/>
-                    ))}
-               </div>
-               </Carousel.Item>
-            </Carousel>
+                <Carousel activeIndex={BestSellerproduct} onSelect={handleBestSellerproduct}>
+                    <Carousel.Item >
+                        <div className='Sale-Product'>
+                            {bestSeller.slice(0, 4).map(product => (
+                                <Productdetail nameProduct={product.name} description={product.description} price={product.price} image={product.image} productId={product.id} sales={product.sales} />
+                            ))}
+                        </div>
+                    </Carousel.Item>
+                    <Carousel.Item >
+                        <div className='Sale-Product'>
+                            {bestSeller.slice(4, 8).map(product => (
+                                <Productdetail nameProduct={product.name} description={product.description} price={product.price} image={product.image} productId={product.id} sales={product.sales} />
+                            ))}
+                        </div>
+                    </Carousel.Item>
+                </Carousel>
             </div>
             <div className='Banner'>
                 <div className='nameBanner'>Best Brand</div>
-                <a className='SeeAll'>See all</a></div>
+                {/* <a className='SeeAll'>See all</a> */}
+            </div>
             <div className="wrap-Sale-Product">
-            <Carousel activeIndex={BestBrandrproduct} onSelect={handleBestBrandproduct }>
+                <Carousel activeIndex={BestBrandrproduct} onSelect={handleBestBrandproduct}>
 
-                <Carousel.Item >
-                <div className='Sale-Product'>
-                {bestBrand.slice(0,4).map(product => (
-                        <Productdetail nameProduct={product.name} description={product.description} price={product.price} image={product.image} productId={product.id}/>
-                    ))}
-               </div>
-               </Carousel.Item>
-               <Carousel.Item >
-                <div className='Sale-Product'>
-                {bestBrand.slice(4,8).map(product => (
-                        <Productdetail nameProduct={product.name}  price={product.price} image={product.image}/>
-                    ))}
-               </div>
-               </Carousel.Item>
-            </Carousel>
+                    <Carousel.Item >
+                        <div className='Sale-Product'>
+                            {bestBrand.slice(0, 4).map(product => (
+                                <Productdetail nameProduct={product.name} description={product.description} price={product.price} image={product.image} productId={product.id} sales={product.sales} />
+                            ))}
+                        </div>
+                    </Carousel.Item>
+                    <Carousel.Item >
+                        <div className='Sale-Product'>
+                            {bestBrand.slice(4, 8).map(product => (
+                                <Productdetail nameProduct={product.name} description={product.description} price={product.price} image={product.image} productId={product.id} sales={product.sales} />
+                            ))}
+                        </div>
+                    </Carousel.Item>
+                </Carousel>
             </div>
 
 

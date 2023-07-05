@@ -21,10 +21,12 @@ function Productdetail  (props) {
   const { nameProduct = "" } = props;
   const { price } =  props;
   const { productId } = props;
+  const {sales}=props;
 
   const [countProduct, setCountProduct] = useState(1);
   const { addToFavoriteCart } = useContext( FavoriteContext);
-  const [seller,setSeller]=useState(0);
+  const [salePro,setSalePro]=useState(0);
+ 
   
   const handleFavorite = () => {
     if (user.fullName)
@@ -48,13 +50,17 @@ function Productdetail  (props) {
   useEffect(() => {
     const storage = getStorage(app);
     var storageRef = ref(storage, "white.jpg"); 
+    const calculatedSeller = price - (price *( sales/100));
+    var roundedSeller = Math.round(calculatedSeller);
+    console.log("giá trị",sales);
+    setSalePro(roundedSeller);
+    
     if(props.image != null) {
       storageRef = ref(storage, props.image);
     }
     console.log(props.productId);
     getDownloadURL(storageRef).then((url) => {
-      setImageUrl(url);
-      setSeller(1)
+      setImageUrl(url);      
 
     });
   }, [props.image]);
@@ -70,12 +76,13 @@ function Productdetail  (props) {
       <div className='Background-ProducdetailtName'  state={{ nameProduct: props.nameProduct, price : props.price, image: props.image, description:props.description, productId: props.productId }}>  
       <div className='ProducdetailtName'>
       <div className='Name-product'>{props.nameProduct}</div>
-      {seller===0 ? (<div className='Price-product'>${props.price}</div>):
+      {sales===0 ? 
+      (<div className='Price-product'>${props.price}</div>):
       (
         <div className='wrapper-Product-seller'>
 
-          <div className='Priceof Price-old'>$123</div>
-          <div className='Priceof Price-seller'>$100</div>
+          <div className='Priceof Price-old'>${props.price}</div>
+          <div className='Priceof Price-seller'>${salePro}</div>
 
         </div>)}
      
