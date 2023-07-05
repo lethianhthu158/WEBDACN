@@ -64,3 +64,43 @@
     color: rgb(126, 69, 34);
 
   }
+  .ButtonActive{
+    width: 70px;
+    height: 40px;
+    margin-right: 5px;
+    border-radius: 5px;
+  }
+  .Accept{
+    border-color: #129e08 ;
+    background-color: rgb(145 254 159 / 30%);
+    color: #14580f;
+
+  }
+  .Deny{
+   
+      border-color: red ;
+      background-color: rgba(186, 54, 42, 0.3);
+      color: red;
+  
+    
+  }
+
+  .IMG-Tick-Accept{
+    width: 100%;
+    height: 100%;
+    
+  }
+  .Wrap-button-active{
+    display: grid;
+    grid-template-columns: 30% 30%;
+    padding:3px 3px;
+  }
+  .Wrap-img-tick-accept{
+    width: 70px;
+    height: 40px;
+    border-radius: 5px;
+    border-width: 2px;
+   
+    border-color: #129e08;
+    border-style: solid;
+  }

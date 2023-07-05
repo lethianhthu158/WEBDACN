@@ -13,7 +13,7 @@ import axios from "axios";
 import Register from "../../components/register/registerform";
 import Login from "../../components/login/loginform";
 import { Dialog } from "@material-ui/core";
-import { UserContext } from "../../contexts/UserContext";
+
 
 
 
@@ -334,7 +334,8 @@ The Dashed Brown shade is suitable for a wide range of skin tones, making it a v
         <div className="Product-detail-page-wrapper-right">
           {products.map(product => (
             <div className="Product-detail-page">
-              <Productdetail nameProduct={product.name} price={product.price} image={product.image} /></div>
+             <Productdetail  nameProduct={product.name} description={product.description} price={product.price} image={product.image} productId={product.id} sales={product.sales}/>
+              </div>
           ))}
         </div>
       </div>

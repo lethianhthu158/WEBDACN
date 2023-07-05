@@ -7,6 +7,7 @@ import Productdetail from "../../components/productdetail/productdetail";
 import React, { useState, useEffect } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import axios from "axios";
+import { useLocation } from 'react-router-dom';
 
 
 const ProductPage = () => {
@@ -15,7 +16,11 @@ const ProductPage = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [TileProduct,setTitleProduct]=useState();
     const [apiEndpoint, setApiEndpoint] = useState("http://localhost:8080/api/products");
+    const location = useLocation();
+    const isselectsee = location?.state?.isselectsee;
+    const [selectedButton, setSelectedButton] = useState(null);
     useEffect(() => {
+       
         axios.get(`${apiEndpoint}?page=${currentPage}&size=6`)
             .then(response => {
                 setProducts(response.data.content);
@@ -25,7 +30,7 @@ const ProductPage = () => {
                 console.error('There was an error!', error);
             });
     }, [currentPage, apiEndpoint]);
-    const [selectedButton, setSelectedButton] = useState(null);
+
     const [product, setProduct] = useState(0);
     const [expandedProduct, setExpandedProduct] = useState(null); // New state for expanded product
 
@@ -48,9 +53,6 @@ const ProductPage = () => {
                 setApiEndpoint("http://localhost:8080/api/products");
         }
     };
-    const handleFilterCategoryName = (categoryName) => {
-        setApiEndpoint(`http://localhost:8080/api/products/category/${categoryName}`)
-    }
     const handleSelectProduct = (selectedIndexed, e) => {
         setProduct(selectedIndexed);
         setExpandedProduct(selectedIndexed);
@@ -62,6 +64,12 @@ const ProductPage = () => {
             setExpandedProduct(selectedIndexed); // Expand the clicked product
         }
     };
+    useEffect(() => {
+        if (isselectsee !== null) {
+            setSelectedButton(isselectsee);
+            console.log("bestseller test", isselectsee);
+        }
+    }, []);
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -86,6 +94,7 @@ const ProductPage = () => {
             <Header />
             <div className="Wrapper-HeaderProduct-ProductPage">
                 <Carousel activeIndex={product} onSelect={handleSelectProduct} >
+                   
                     <Carousel.Item >
                         <div className='Wrapper-Product-page'>
                             <div className="wrapper-header-product">
@@ -94,7 +103,6 @@ const ProductPage = () => {
                                     nameProduct="Blush"
                                     expanded={expandedProduct === 0}
                                     onClick={() => {handleExpandProduct(0);
-                                        handleFilterCategoryName("Blush");
                                         setTitleProduct("Blush");}}
                                 />
                             </div>
@@ -104,8 +112,7 @@ const ProductPage = () => {
                                     nameProduct="Cleanser"
                                     expanded={expandedProduct === 1}
                                     onClick={() => { handleExpandProduct(1);
-                                            handleFilterCategoryName("Cleanser");
-                                            setTitleProduct("Cleanser");}}
+                                            setTitleProduct("Powder");}}
                                 />
                             </div>
                             <div className="wrapper-header-product">
@@ -114,7 +121,6 @@ const ProductPage = () => {
                                     nameProduct="Eyeshadow"
                                     expanded={expandedProduct === 2}
                                     onClick={() => {handleExpandProduct(2);
-                                        handleFilterCategoryName("Eyeshadow");
                                         setTitleProduct("Eyeshadow");}}
                                 />
                             </div>
@@ -125,7 +131,6 @@ const ProductPage = () => {
                                     expanded={expandedProduct ===3}
                                     onClick={() => {
                                         handleExpandProduct(3);
-                                        handleFilterCategoryName("Toner");
                                         setTitleProduct("Toner");
                                       }}
                                 />
@@ -137,10 +142,9 @@ const ProductPage = () => {
                             <div className="wrapper-header-product">
                                 <Headerproduct
                                     background={require("../../assets/Lips.png")}
-                                    nameProduct="Lipstick"
+                                    nameProduct="Liptick"
                                     expanded={expandedProduct === 4}
                                     onClick={() => {handleExpandProduct(4);
-                                        handleFilterCategoryName("Lipstick");
                                         setTitleProduct("Liptick");}}
                                 />
                             </div>
@@ -150,7 +154,6 @@ const ProductPage = () => {
                                     nameProduct="Powder"
                                     expanded={expandedProduct === 5}
                                     onClick={() => { handleExpandProduct(5);
-                                            handleFilterCategoryName("Lipstick");
                                             setTitleProduct("Powder");}}
                                 />
                             </div>
@@ -160,7 +163,6 @@ const ProductPage = () => {
                                     nameProduct="Eyeliner"
                                     expanded={expandedProduct === 6}
                                     onClick={() => {handleExpandProduct(6);
-                                        handleFilterCategoryName("Eyeliner");
                                         setTitleProduct("Eyeliner");}}
                                 />
                             </div>
@@ -171,7 +173,6 @@ const ProductPage = () => {
                                     expanded={expandedProduct === 7}
                                     onClick={() => {
                                         handleExpandProduct(7);
-                                        handleFilterCategoryName("Primer");
                                         setTitleProduct("Primer");
                                       }}
                                 />
@@ -197,11 +198,20 @@ const ProductPage = () => {
                     <button className={`bt ${selectedButton === 'High-price' ? 'selected' : ''}`}
                         onClick={() => handleButtonClick('High-price')}>High Price</button>
                 </div>
+                {/* <div className="Wrapper-Search-Fillter">
+                    <i class="fillter fas fa-search"></i>
+                    <input className="Search-Fillter"/>                   
+                    
+                    
+                </div> */}
+
+
             </div>
             <div className="Wrapper-Product-detail">
                 {products.map(product => (
                     <div className="Product-detail">
-                        <Productdetail nameProduct={product.name} price={product.price} image={product.image} description={product.description} productId={product.id}/></div>
+                       <Productdetail  nameProduct={product.name} description={product.description} price={product.price} image={product.image} productId={product.id} sales={product.sales}/>
+                        </div>
                 ))}
             </div>
 
@@ -229,6 +239,7 @@ const ProductPage = () => {
             </div>
 
             <Footer />
+           
         </>
     );
 };

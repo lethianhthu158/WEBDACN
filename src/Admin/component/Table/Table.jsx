@@ -8,6 +8,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import "./Table.css";
 import DetailAdminBill from "../DetailAdminBill/DetailAdminBill";
+import TickAccept from "../assets/TickAccept.gif"
+
 
 function createData(name, trackingId, date, status) {
   return { name, trackingId, date, status };
@@ -41,6 +43,8 @@ const makeStyle = (status) => {
 
 export default function BasicTable() {
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isAccept, setisAccept] = useState(false);
+  const [isAccepted, setIsAccepted] = useState(Array(rows.length).fill(false));
 
   const handleDetailBill = (product) => {
     setSelectedProduct(product);
@@ -48,6 +52,11 @@ export default function BasicTable() {
 
   const handleCloseDetail = () => {
     setSelectedProduct(null);
+  };
+  const handleAccept = (index) => {
+    const newIsAccept = [...isAccepted];
+    newIsAccept[index] = true;
+    setIsAccepted(newIsAccept);
   };
 
   return (
@@ -65,10 +74,11 @@ export default function BasicTable() {
               <TableCell align="left">Date</TableCell>
               <TableCell align="left">Status</TableCell>
               <TableCell align="left"></TableCell>
+              <TableCell align="left">Active</TableCell>
             </TableRow>
           </TableHead>
           <TableBody style={{ color: "white" }}>
-            {rows.map((row) => (
+            {rows.map((row, index) => (
               <TableRow
                 key={row.name}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -94,6 +104,14 @@ export default function BasicTable() {
                       Details
                     </button>
                   )}
+                </TableCell>
+                <TableCell align="left" className="Active">
+                  <div className="Wrap-button-active">
+                  {isAccepted[index] ?(<div className="Wrap-img-tick-accept"><img className="IMG-Tick-Accept" src={TickAccept}></img></div>):
+                  ( <button className="ButtonActive Accept " onClick={() => handleAccept(index)}>
+                      Accept</button>)}
+                    <button className="ButtonActive Deny">Deny</button>
+                  </div>
                 </TableCell>
               </TableRow>
             ))}

@@ -20,8 +20,9 @@ const FavoriteCard = ({
   };
 
   return (
-    <><Link state={{ nameProduct: title, price,  image: imgProduct }} to="/product-detail">
+    <>
       <div className="container-cardcomplete-fa">
+      <Link state={{ nameProduct: title, price, imgProduct: imgProduct }} to="/product-detail">
       <div className="cardcomplete-left-fa">
         <img className="productcard-image-fa" src={imgProduct} alt="product"></img>
         <div className="productcomplete-desc-fa">
@@ -30,25 +31,29 @@ const FavoriteCard = ({
           <p className="productcomplete-content productcomplete-price-fa">
             ${price}
           </p>
-          <button className="btn-delete-fa" onClick={() => setOpenModal(true)} >
+        
+        </div>
+        </div>
+
+    </Link>
+
+        <button className="btn-delete-fa" onClick={() => setOpenModal(true)} >
           <img
             className="icon-delete-fa"
             src={deleteIcon}
             alt="delete icon"
           ></img>
         </button>
-        </div>
        
-      </div>
+      
       
        
     
       
     </div>
-    </Link>
     <Modal
         openModal={openModal}
-        content="Do you want to remove the product from the cart?"
+        content="Do you want to remove the product from the favorite product?"
         onCancel={() => setOpenModal(false)}
         onYes={handleRemove}
         style={{left:"0px"}}
