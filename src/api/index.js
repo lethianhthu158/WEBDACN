@@ -6,7 +6,7 @@ const instance = axios.create({
     Accept: "application/json",
     "Access-Control-Allow-Origin": "*",
   },
-  baseURL: "http://localhost:8080/api/v1/auth/register",
+  baseURL: "http://localhost:8080/api/",
   timeout: 10000,
   withCredentials: true,
   credentials: "same-origin",

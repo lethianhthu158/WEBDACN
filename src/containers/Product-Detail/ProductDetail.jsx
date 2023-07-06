@@ -13,11 +13,6 @@ import axios from "axios";
 import Register from "../../components/register/registerform";
 import Login from "../../components/login/loginform";
 import { Dialog } from "@material-ui/core";
-
-
-
-
-
 // import { Modal } from "react-bootstrap";
 import Modal from "../../components/Modal/Modal";
 
@@ -125,7 +120,7 @@ storageRef = ref(storage, image);
   const handleAddToCart = () => {
     if (user.fullName)
     {
-    const product = { nameProduct, price, imageUrl, quantity: countProduct };
+    const product = { productId, nameProduct, price, imageUrl, quantity: countProduct };
     addToCart(product);} 
     else {setOpenPopupLogin(true)}
   };

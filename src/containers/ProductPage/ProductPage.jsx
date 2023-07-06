@@ -53,6 +53,10 @@ const ProductPage = () => {
                 setApiEndpoint("http://localhost:8080/api/products");
         }
     };
+
+    const handleFilterCategoryName = (categoryName) => {
+        setApiEndpoint(`http://localhost:8080/api/products/category/${categoryName}`)
+    }
     const handleSelectProduct = (selectedIndexed, e) => {
         setProduct(selectedIndexed);
         setExpandedProduct(selectedIndexed);
@@ -145,7 +149,8 @@ const ProductPage = () => {
                                     nameProduct="Liptick"
                                     expanded={expandedProduct === 4}
                                     onClick={() => {handleExpandProduct(4);
-                                        setTitleProduct("Liptick");}}
+                                        handleFilterCategoryName("Lipstick");
+                                        setTitleProduct("Lipstick");}}
                                 />
                             </div>
                             <div className="wrapper-header-product">
@@ -154,6 +159,7 @@ const ProductPage = () => {
                                     nameProduct="Powder"
                                     expanded={expandedProduct === 5}
                                     onClick={() => { handleExpandProduct(5);
+                                            handleFilterCategoryName("Powder");
                                             setTitleProduct("Powder");}}
                                 />
                             </div>
