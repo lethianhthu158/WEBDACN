@@ -40,7 +40,7 @@ const CartPage = () => {
                 nameProduct={item.nameProduct}
                 price={item.price}
                 imageUrl={item.imageUrl}
-                isChooseNumProduct={true}
+                isChooseNumber={true}
                 isCount={true}
                 quantity={item.quantity}
                 productId={item.productId}
