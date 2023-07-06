@@ -53,6 +53,10 @@ const ProductPage = () => {
                 setApiEndpoint("http://localhost:8080/api/products");
         }
     };
+
+    const handleFilterCategoryName = (categoryName) => {
+        setApiEndpoint(`http://localhost:8080/api/products/category/${categoryName}`)
+    }
     const handleSelectProduct = (selectedIndexed, e) => {
         setProduct(selectedIndexed);
         setExpandedProduct(selectedIndexed);
