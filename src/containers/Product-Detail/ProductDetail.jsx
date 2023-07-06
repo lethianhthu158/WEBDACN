@@ -92,6 +92,11 @@ const ProductDetail = () => {
       .catch(error => {
         console.error('There was an error!', error);
       });
+      setComment('');
+      setRating(0);
+      
+      
+
     
   };
 
