@@ -4,7 +4,7 @@ import Modal from "../Modal/Modal";
 import deleteIcon from "../../assets/delete-btn.png";
 import "./CardComplete.css";
 
-const CardComplete = ({ nameProduct, price, imageUrl, quantity, onRemove }) => {
+const CardComplete = ({ nameProduct, price, imageUrl, quantity, onRemove, isChooseNumber, number=0 }) => {
   const [countProduct, setCountProduct] = useState(quantity);
   const [openModal, setOpenModal] = useState(false);
 
@@ -30,11 +30,15 @@ const CardComplete = ({ nameProduct, price, imageUrl, quantity, onRemove }) => {
           <p className="productcomplete-content productcomplete-price">${price}</p>
         </div>
       </div>
-      <div className="cardcomplete-right">
+      {isChooseNumber===true?
+      (<div className="cardcomplete-right">
         <button className="btn-count decrease" disabled={countProduct <= 1} onClick={() => handleUpdateCart(-1)}>-</button>
         <input className="number-count" type="text" value={countProduct} readOnly />
-        <button className="btn-count increase" onClick={() => handleUpdateCart(1)}>+</button>
-      </div>
+       <button className="btn-count increase" onClick={() => handleUpdateCart(1)}>+</button>
+      </div>):
+    ( <div className="cardcomplete-right">
+        <p className="Number-Cardcomplete">x{number}</p>
+      </div>)}
       <button className="btn-delete" onClick={() => setOpenModal(true)}>
         <img className="icon-delete" src={deleteIcon} alt="delete icon" />
       </button>
@@ -43,6 +47,8 @@ const CardComplete = ({ nameProduct, price, imageUrl, quantity, onRemove }) => {
         content="Do you want to remove the product from the cart?"
         onCancel={() => setOpenModal(false)}
         onYes={handleConfirmRemove}
+        style={{left:"0px"}}
+
       />
     </div>
   );

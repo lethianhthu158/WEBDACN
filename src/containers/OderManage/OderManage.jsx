@@ -40,8 +40,8 @@ function OderManage() {
             title: "Half n Half Water Glow Season 2",
             colorProduct: "Pink",
             price: "$150",
-            product: Product,
-            isChooseNumProduct: false,
+            product: Avartar,
+            isChooseNumber: false,
 
 
         },
@@ -49,15 +49,15 @@ function OderManage() {
             title: "Black Rouge Real Strawberry Milk Toner",
             colorProduct: "Pink",
             price: "$200",
-            product: Product,
-            isChooseNumProduct: false,
+            product: Avartar,
+            isChooseNumber: false,
         },
         {
             title: "Triple Layer Eye Palette",
             colorProduct: "01 Blossom Forest",
             price: "$180",
-            product: Product,
-            isChooseNumProduct: false,
+            product: Avartar,
+           isChooseNumber: false,
         },
     ];
 
@@ -129,29 +129,29 @@ function OderManage() {
                             <MDBTabsPane show={iconsActive === 'tab1'}>
                                 {dataExample.map((item) => (
                                     <CardComplete
-                                        title={item.title}
+                                    nameProduct={item.title}
                                         colorProduct={item.colorProduct}
                                         price={item.price}
-                                        imgProduct={item.product}
+                                        imageUrl={item.product}
                                         isChooseNumProduct={item.isChooseNumProduct}
                                     />
                                 ))}
                             </MDBTabsPane>
                             <MDBTabsPane show={iconsActive === 'tab2'}> {dataExample.map((item) => (
                                 <CardComplete
-                                    title={item.title}
+                                nameProduct={item.title}
                                     colorProduct={item.colorProduct}
                                     price={item.price}
-                                    imgProduct={item.product}
+                                    imageUrl={item.product}
                                     isChooseNumProduct={item.isChooseNumProduct}
                                 />
                             ))}</MDBTabsPane>
                             <MDBTabsPane show={iconsActive === 'tab3'}> {dataExample.map((item) => (
                                 <CardComplete
-                                    title={item.title}
+                                nameProduct={item.title}
                                     colorProduct={item.colorProduct}
                                     price={item.price}
-                                    imgProduct={item.product}
+                                    imageUrl={item.product}
                                     isChooseNumProduct={item.isChooseNumProduct}
                                 />
                             ))}</MDBTabsPane>
