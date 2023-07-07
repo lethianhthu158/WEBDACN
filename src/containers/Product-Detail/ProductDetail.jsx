@@ -15,6 +15,7 @@ import Login from "../../components/login/loginform";
 import { Dialog } from "@material-ui/core";
 // import { Modal } from "react-bootstrap";
 import Modal from "../../components/Modal/Modal";
+import Uncomment from "../../assets/Uncomment.gif"
 
 const ProductDetail = () => {
   const location = useLocation()
@@ -37,6 +38,33 @@ const ProductDetail = () => {
   const [openPopupRegister, setOpenPopupRegister] = useState(false);
   const { user, updateUserProfile } = useContext(UserContext);
   const [openPopupLogin, setOpenPopupLogin] = useState(false);
+
+  const [isNameProductInList,setisNameProductInList]=useState(false)
+ 
+
+  const [odersdetailProductName, setOdersdetailProductName] = useState([]);
+ 
+    
+  useEffect(() => {
+ 
+  
+    if (userInfo && userInfo.orders && userInfo.orders.length > 0) {
+      const productNameList = userInfo.orders.map((order) => {
+        if (order.orderDetails && order.orderDetails.length > 0) {
+          return order.orderDetails[0].productName;
+        }
+       
+        return "";
+      });
+      setOdersdetailProductName(productNameList);
+      const NameProductInList = productNameList.includes(nameProduct);
+       setisNameProductInList( NameProductInList)
+      
+
+    }
+    
+  }, [userInfo, nameProduct]);
+
   
   
 
@@ -55,6 +83,7 @@ const ProductDetail = () => {
     axios.get(`http://localhost:8080/api/review/product/${productId}`)
         .then(response => {
           setReviews(response.data);
+         
         })
         .catch(error => {
             console.error('There was an error!', error);
@@ -83,6 +112,7 @@ const ProductDetail = () => {
         setRating(0);
         setComment('');
         setReviews(prevReviews => [...prevReviews, response.data]);
+        document.getElementById("comment-input").value = '';
       })
       .catch(error => {
         console.error('There was an error!', error);
@@ -107,6 +137,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const storage = getStorage(app);
     var storageRef = ref(storage, "white.jpg");
+   
     if (image != null) {
 storageRef = ref(storage, image);
     }
@@ -277,7 +308,7 @@ The Dashed Brown shade is suitable for a wide range of skin tones, making it a v
                     <i className="StarCount fas fa-star"></i>
                   </div>
                 </div>
-                <div className="wrapper-Rating-star-input">
+                {isNameProductInList ?(<div className="wrapper-Rating-star-input">
                   <div className="wrapper-comment-from-user">
                     <p className="title-rating">Rating</p>
                     <form class="star-rating">
@@ -299,11 +330,14 @@ The Dashed Brown shade is suitable for a wide range of skin tones, making it a v
                   </div>
                   <div className="wrapper-comment-input">
                     <p className="comment-description" >Comment description</p>
-<input className="input-comment-user" type="text" placeholder="Enter comment description..." onChange={(e) => setComment(e.target.value)}></input>
+                    <input id="comment-input" className="input-comment-user" type="text" placeholder="Enter comment description..." onChange={(e) => setComment(e.target.value)  }></input>
 
                     <button className="button-comment-description" onClick={handleReviewSubmit}>Submit</button>
                   </div>
-                </div>
+                </div>):(<><div className="Uncomment-wrapper">
+                  <p className="Wrapper-text-uncomment">You need to buy products to review</p>
+                <div className="wrapper-img-uncoment">
+                  <img  className="Uncomment-img" src={Uncomment}></img></div></div></>)}
               </div>
 
             </div>
@@ -312,7 +346,7 @@ The Dashed Brown shade is suitable for a wide range of skin tones, making it a v
           </div>
           <div className="wrapper-show-comment-product">
             <div className="Show-comment-product">
-              {reviews.map((item) => <>
+             {reviews.length!==0 ? (reviews.map((item) => <>
                 <div className="Avatar-user-container">
                   <div className="Avatar-user-comment-show">
                     <img className="Avatar-user-comment" src={product}></img>
@@ -328,8 +362,8 @@ The Dashed Brown shade is suitable for a wide range of skin tones, making it a v
                 </div>
                 <hr></hr>
               </>
-
-              )} </div></div>
+              )):(<> <div>There are no reviews yet</div></>)
+            } </div></div>
         </div>
         <div className="Product-detail-page-wrapper-right">
           {products.map(product => (

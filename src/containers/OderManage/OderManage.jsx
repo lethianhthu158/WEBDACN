@@ -29,6 +29,10 @@ function OderManage() {
     const [iconsActive, setIconsActive] = useState('tab1');
     const [userInfo,setUserInfo] = useState(JSON.parse(localStorage.getItem('user-info')));
     const [openModal,setOpenModal]= useState(false); 
+    const CheckoutProduct= useState(userInfo ? userInfo : "");
+   
+   
+   
     const handleLogout = () => {
         localStorage.removeItem('user-info'); 
         setUserInfo("");
@@ -75,6 +79,8 @@ function OderManage() {
         handleResize();
 
         window.addEventListener("resize", handleResize);
+        console.log("TestCheckout", CheckoutProduct[0])
+      
 
         return () => {
             window.removeEventListener("resize", handleResize);
@@ -129,7 +135,7 @@ function OderManage() {
                             <MDBTabsPane show={iconsActive === 'tab1'}>
                                 {dataExample.map((item) => (
                                     <CardComplete
-                                    nameProduct={item.title}
+                                        nameProduct={item.title}
                                         colorProduct={item.colorProduct}
                                         price={item.price}
                                         imageUrl={item.product}

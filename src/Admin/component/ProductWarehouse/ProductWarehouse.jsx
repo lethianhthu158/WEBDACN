@@ -15,6 +15,7 @@ import axios from "axios";
 import Logoweb from "../assets/Logoweb.png";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { app } from "../../../firebase/firebase";
+import Modal from '../../../components/Modal/Modal';
 
 export default function ProductWarehouse() {
 
@@ -23,10 +24,13 @@ export default function ProductWarehouse() {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [imageUrl, setImageUrl] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
+
+
   useEffect(() => {
     const storage = getStorage(app);
     var storageRef = ref(storage, "white.jpg");
-    
+
     getDownloadURL(storageRef).then((url) => {
       setImageUrl(url);
     });
@@ -51,7 +55,7 @@ export default function ProductWarehouse() {
   const handleAddProduct = () => {
     setIsAddingProduct(!isAddingProduct);
     var item = {
-      name : "",
+      name: "",
       price: "",
       image: "",
       brand: "",
@@ -71,17 +75,24 @@ export default function ProductWarehouse() {
   };
 
   const handleDelete = (id) => {
+   
     axios.delete(`http://localhost:8080/api/products/delete/${id}`)
       .then(response => {
         return axios.get(`http://localhost:8080/api/products?page=${currentPage}&size=5`)
+
       })
       .then(response => {
         setProducts(response.data.content);
         setTotalPages(response.data.totalPages);
+       
+
       })
       .catch(error => {
         console.error('There was an error!', error);
       });
+      setOpenModal(false);
+      
+
   };
 
 
@@ -103,7 +114,7 @@ export default function ProductWarehouse() {
   }
   const pageNumbers = [...Array((endPage + 1) - startPage).keys()].map(i => startPage + i);
   return (
-    <div className="Table">
+    <><div className="Table">
       <h1 className="tile-admin">Product</h1>
       <TableContainer
         component={Paper}
@@ -144,27 +155,37 @@ export default function ProductWarehouse() {
                 <TableCell align="left">{item.origin}</TableCell>
                 <TableCell align="left">{item.description}</TableCell>
                 <div className="delete-button">
-                <Button
-                  
-                  variant="outlined"
-                  color="error"
-                  onClick={() => handleDelete(item.id)}
-                >
-                  <i class="fas fa-trash-alt"></i>
-                </Button>
-                <Button
-                  
-                  variant="outlined"
-                  color="error"
-                  onClick={() => handleUpdateProduct(item.id, item.name, item.price, item.image, item.brand, item.origin, item.description, item.categoryName )}
-                >
-                  <i class="fas fa-edit"></i>
-                </Button>
+                  <Button
+
+                    variant="outlined"
+                    color="error"
+                    onClick={() => setOpenModal(true)}
+                  >
+                    <i class="fas fa-trash-alt"></i>
+                  </Button>
+
+                  <Button
+
+                    variant="outlined"
+                    color="error"
+                    onClick={() => handleUpdateProduct(item.id, item.name, item.price, item.image, item.brand, item.origin, item.description, item.categoryName)}
+                  >
+                    <i class="fas fa-edit"></i>
+                  </Button>
+
                 </div>
+                <Modal
+                  openModal={openModal}
+                  content="Do you want to remove product?"
+                  onCancel={() => setOpenModal(false)}
+                  onYes={() => handleDelete(item.id)}
+                  style={{ left: "0px", backgroundColor: "transparent", color: "black" }}
+                ></Modal>
               </TableRow>
             ))}
           </TableBody>
         </Table>
+
       </TableContainer>
 
       <div className="Wrapper-Pagniation">
@@ -194,8 +215,14 @@ export default function ProductWarehouse() {
           {isAddingProduct ? "Close" : "Add Product"}
         </button>
       </div>
-      {isAddingProduct ? <AddProduct product={null} type={"Add"}/> : null}
-      {isUpdateProduct ? <AddProduct product={product} type={"Update"}/> : null}
+      {isAddingProduct ? <AddProduct product={null} type={"Add"} /> : null}
+      {isUpdateProduct ? <AddProduct product={product} type={"Update"} /> : null}
+
+
     </div>
+      {/* {posts.map((item, postIndex) => ( 
+   ))} */}
+    </>
+
   );
 }

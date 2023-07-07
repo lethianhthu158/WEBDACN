@@ -531,3 +531,28 @@ p {
   background-color: #5f5b5b;
   color: #e4e4e4;
 }
+.Uncomment-wrapper{
+  width: 70%;
+ 
+  
+  
+  
+}
+.Uncomment-img{
+  width: 100%;
+  height: 100%;
+  margin-left: 250%;
+}
+.wrapper-img-uncoment{
+  width: 20%;
+  align-items: center;
+
+
+}
+.Wrapper-text-uncomment{
+  width: 125%;
+  
+  text-align: center;
+  margin-top: 20px;
+
+}
