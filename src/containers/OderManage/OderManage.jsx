@@ -140,6 +140,9 @@ function OderManage() {
                                         price={item.price}
                                         imageUrl={item.product}
                                         isChooseNumProduct={item.isChooseNumProduct}
+                                        isCancel={true}
+                                        isClose={false}
+                                        
                                     />
                                 ))}
                             </MDBTabsPane>
@@ -150,6 +153,9 @@ function OderManage() {
                                     price={item.price}
                                     imageUrl={item.product}
                                     isChooseNumProduct={item.isChooseNumProduct}
+                                    isCancel={false}
+                                    isClose={false}
+
                                 />
                             ))}</MDBTabsPane>
                             <MDBTabsPane show={iconsActive === 'tab3'}> {dataExample.map((item) => (
@@ -159,6 +165,9 @@ function OderManage() {
                                     price={item.price}
                                     imageUrl={item.product}
                                     isChooseNumProduct={item.isChooseNumProduct}
+                                    isCancel={false}
+                                    isClose={false}
+
                                 />
                             ))}</MDBTabsPane>
                         </MDBTabsContent>

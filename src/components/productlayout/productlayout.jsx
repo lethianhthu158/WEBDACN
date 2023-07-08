@@ -8,9 +8,9 @@ import logoName from '../../assets/SonA12.png';
 
 function productlayout  (props) {
   return(
-    <div className="wrappperProduct" >
+    <div className="wrappperProduct" style={{ backgroundImage: `url('${props.imgProduct}')` }} >
      
-      <button className='ProductName'> {props.nameProduct} BLACK ROUGE V5</button>
+      <button className='ProductName'> {props.nameProduct} </button>
      
      
 

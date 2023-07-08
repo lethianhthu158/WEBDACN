@@ -12,6 +12,52 @@ import React, { useState, useEffect } from "react";
 import Productdetail from '../../components/productdetail/productdetail';
 import axios from "axios";
 import { Link } from 'react-router-dom';
+import IMGPro1 from '../../assets/ImageP1.png'
+import IMGPro2 from '../../assets/ImageP2.png'
+import IMGPro3 from '../../assets/ImageP3.png'
+import IMGPro4 from '../../assets/ImageP4.png'
+import IMGPro5 from '../../assets/PorelessPowderClassicIvory.jpg'
+import IMGPro6 from '../../assets/oncealerPurplle.jpg'
+import IMGPro7 from '../../assets/PressedPowder.jpg'
+import ImgPro8 from '../../assets/EraserConcealer.jpg'
+const data = [
+    {
+      title:"BLACK ROUGE V5",
+      img:IMGPro1
+    },
+    {
+        title:"BLACK ROUGE V6",
+        img:IMGPro2
+    },
+    {
+        title:"HALF N HALF",
+        img:IMGPro3
+    },
+   {
+        title:"AIR FIT VELVET TINT",
+        img:IMGPro4
+   },
+   
+  ];
+  const data2 = [
+    {
+        titlep2:"MATTE PORELES",
+        imgp2:IMGPro5
+      },
+      {
+          titlep2:"CONCEALER PURPLLE",
+          imgp2:IMGPro6
+      },
+      {
+          titlep2:"PRESSED POWDER",
+          imgp2:IMGPro7
+      },
+     {
+          titlep2:"ERASER CONCEALER",
+          imgp2:ImgPro8
+     },
+  ];
+  
 
 function Homepage() {
     const [index, setIndex] = useState(0);
@@ -127,43 +173,28 @@ function Homepage() {
                     <Carousel.Item >
                         <div className='Wrapper-Product'>
 
-                            <ProductLayout></ProductLayout>
-                            <ProductLayout></ProductLayout>
-                            <ProductLayout></ProductLayout>
-                            <ProductLayout></ProductLayout>
+                       {data.map((item)=>( <ProductLayout
+                       imgProduct={item.img}
+                       nameProduct={item.title}
+
+                       ></ProductLayout>))}
+                           
 
                         </div>
 
                     </Carousel.Item>
                     <Carousel.Item >
                         <div className='Wrapper-Product'>
-                            <ProductLayout></ProductLayout>
-                            <ProductLayout></ProductLayout>
-                            <ProductLayout></ProductLayout>
-                            <ProductLayout></ProductLayout>
+                        {data2.map((item)=>( <ProductLayout
+                       imgProduct={item.imgp2}
+                       nameProduct={item.titlep2}
 
-                        </div>
+                       ></ProductLayout>))}
+
+                        </div> 
 
                     </Carousel.Item >
-                    <Carousel.Item >
-                        <div className='Wrapper-Product'>
-                            <ProductLayout></ProductLayout>
-                            <ProductLayout></ProductLayout>
-                            <ProductLayout></ProductLayout>
-                            <ProductLayout></ProductLayout>
-                        </div>
-
-
-                    </Carousel.Item>
-                    <Carousel.Item >
-                        <div className='Wrapper-Product'>
-                            <ProductLayout></ProductLayout>
-                            <ProductLayout></ProductLayout>
-                            <ProductLayout></ProductLayout>
-                            <ProductLayout></ProductLayout>
-
-                        </div>
-                    </Carousel.Item>
+                    
                 </Carousel>
 
             </div>

@@ -89,3 +89,36 @@
   font-size: 40px;
   margin-right: 50px;
 }
+.Cancel-Onpress{
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 700;
+  color: red;
+
+  }
+ .btn-delete-onpress{
+  padding: 0;
+  width: 60px;
+  height: 50px;
+  outline: none;
+  border: none;
+  background: transparent;
+  position: absolute;
+  right: 20px;
+  top: 60px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: red;
+  border-radius: 5px;
+  padding: 5px 5px;
+}
+
+  .btn-delete-onpress:hover{
+    border-color: red;
+    color:aliceblue;
+    background-color: red;
+
+  }
+  .Cancel-Onpress:hover{
+    color:aliceblue;
+
+  }

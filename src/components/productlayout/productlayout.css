@@ -13,14 +13,15 @@
 .ProductName{
     margin-top: 65%;
     width: 100%;
-    height: 100px;
+    height: 70px;
     background-color: rgba(0, 0, 0, 0.45);
     border:rgba(0, 0, 0, 0.3) ;
     align-items: center;
     color: #ffffff;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     border-radius: 0 0 5px 5px;
     font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
 
 
     

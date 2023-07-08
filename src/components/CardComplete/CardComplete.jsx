@@ -4,15 +4,16 @@ import Modal from "../Modal/Modal";
 import deleteIcon from "../../assets/delete-btn.png";
 import "./CardComplete.css";
 
-const CardComplete = ({productId, nameProduct, price, imageUrl, quantity, onRemove, isChooseNumber, number=0 }) => {
+const CardComplete = ({ productId, nameProduct, price, imageUrl, quantity, onRemove, isChooseNumber, number=0, isClose, isCancel }) => {
   const [countProduct, setCountProduct] = useState(quantity);
   const [openModal, setOpenModal] = useState(false);
+  const [openModalCancel, setopenModalCancel] = useState(false);
 
   const { addToCart } = useContext(CartContext);
 
   const handleUpdateCart = (amount) => {
     setCountProduct(countProduct + amount);
-    const product = {productId, nameProduct, price, imageUrl, quantity: amount };
+    const product = { nameProduct, price, imageUrl, quantity: amount };
     addToCart(product);
   };
 
@@ -39,13 +40,26 @@ const CardComplete = ({productId, nameProduct, price, imageUrl, quantity, onRemo
     ( <div className="cardcomplete-right">
         <p className="Number-Cardcomplete">x{number}</p>
       </div>)}
-      <button className="btn-delete" onClick={() => setOpenModal(true)}>
+      {isClose===true ? <button className="btn-delete" onClick={() => setOpenModal(true)}>
         <img className="icon-delete" src={deleteIcon} alt="delete icon" />
-      </button>
+      </button>:<></>}
+      {
+        isCancel===true ? <button className="btn-delete-onpress" onClick={() => setopenModalCancel(true)}>
+        <p className="Cancel-Onpress">Cancel</p>
+      </button>:<></>
+      }
       <Modal
         openModal={openModal}
         content="Do you want to remove the product from the cart?"
         onCancel={() => setOpenModal(false)}
+        onYes={handleConfirmRemove}
+        style={{left:"0px"}}
+
+      />
+        <Modal
+        openModal={openModalCancel}
+        content="Do you want to cancel order?"
+        onCancel={() => setopenModalCancel(false)}
         onYes={handleConfirmRemove}
         style={{left:"0px"}}
 
