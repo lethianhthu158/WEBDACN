@@ -11,7 +11,9 @@ import Paper from "@mui/material/Paper";
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import AddProduct from "../AddProduct/AddProduct";
-import LogoWeb from "../assets/Logoweb.png"
+import LogoWeb from "../assets/Logoweb.png";
+import axios from "axios";
+
 
 
 
@@ -26,10 +28,10 @@ function createData(
 
   return {
     ID,
-  Name,
-  Price,
-  Quantity,
-  Total,
+    Name,
+    Price,
+    Quantity,
+    Total,
   };
 }
 const dataExample = [
@@ -70,10 +72,43 @@ const Userexample = [
 
 
 
-export default function DetailAdminBill() {
+export default function DetailAdminBill(props) {
   const [isAddingProduct, setIsAddingProduct] = React.useState(false);
   const [posts, setPosts] = useState([]);
+  const  [ContentBill,setContentBill]=useState([]);
+  const [DetailContentBill,setDetailContentBill]=useState([]);
+
   useEffect(()=>setPosts(dataExample),[])
+  useEffect(() => {
+    axios.get("http://localhost:8080/api/orders?page=0&size=5")
+        .then(response => {
+            setContentBill(response.data.content)
+            console.log("TestProduct",response.data.content[props.ID]);
+            const OrderDetailBill=response.data.content[props.ID].orderDetails;
+          
+           
+            // const Detail = (OrderDetailBill).map((bill) => {
+            //   {
+            //    return bill.orderDetails;
+              
+            //  }
+          
+            // })
+        
+            
+            setDetailContentBill(OrderDetailBill);
+          
+     
+            
+             
+
+        })
+       
+        .catch(error => {
+            console.error('There was an error!', error);
+        });
+}, []);
+console.log("TestProductBill",DetailContentBill)
   
 
  
@@ -88,13 +123,16 @@ export default function DetailAdminBill() {
             <img className="avatar-user-admin"src={LogoWeb}></img></div>
             <div className="In-Info-User">
                 <hr></hr>
-                {Userexample.map((info)=>(<>
-                <div className="wrapper-info-user">Name: {info.NameUser}</div>
-                <div className="wrapper-info-user">Email: {info.Email}</div>
-                <div className="wrapper-info-user">Phone: {info.Phone}</div>
-                <div className="wrapper-info-user">Address: {info.Address}</div>
-                <hr></hr>
-                
+                {ContentBill.map((info, index)=>(<>
+                  {index === 0 && (
+      <React.Fragment key={info.recipientName}>
+        <div className="wrapper-info-user">Name: {info.recipientName}</div>
+        <div className="wrapper-info-user">Email: {info.email}</div>
+        <div className="wrapper-info-user">Phone: {info.recipientPhone}</div>
+        <div className="wrapper-info-user">Address: {info.shippingAddress}</div>
+        <hr />
+      </React.Fragment>
+    )}
                 </>
                 
  
@@ -121,16 +159,16 @@ export default function DetailAdminBill() {
             </TableRow>
           </TableHead>
           <TableBody style={{ color: "white" }}>
-            {posts.map((item) => (
+            {DetailContentBill.map((item) => (
               <TableRow
-                key={item.Name}               
+                key={item.productId}               
               >
                 
-                <TableCell align="left">{item.ID}</TableCell>
-                <TableCell align="left">{item.Name}</TableCell>
-                <TableCell align="left">{item.Price}</TableCell>
-                <TableCell align="left">{item.Quantity}</TableCell>
-                <TableCell align="left">{item.Total}</TableCell>
+                <TableCell align="left">{item.productId}</TableCell>
+                <TableCell align="left">{item.productName}</TableCell>
+                <TableCell align="left">{item.price}</TableCell>
+                <TableCell align="left">{item.quantity}</TableCell>
+                <TableCell align="left">{item.subtotal}</TableCell>
               
               
               

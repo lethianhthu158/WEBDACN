@@ -11,6 +11,7 @@ import Product from "../../assets/product.png";
 import ProfileUser from "../../components/Profile-User/ProfileUser";
 import Modal from "../../components/Modal/Modal";
 
+
 import {
     MDBIcon,
     MDBTabs,
@@ -27,18 +28,76 @@ import {
 function OderManage() {
     const [isMobile, setIsMobile] = useState(false);
     const [iconsActive, setIconsActive] = useState('tab1');
-    const [userInfo,setUserInfo] = useState(JSON.parse(localStorage.getItem('user-info')));
-    const [openModal,setOpenModal]= useState(false); 
-    const CheckoutProduct= useState(userInfo ? userInfo : "");
-   
-   
-   
+    const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem('user-info')));
+    const [openModal, setOpenModal] = useState(false);
+    const CheckoutProduct = useState(userInfo ? userInfo : "");
+    const [OnProcess, setOnProcess] = useState([]);
+    const [Success, setSuccess] = useState([]);
+    const [Cancel, setCancel] = useState([]);
+
+    useEffect(() => {
+
+
+        if (userInfo && userInfo.orders && userInfo.orders.length > 0) {
+            const OnProcessPro = userInfo.orders.map((order) => {
+                if (order.status === "on-process") {
+                    return order.orderDetails;
+                }
+
+
+                return "";
+            });
+            setOnProcess(OnProcessPro);
+
+
+
+
+        }
+
+    }, [userInfo]);
+
+    useEffect(() => {
+        if (userInfo && userInfo.orders && userInfo.orders.length > 0) {
+            const successPro = userInfo.orders.map((order) => {
+                if (order.status === "success") {
+                    return order.orderDetails;
+                }
+
+                return "";
+            });
+            setSuccess(successPro);
+
+
+
+        }
+
+    }, [userInfo]);
+    useEffect(() => {
+        if (userInfo && userInfo.orders && userInfo.orders.length > 0) {
+            const CancelsPro = userInfo.orders.map((order) => {
+                if (order.status === "deny") {
+                    return order.orderDetails;
+                }
+
+                return "";
+            });
+            setCancel(CancelsPro);
+
+
+
+        }
+
+    }, [userInfo]);
+
+
+
+
     const handleLogout = () => {
-        localStorage.removeItem('user-info'); 
+        localStorage.removeItem('user-info');
         setUserInfo("");
         setOpenModal(false);
         window.location.href = "/";
-      };
+    };
     const dataExample = [
         {
             title: "Half n Half Water Glow Season 2",
@@ -61,7 +120,7 @@ function OderManage() {
             colorProduct: "01 Blossom Forest",
             price: "$180",
             product: Avartar,
-           isChooseNumber: false,
+            isChooseNumber: false,
         },
     ];
 
@@ -79,13 +138,14 @@ function OderManage() {
         handleResize();
 
         window.addEventListener("resize", handleResize);
-        console.log("TestCheckout", CheckoutProduct[0])
-      
+        //  console.log("TestCheckout",  (OnProcess[0])[0].image)
+
+
 
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    },  [userInfo]);
+    }, [userInfo]);
     const handleIconsClick = (value) => {
         if (value === iconsActive) {
             return;
@@ -101,14 +161,14 @@ function OderManage() {
                 <ProfileUser></ProfileUser>
                 <div className={`Info-person ${isMobile ? "hide-text" : ""}`}>
                     <div className="Category-account">
-                    <Link to="/profile">
-                        <div className=" Tab My-Account-Oder">
-                            <i class="icon-p far fa-user"></i><div className="repone">My Account</div></div></Link>
+                        <Link to="/profile">
+                            <div className=" Tab My-Account-Oder">
+                                <i class="icon-p far fa-user"></i><div className="repone">My Account</div></div></Link>
                         <Link to="/favoritepd"><div className="Tab Favorite-Product">
                             <i class="icon-p far fa-heart"></i><div className="repone">Favorite Product</div></div></Link>
                         <div className="Tab Oder-management-Tab-Choose">
                             <i class="icon-p fas fa-tasks"></i><div className="repone">Order management</div></div>
-                        <div className="Tab Log-out" onClick={()=>setOpenModal(true)}><i class="icon-p fas fa-sign-out"></i>
+                        <div className="Tab Log-out" onClick={() => setOpenModal(true)}><i class="icon-p fas fa-sign-out"></i>
                             <div className="repone">Log out</div></div>
 
                     </div>
@@ -133,43 +193,76 @@ function OderManage() {
 
                         <MDBTabsContent>
                             <MDBTabsPane show={iconsActive === 'tab1'}>
-                                {dataExample.map((item) => (
-                                    <CardComplete
-                                        nameProduct={item.title}
-                                        colorProduct={item.colorProduct}
-                                        price={item.price}
-                                        imageUrl={item.product}
-                                        isChooseNumProduct={item.isChooseNumProduct}
-                                        isCancel={true}
-                                        isClose={false}
-                                        
-                                    />
-                                ))}
+                                {OnProcess.length === 0 ? (
+                                    <div>No orders in the On Process category.</div>
+                                ) : (
+                                    OnProcess.map((order) => (
+                                        order && order[0] ? (
+                                            <CardComplete
+                                                nameProduct={order[0].productName}
+                                                colorProduct={order[0].colorProduct}
+                                                price={order.price}
+                                                Image={order[0].image}
+                                                isChooseNumProduct={order.isChooseNumProduct}
+                                                number={order[0].quantity}
+                                                isCancel={false}
+                                                isClose={false}
+                                                key={order.orderId}
+                                                isFirebase={true}
+                                                
+                                            />
+                                        ) : null
+                                    ))
+                                )}
                             </MDBTabsPane>
-                            <MDBTabsPane show={iconsActive === 'tab2'}> {dataExample.map((item) => (
-                                <CardComplete
-                                nameProduct={item.title}
-                                    colorProduct={item.colorProduct}
-                                    price={item.price}
-                                    imageUrl={item.product}
-                                    isChooseNumProduct={item.isChooseNumProduct}
-                                    isCancel={false}
-                                    isClose={false}
 
-                                />
-                            ))}</MDBTabsPane>
-                            <MDBTabsPane show={iconsActive === 'tab3'}> {dataExample.map((item) => (
-                                <CardComplete
-                                nameProduct={item.title}
-                                    colorProduct={item.colorProduct}
-                                    price={item.price}
-                                    imageUrl={item.product}
-                                    isChooseNumProduct={item.isChooseNumProduct}
-                                    isCancel={false}
-                                    isClose={false}
+                            <MDBTabsPane show={iconsActive === 'tab2'}>
+                                {Success.length === 0 ? (
+                                    <div>No orders in the Success category.</div>
+                                ) : (
+                                    Success.map((order) => (
+                                        order && order[0] ? (
+                                            <CardComplete
+                                                nameProduct={order[0].productName}
+                                                colorProduct={order[0].colorProduct}
+                                                price={order.price}
+                                                Image={order[0].image}
+                                                isChooseNumProduct={order.isChooseNumProduct}
+                                                number={order[0].quantity}
+                                              
+                                                isClose={false}
+                                                key={order.orderId}
+                                                isFirebase={true}
+                                            />
+                                        ) : null
+                                    ))
+                                )}
+                            </MDBTabsPane>
 
-                                />
-                            ))}</MDBTabsPane>
+                            <MDBTabsPane show={iconsActive === 'tab3'}>
+                                {Cancel.length === 0 ? (
+                                    <div>No orders in the Cancel category.</div>
+                                ) : (
+                                    Cancel.map((order) => (
+                                        order && order[0] ? (
+                                            <CardComplete
+                                                nameProduct={order[0].productName}
+                                                colorProduct={order[0].colorProduct}
+                                                price={order.price}
+                                                Image={order[0].image}
+                                                isChooseNumProduct={order.isChooseNumProduct}
+                                                number={order[0].quantity}
+                                               
+                                                isClose={false}
+                                                key={order.orderId}
+                                                isFirebase={true}
+                                                
+                                            />
+                                        ) : null
+                                    ))
+                                )}
+                            </MDBTabsPane>
+
                         </MDBTabsContent>
 
                     </div>
@@ -181,11 +274,11 @@ function OderManage() {
 
             <Footer />
             <Modal
-        openModal={openModal}
-        content="Do you want to log out ?"
-        onCancel={() => setOpenModal(false)}
-        onYes={handleLogout}
-      ></Modal>
+                openModal={openModal}
+                content="Do you want to log out ?"
+                onCancel={() => setOpenModal(false)}
+                onYes={handleLogout}
+            ></Modal>
         </>
     );
 };

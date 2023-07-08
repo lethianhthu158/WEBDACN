@@ -1,13 +1,19 @@
-import { useState, useContext } from "react";
+import { useState, useContext , useEffect} from "react";
 import { CartContext } from "../../contexts/CartContext";
 import Modal from "../Modal/Modal";
 import deleteIcon from "../../assets/delete-btn.png";
 import "./CardComplete.css";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import {app} from "../../firebase/firebase";
+import axios from "axios";
 
-const CardComplete = ({ productId, nameProduct, price, imageUrl, quantity, onRemove, isChooseNumber, number=0, isClose, isCancel }) => {
+const CardComplete = ({ productId, nameProduct, price, imageUrl, quantity, onRemove, isChooseNumber, number=0, isClose, isCancel,isFirebase,Image,IDproduct }) => {
   const [countProduct, setCountProduct] = useState(quantity);
   const [openModal, setOpenModal] = useState(false);
   const [openModalCancel, setopenModalCancel] = useState(false);
+  const [imageUrlFirebase, setImageUrlFirebase] = useState(Image);
+  console.log("CardComplete",Image)
+  
 
   const { addToCart } = useContext(CartContext);
 
@@ -16,16 +22,29 @@ const CardComplete = ({ productId, nameProduct, price, imageUrl, quantity, onRem
     const product = { nameProduct, price, imageUrl, quantity: amount };
     addToCart(product);
   };
+  
 
   const handleConfirmRemove = () => {
     setOpenModal(false);
     onRemove();
   };
+  useEffect(() => {
+    const storage = getStorage(app);
+    let storageRef = ref(storage, "white.jpg");
+
+    if (isFirebase && Image != null) {
+      storageRef = ref(storage, Image);
+    }
+
+    getDownloadURL(storageRef).then((url) => {
+      setImageUrlFirebase(url);
+    });
+  }, [isFirebase, Image]);
 
   return (
     <div className="container-cardcomplete">
       <div className="cardcomplete-left">
-        <img className="productcard-image" src={imageUrl} alt="product" />
+        <img className="productcard-image" src={isFirebase===true ? imageUrlFirebase : imageUrl } alt="product" />
         <div className="productcomplete-desc">
           <h6 className="productcomplete-content">{nameProduct}</h6>
           <p className="productcomplete-content productcomplete-price">${price}</p>
@@ -60,7 +79,7 @@ const CardComplete = ({ productId, nameProduct, price, imageUrl, quantity, onRem
         openModal={openModalCancel}
         content="Do you want to cancel order?"
         onCancel={() => setopenModalCancel(false)}
-        onYes={handleConfirmRemove}
+        
         style={{left:"0px"}}
 
       />

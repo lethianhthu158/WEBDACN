@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,8 +8,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import "./Table.css";
 import DetailAdminBill from "../DetailAdminBill/DetailAdminBill";
-import TickAccept from "../assets/TickAccept.gif"
-
+import TickAccept from "../assets/TickAccept.gif";
+import axios from "axios";
 
 function createData(name, trackingId, date, status) {
   return { name, trackingId, date, status };
@@ -45,19 +45,52 @@ export default function BasicTable() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isAccept, setisAccept] = useState(false);
   const [isAccepted, setIsAccepted] = useState(Array(rows.length).fill(false));
+  const [isCancel, setIsCancel] = useState(Array(rows.length).fill(false));
+  const [Bill, setBill] = useState([]);
+  const [ContentBill, setContentBill] = useState([]);
+  const [ID, setID] = useState();
 
-  const handleDetailBill = (product) => {
+  const handleDetailBill = (product, index) => {
     setSelectedProduct(product);
+    setID(index);
+    console.log("ID", index);
+    console.log(product);
   };
 
   const handleCloseDetail = () => {
     setSelectedProduct(null);
   };
+
   const handleAccept = (index) => {
-    const newIsAccept = [...isAccepted];
-    newIsAccept[index] = true;
-    setIsAccepted(newIsAccept);
+    axios.get(`http://localhost:8080/api/orders/${index}/success`).then(() => {
+      const newIsAccepted = [...isAccepted];
+      newIsAccepted[index - 1] = true;
+      
+      setIsAccepted(newIsAccepted);
+     
+    });
   };
+
+  const handleCancel = (index) => {
+    axios.get(`http://localhost:8080/api/orders/${index}/deny`).then(() => {
+      const newIsCancel = [...isCancel];
+      newIsCancel[index - 1] = true;
+      setIsCancel(newIsCancel);
+   
+    });
+  };
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/orders?page=0&size=5")
+      .then((response) => {
+        setBill(response.data);
+        setContentBill(response.data.content);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+  }, [ isAccepted,isCancel]);
 
   return (
     <div className="Table">
@@ -69,7 +102,6 @@ export default function BasicTable() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Product</TableCell>
               <TableCell align="left">Tracking ID</TableCell>
               <TableCell align="left">Date</TableCell>
               <TableCell align="left">Status</TableCell>
@@ -78,16 +110,13 @@ export default function BasicTable() {
             </TableRow>
           </TableHead>
           <TableBody style={{ color: "white" }}>
-            {rows.map((row, index) => (
+            {ContentBill.map((row, index) => (
               <TableRow
                 key={row.name}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="left">{row.trackingId}</TableCell>
-                <TableCell align="left">{row.date}</TableCell>
+                <TableCell align="left">{row.orderId}</TableCell>
+                <TableCell align="left">{row.orderDate}</TableCell>
                 <TableCell align="left">
                   <span className="status" style={makeStyle(row.status)}>
                     {row.status}
@@ -95,11 +124,13 @@ export default function BasicTable() {
                 </TableCell>
                 <TableCell align="left" className="Details">
                   {selectedProduct === row ? (
-                    <button className="Bt-Admin-Close"onClick={handleCloseDetail}>Close</button>
+                    <button className="Bt-Admin-Close" onClick={handleCloseDetail}>
+                      Close
+                    </button>
                   ) : (
                     <button
                       className="Bt-Admin-Details"
-                      onClick={() => handleDetailBill(row)}
+                      onClick={() => handleDetailBill(row, index)}
                     >
                       Details
                     </button>
@@ -107,10 +138,54 @@ export default function BasicTable() {
                 </TableCell>
                 <TableCell align="left" className="Active">
                   <div className="Wrap-button-active">
-                  {isAccepted[index] ?(<div className="Wrap-img-tick-accept"><img className="IMG-Tick-Accept" src={TickAccept}></img></div>):
-                  ( <button className="ButtonActive Accept " onClick={() => handleAccept(index)}>
-                      Accept</button>)}
-                    <button className="ButtonActive Deny">Deny</button>
+                    {row.status === "on-process" ? (
+                      <>
+                        <button
+                          className="ButtonActive Accept"
+                          onClick={() => handleAccept(row.orderId)}
+                        >
+                          Accept
+                        </button>
+                        <button
+                          className="ButtonActive Deny"
+                          onClick={() => handleCancel(row.orderId)}
+                        >
+                          Deny
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        {row.status !== "success" ? (
+                          isAccepted[index] && row.status === "success" ? (
+                            <div className="Wrap-img-tick-accept">
+                              <img
+                                className="IMG-Tick-Accept"
+                                src={TickAccept}
+                                alt="Tick Accept"
+                              />
+                            </div>
+                          ) : (
+                            <button
+                              className="ButtonActive Accept"
+                              onClick={() => handleAccept(row.orderId)}
+                            >
+                              Accept
+                            </button>
+                          )
+                        ) : (
+                          !isCancel[index] && row.status !== "deny" ? (
+                            <button
+                              className="ButtonActive Deny"
+                              onClick={() => handleCancel(row.orderId)}
+                            >
+                              Deny
+                            </button>
+                          ) : (
+                            <></>
+                          )
+                        )}
+                      </>
+                    )}
                   </div>
                 </TableCell>
               </TableRow>
@@ -119,7 +194,7 @@ export default function BasicTable() {
         </Table>
       </TableContainer>
       {selectedProduct && (
-        <DetailAdminBill product={selectedProduct} onClose={handleCloseDetail} />
+        <DetailAdminBill product={selectedProduct} onClose={handleCloseDetail} ID={ID} />
       )}
     </div>
   );
